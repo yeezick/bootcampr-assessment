@@ -7,7 +7,7 @@ Table of Contents:
 - [Tools](#tools)
 - [Setup](#setup)
 - [Frontend Requirements](#frontend-1)
-- [Backend Requirements](#backend-2)
+- [Backend Requirements](#backend-1)
 
 ## Purpose
 
@@ -41,10 +41,10 @@ We are a classic MERN app, with subtle additions to the frontend.
 1. cd into `backend`
 1. run `npm install`
 1. run `npm start`
-1. Create a new MongoDB Cluster
+1. [Create a new MongoDB Cluster](https://www.mongodb.com/docs/atlas/tutorial/deploy-free-tier-cluster/)
    - Make sure you choose the free option!
    - Feel free to use your own if you already have one.
-1. Connect to your cluster
+1. [Connect to your cluster](https://www.mongodb.com/docs/atlas/tutorial/connect-to-your-cluster/)
    1. Select "drivers" as your connection method
    1. Link your connection string to your application in `path/to/file`
 
@@ -75,7 +75,7 @@ Feel free to do as much as you can & are comfortable with.
 #### Bonus
 
 - Verify email onBlur of email input (check if the email already exists in the DB)
-- Use React Testing Library to add test coverage
+- Use React Testing Library to add test coverage for the Sign Up screen functionality
 
 ### Backend
 
