@@ -40,7 +40,7 @@ We are a classic MERN app, with subtle additions to the frontend.
 
 1. cd into `backend`
 1. run `npm install`
-1. run `npm start`
+1. run `npm run dev`
 1. [Create a new MongoDB Cluster](https://www.mongodb.com/docs/atlas/tutorial/deploy-free-tier-cluster/)
    - Make sure you choose the free option!
    - Feel free to use your own if you already have one.
