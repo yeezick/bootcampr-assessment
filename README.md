@@ -1,20 +1,19 @@
 # Bootcampr Engineering Assessment
 
-Table of Contents:
-
-- [Purpose](#purpose)
-
-- [Tools](#tools)
-- [Setup](#setup)
-- [Frontend Requirements](#frontend-1)
-- [Backend Requirements](#backend-1)
-
 ## Purpose
 
 Bootcampr was made for bootcampers by bootcampers.
 Our platform will help graduates find more success during their job search by giving our users the practical experience they need to stand out.
 
-This repository will host the code assessment for engineering candidates. It will give us a baseline of your general MERN experience, capacity to deliver within a week, and ability to (implement best practices? adhere to instruction?)
+This repository will host the code assessment for engineering candidates. It will give us a baseline of your general MERN experience, capacity to deliver within a week, and ability to implement best practice & adhere to instructions.
+
+## Table of Contents:
+
+- [Purpose](#purpose)
+- [Tools](#tools)
+- [Setup](#setup)
+- [Frontend Requirements](#frontend-1)
+- [Backend Requirements](#backend-1)
 
 ## Tools
 
@@ -32,7 +31,7 @@ We are a classic MERN app, with subtle additions to the frontend.
 ### Frontend
 
 1. Clone down the repo
-1. Create your own assessment branch: 
+1. Create your own assessment branch:
    - `git checkout -b assess/nov-22-2023/<firstname>-<lastname>`
 1. cd into `frontend`
 1. run `npm install`
@@ -44,11 +43,11 @@ We are a classic MERN app, with subtle additions to the frontend.
 1. run `npm install`
 1. run `npm run dev`
 1. [Create a new MongoDB Cluster](https://www.mongodb.com/docs/atlas/tutorial/deploy-free-tier-cluster/)
-   - Make sure you choose the free option!
-   - Feel free to use your own if you already have one.
+   1. Make sure you choose the free option!
+   1. Feel free to use your own if you already have one.
 1. [Connect to your cluster](https://www.mongodb.com/docs/atlas/tutorial/connect-to-your-cluster/)
    1. Select "drivers" as your connection method
-   1. Link your connection string to your application in `path/to/file`
+   1. Link your connection string to your application in `backend/db/connection.js`
 
 ## Requirements
 
