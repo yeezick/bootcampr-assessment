@@ -32,7 +32,7 @@ We are a classic MERN app, with subtle additions to the frontend.
 ### Frontend
 
 1. Clone down the repo
-2. Create your own assessment branch: 
+1. Create your own assessment branch: 
    - `git checkout -b assess/nov-22-2023/<firstname>-<lastname>`
 1. cd into `frontend`
 1. run `npm install`
