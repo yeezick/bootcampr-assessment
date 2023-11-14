@@ -67,19 +67,25 @@ However, it is <b>not</b> required to complete the entire checklist below. We've
 
 Feel free to do as much as you can & are comfortable with.
 
-### Frontend
+For example:
+
+- If you struggle with setting up the DB then focus on the frontend.
+
+### Frontend <i>(required)</i>
 
 #### Required
 
-- Develop entire flow
-- Match figma styling
+- Develop the sign up flow
+  - Sign up screen
+  - User submits sign up info & is routed to "congrats" screen
+- Match [Figma](https://www.figma.com/file/kUfBFCzy7OjucjD9xOAUaZ/Untitled?type=design&node-id=1%3A17074&mode=design&t=0KhWulFNWTv3p0G6-1) styling
 
 #### Bonus
 
 - Verify email onBlur of email input (check if the email already exists in the DB)
 - Use React Testing Library to add test coverage for the Sign Up screen functionality
 
-### Backend
+### Backend <i>(optional)</i>
 
 #### Required
 
