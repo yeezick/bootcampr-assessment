@@ -1,6 +1,13 @@
 # Bootcampr Engineering Assessment
 
-Table of Contents:
+## Purpose
+
+Bootcampr was made for bootcampers by bootcampers.
+Our platform will help graduates find more success during their job search by giving our users the practical experience they need to stand out.
+
+This repository will host the code assessment for engineering candidates. It will give us a baseline of your general MERN experience, capacity to deliver within a week, and ability to implement best practice & adhere to instructions.
+
+## Table of Contents:
 
 - [Purpose](#purpose)
 
@@ -8,13 +15,6 @@ Table of Contents:
 - [Setup](#setup)
 - [Frontend Requirements](#frontend-1)
 - [Backend Requirements](#backend-1)
-
-## Purpose
-
-Bootcampr was made for bootcampers by bootcampers.
-Our platform will help graduates find more success during their job search by giving our users the practical experience they need to stand out.
-
-This repository will host the code assessment for engineering candidates. It will give us a baseline of your general MERN experience, capacity to deliver within a week, and ability to (implement best practices? adhere to instruction?)
 
 ## Tools
 
@@ -32,7 +32,7 @@ We are a classic MERN app, with subtle additions to the frontend.
 ### Frontend
 
 1. Clone down the repo
-1. Create your own assessment branch: 
+1. Create your own assessment branch:
    - `git checkout -b assess/nov-22-2023/<firstname>-<lastname>`
 1. cd into `frontend`
 1. run `npm install`
