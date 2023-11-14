@@ -53,6 +53,7 @@ We are a classic MERN app, with subtle additions to the frontend.
 The repository has the bare minimum to get you set up and ready to develop your own screens.
 
 Your mission, <i>should you choose to accept</i>, is to develop the sign up screen for the application.
+[Figma Design Link](https://www.figma.com/file/kUfBFCzy7OjucjD9xOAUaZ/Untitled?type=design&node-id=1%3A17074&mode=design&t=0KhWulFNWTv3p0G6-1)
 
 All your work should be focused around:
 
