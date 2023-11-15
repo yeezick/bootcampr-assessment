@@ -1,15 +1,24 @@
 import {
   Button,
   Checkbox,
-  FormControlLabel,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  Stack,
-  TextField,
-} from '@mui/material'
-import { Field, Form, Formik, FormikHelpers } from 'formik'
+  FormControl,
+  FormLabel,
+  HStack,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import {
+  ErrorMessage,
+  Field,
+  FieldProps,
+  Form,
+  Formik,
+  FormikHelpers,
+} from 'formik'
 import { useState } from 'react'
 
 type Values = {
@@ -24,16 +33,8 @@ export default function SignUpForm() {
   const [agree, setAgree] = useState<boolean>(false)
   const [show, setShow] = useState<boolean>(false)
 
-  const handleCheckboxChange = () => {
-    setAgree(!agree)
-  }
-
-  const handleShowPassword = () => {
-    setShow(!show)
-  }
-
   return (
-    <Stack>
+    <VStack>
       <Formik
         initialValues={{
           firstName: '',
@@ -53,98 +54,115 @@ export default function SignUpForm() {
         }}
       >
         <Form>
-          <InputLabel htmlFor='firstName'>First Name</InputLabel>
-          <Field
-            as={TextField}
-            id='firstName'
-            name='firstName'
-            variant='filled'
-            margin='normal'
-            fullWidth
-          />
+          <Field name='firstName'>
+            {({ field, form }: FieldProps) => (
+              <FormControl
+                isInvalid={!!(form.errors.firstName && form.touched.firstName)}
+                // sx={inputStyles}
+              >
+                <FormLabel htmlFor='firstName'>First name</FormLabel>
+                <Input {...field} id='firstName' />
+                <ErrorMessage name='firstName' />
+              </FormControl>
+            )}
+          </Field>
 
-          <InputLabel htmlFor='lastName'>Last Name</InputLabel>
-          <Field
-            as={TextField}
-            id='lastName'
-            name='lastName'
-            variant='filled'
-            margin='normal'
-            fullWidth
-          />
+          <Field name='lastName'>
+            {({ field, form }: FieldProps) => (
+              <FormControl
+                isInvalid={!!(form.errors.lastName && form.touched.lastName)}
+                // sx={inputStyles}
+              >
+                <FormLabel htmlFor='lastName'>Last name</FormLabel>
+                <Input {...field} id='lastName' />
+                <ErrorMessage name='lastName' />
+              </FormControl>
+            )}
+          </Field>
 
-          <InputLabel htmlFor='email'>
-            Email address (ex. jeanine@bootcampr.io)
-          </InputLabel>
-          <Field
-            as={TextField}
-            id='email'
-            name='email'
-            variant='filled'
-            margin='normal'
-            fullWidth
-          />
+          <Field name='email'>
+            {({ field, form }: FieldProps) => (
+              <FormControl
+                isInvalid={!!(form.errors.email && form.touched.email)}
+                // sx={inputStyles}
+              >
+                <FormLabel htmlFor='email'>
+                  Email address (ex. jeanine@bootcampr.io)
+                </FormLabel>
+                <Input {...field} id='email' />
+                <ErrorMessage name='email' />
+              </FormControl>
+            )}
+          </Field>
 
-          <InputLabel htmlFor='password'>Password</InputLabel>
-          <Field
-            as={TextField}
-            id='password'
-            name='password'
-            type={show ? 'text' : 'password'}
-            variant='filled'
-            margin='normal'
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position='end'>
-                  <IconButton onClick={handleShowPassword} edge='end'>
-                    {show ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+          <Field name='password'>
+            {({ field, form }: FieldProps) => (
+              <FormControl
+                isInvalid={!!(form.errors.password && form.touched.password)}
+                // sx={inputStyles}
+              >
+                <FormLabel htmlFor='email'>Password</FormLabel>
+                <InputGroup>
+                  <Input {...field} type={show ? 'text' : 'password'} />
+                  <InputRightElement>
+                    <Button background='none' onClick={() => setShow(!show)}>
+                      {show ? <VisibilityOff /> : <Visibility />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                <ErrorMessage name='password' />
+              </FormControl>
+            )}
+          </Field>
 
-          <InputLabel htmlFor='reenterPassword'>Re-enter password</InputLabel>
-          <Field
-            as={TextField}
-            id='reenterPassword'
-            name='reenterPassword'
-            type={show ? 'text' : 'password'}
-            variant='filled'
-            margin='normal'
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position='end'>
-                  <IconButton onClick={handleShowPassword} edge='end'>
-                    {show ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+          <Field name='reenterPassword'>
+            {({ field, form }: FieldProps) => (
+              <FormControl
+                isInvalid={
+                  !!(
+                    form.errors.reenterPassword && form.touched.reenterPassword
+                  )
+                }
+                // sx={inputStyles}
+              >
+                <FormLabel htmlFor='email'>Re-enter password</FormLabel>
+                <InputGroup>
+                  <Input {...field} type={show ? 'text' : 'password'} />
+                  <InputRightElement>
+                    <Button background='none' onClick={() => setShow(!show)}>
+                      {show ? <VisibilityOff /> : <Visibility />}{' '}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                <ErrorMessage name='reenterPassword' />
+              </FormControl>
+            )}
+          </Field>
 
-          <FormControlLabel
-            control={
-              <Checkbox checked={agree} onChange={handleCheckboxChange} />
-            }
-            label='I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!'
-          />
+          <HStack>
+            <Checkbox
+              isChecked={agree}
+              onChange={e => setAgree(e.target.checked)}
+            />
+            <Text ml={2} fontSize='sm'>
+              I agree to receive email notification(s). We will only send emails
+              with important information, like project start dates. We will not
+              sell your information!
+            </Text>
+          </HStack>
 
           <Button
             type='submit'
-            disabled={!agree}
+            isDisabled={!agree}
             sx={{
               backgroundColor: agree ? '#EC993B' : '#ECEBEB',
               color: 'black',
-              textTransform: 'none',
             }}
           >
             Sign up
           </Button>
         </Form>
       </Formik>
-    </Stack>
+    </VStack>
   )
 }
