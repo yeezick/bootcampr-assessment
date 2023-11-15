@@ -1,4 +1,4 @@
-import db from "./db/connection.js";
+// import db from "./db/connection.js";
 import express from "express";
 import logger from "morgan";
 import cors from "cors";
