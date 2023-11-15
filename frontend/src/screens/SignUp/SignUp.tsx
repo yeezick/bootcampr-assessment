@@ -1,6 +1,7 @@
-import { Box, Container, Grid, Stack } from '@mui/material'
+import { Container, Grid, Stack } from '@mui/material'
 import './SignUp.scss'
-import SignUpImage from '../../assets/signup-image.png'
+import SignUpImage from '@/../assets/signup-image.png'
+import SignUpForm from './SignUpForm/SignUpForm'
 
 export default function SignUp() {
   return (
@@ -9,10 +10,13 @@ export default function SignUp() {
         <h1>Join Bootcampr today.</h1>
         <h3>Get the experience. Get the job.</h3>
       </Stack>
-      <Grid>
-        <Box>
-          <img src={SignUpImage} />
-        </Box>
+      <Grid container direction='row'>
+        <Grid display={{ sm: 'none', md: 'block' }}>
+          <img src={SignUpImage} alt='A person writing in a notebook.' />
+        </Grid>
+        <Grid>
+          <SignUpForm />
+        </Grid>
       </Grid>
     </Container>
   )
