@@ -74,7 +74,7 @@ const SignUpForm: React.FC = () => {
       <InputLabel htmlFor='firstName'>First name</InputLabel>
       <TextField required id='firstName' name='firstName' autoFocus />
       <InputLabel htmlFor='lastName'>Last name</InputLabel>
-      <TextField required id='lastName' name='lastName' autoFocus />
+      <TextField required id='lastName' name='lastName' />
       <InputLabel htmlFor='email'>
         Email address (ex. jeanine@bootcampr.io)
       </InputLabel>
@@ -84,7 +84,6 @@ const SignUpForm: React.FC = () => {
         name='email'
         type='email'
         autoComplete='email'
-        autoFocus
       />
       <InputLabel htmlFor='password'>
         Password (Minimum 8 characters, 1 uppercase, 1 lowercase, 1 symbol)
