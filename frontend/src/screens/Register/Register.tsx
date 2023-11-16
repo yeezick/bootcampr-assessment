@@ -3,6 +3,7 @@ import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton,
 import './Register.scss'
 import RegisterPageImage from 'assets/RegisterPageImage.png'
 import PasswordInput from 'components/PasswordInput'
+import RePasswordInput from 'components/RePasswordInput'
 
 export const Register: React.FC = () => {
     // const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,7 +21,9 @@ export const Register: React.FC = () => {
 
     const [password, setPassword] = useState("")
 
-return (
+    const [repassword, setRepassword] = useState("")
+
+    return (
         <div className='register-container'>
             <h1>Join Bootcampr today.</h1>
             <h2>Get the experience. Get the job.</h2>
@@ -63,27 +66,10 @@ return (
                                 handlePassword={(e) => setPassword(e.target.value)}
                             />
                             <p>Re-enter password</p>
-                            <TextField 
-                                required 
-                                id="re-entered-password" 
-                                type="password"
-                                // value={password}
-                                variant="filled" 
-                                // InputProps={{ 
-                                //     disableUnderline: true,
-                                //     endAdornment: (
-                                //         <InputAdornment position="end">
-                                //             <IconButton
-                                //                 aria-label="toggle re-entered password visibility"
-                                //                 onClick={handleClickShowRePassword}
-                                //                 edge="end"
-                                //             >
-                                //                 {showRePassword ? <VisibilityOffOutlined sx={{ color: 'black' }}/> : <VisibilityOutlined sx={{ color: 'black' }} />}
-                                //             </IconButton>
-                                //         </InputAdornment>
-                                // )}}
-                                    >
-                            </TextField>
+                            <RePasswordInput
+                                repassword={repassword}
+                                handleRePassword={(e) => setRepassword(e.target.value)}
+                            />
                             <FormControlLabel 
                                 control={
                                     <Checkbox 
@@ -118,5 +104,5 @@ return (
                 </Grid>
             </Grid>
         </div>
-)
+    )
 }
