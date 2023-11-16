@@ -1,0 +1,38 @@
+:root {
+  --button-default-color: #FA9413;
+  --secondary-color: #022888;
+}
+
+.form {
+  & > * {
+    width: 100%;
+  }
+
+  input,
+  .submit-button,
+  .MuiInputAdornment-positionEnd,
+  .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+    background-color: #ecebeb;
+  }
+
+  label,
+  .submit-button {
+    color: #313335;
+    margin-top: 1rem;
+  }
+
+  .criteria {
+    list-style: none;
+    padding: 0;
+  }
+
+  .email-agreement {
+    display: flex;
+    align-items: start;
+    margin-left: 0.15rem;
+  }
+
+  .submit-button {
+    text-transform: none;
+  }
+}
