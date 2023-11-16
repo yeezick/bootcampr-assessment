@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import signup from 'assets/signup-image.png'
+import PasswordCriteriaMet from './PasswordCriteriaMet'
 
 export const Signup: React.FC = () => {
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState(null);
 
     const navigate = useNavigate();
 
@@ -18,8 +19,10 @@ export const Signup: React.FC = () => {
     const formSchema = yup.object().shape({
         firstName: yup.string().required('First name is required.'),
         lastName: yup.string().required('Last name is required.'),
-        email: yup.string().required('Email address is required.'),
-        password: yup.string().required('Password is required.'),
+        email: yup.string().required('Email address is required.').email('Please enter a valid email address.'),
+        password: yup
+        .string()
+        .required('Password is required.'),
         passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], ).required('Please re-enter password.'),
         // checkbox: ,
     });
@@ -85,9 +88,8 @@ export const Signup: React.FC = () => {
                     name='firstName' 
                     value={formik.values.firstName} 
                     onChange={formik.handleChange} />
-                    {formik.errors.firstName && formik.touched.firstName ? (
-                        <div className='errors'>{formik.errors.firstName}</div>)
-                        : null}
+                    {formik.errors.firstName && formik.touched.firstName &&
+                        <div className='errors'>{formik.errors.firstName}</div>}
                 </div>
                 <div className='form-item'>
                     <label 
@@ -101,9 +103,8 @@ export const Signup: React.FC = () => {
                     name='lastName' 
                     value={formik.values.lastName} 
                     onChange={formik.handleChange} />
-                    {formik.errors.lastName && formik.touched.lastName ? (
-                        <div className='errors'>{formik.errors.lastName}</div>)
-                        : null}
+                    {formik.errors.lastName && formik.touched.lastName &&
+                        <div className='errors'>{formik.errors.lastName}</div>}
                 </div>
                 <div className='form-item'>
                     <label 
@@ -117,9 +118,8 @@ export const Signup: React.FC = () => {
                     name='email' 
                     value={formik.values.email} 
                     onChange={formik.handleChange} />
-                    {formik.errors.email && formik.touched.email ? (
-                        <div className='errors'>{formik.errors.email}</div>)
-                        : null}
+                    {formik.errors.email && formik.touched.email &&
+                        <div className='errors'>{formik.errors.email}</div>}
                 </div>
                 <div className='form-item'>
                     <label 
@@ -132,9 +132,16 @@ export const Signup: React.FC = () => {
                     name='password' 
                     value={formik.values.password} 
                     onChange={formik.handleChange} />
-                    {formik.errors.password && formik.touched.password ? (
-                        <div className='errors'>{formik.errors.password}</div>)
-                        : null}
+                    {formik.touched.password && formik.errors.password ? (
+                <div>{formik.errors.password}</div>
+                ) : (
+                    <PasswordCriteriaMet
+                    isLengthMet={formik.values.password.length >= 8}
+                    isUppercaseMet={/[A-Z]/.test(formik.values.password)}
+                    isLowercaseMet={/[a-z]/.test(formik.values.password)}
+                    isSpecialCharMet={/[!@#$%^&*(),.?":{}|<>]/.test(formik.values.password)}
+                    />
+                )}
                 </div>
                 <div className='form-item'>
                     <label 
@@ -147,9 +154,8 @@ export const Signup: React.FC = () => {
                     name='passwordconfirmation' 
                     value={formik.values.passwordConfirmation} 
                     onChange={formik.handleChange} />
-                    {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation ? (
-                        <div className='errors'>{formik.errors.passwordConfirmation}</div>)
-                        : null}
+                    {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation && 
+                        <div className='errors'>{formik.errors.passwordConfirmation}</div>}
                 </div>
                 {/* <div>
                     <label 
