@@ -13,7 +13,6 @@ export const Signup: React.FC = () => {
 
     const helpText = {
         email: '(ex. jeanine@bootcampr.io)',
-        password: '(Min 8 characters, 1 upper, 1 lower, 1 symbol)'
     }
 
     const formSchema = yup.object().shape({
@@ -24,7 +23,6 @@ export const Signup: React.FC = () => {
         .string()
         .required('Password is required.'),
         passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], ).required('Please re-enter password.'),
-        // checkbox: ,
     });
 
     const formik = useFormik({
@@ -34,7 +32,7 @@ export const Signup: React.FC = () => {
             email: "",
             password: "",
             passwordConfirmation: "",
-            // checkbox: false,
+            checkbox: false,
         },
         validationSchema: formSchema,
         onSubmit: async (values) => {
@@ -124,7 +122,7 @@ export const Signup: React.FC = () => {
                 <div className='form-item'>
                     <label 
                     htmlFor='password' 
-                    className='label'>Password {helpText.password}</label>
+                    className='label'>Password</label>
                     <input 
                     className='input' 
                     type='password' 
@@ -133,7 +131,7 @@ export const Signup: React.FC = () => {
                     value={formik.values.password} 
                     onChange={formik.handleChange} />
                     {formik.touched.password && formik.errors.password ? (
-                <div>{formik.errors.password}</div>
+                <div className='errors'>{formik.errors.password}</div>
                 ) : (
                     <PasswordCriteriaMet
                     isLengthMet={formik.values.password.length >= 8}
@@ -157,20 +155,26 @@ export const Signup: React.FC = () => {
                     {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation && 
                         <div className='errors'>{formik.errors.passwordConfirmation}</div>}
                 </div>
-                {/* <div>
-                    <label 
-                    htmlFor='checkbox' 
-                    className='label'></label>
-                    <input 
-                    className='input' 
-                    type='checkbox' 
-                    id='checkbox' 
-                    name='checkbox' 
-                    onChange={formik.handleChange} />
-                    {formik.errors.checkbox && formik.touched.checkbox ? (
-                        <div className='errors'>{formik.errors.checkbox}</div>)
-                        : null}
-                </div> */}
+                <div className='form-item-checkbox'>
+                    <div className='checkbox-container'>
+                        <input
+                        className='input-checkbox'
+                        type='checkbox'
+                        id='checkbox'
+                        name='checkbox'
+                        checked={formik.values.checkbox}
+                        onChange={formik.handleChange}
+                        />
+                        <span className='checkmark'></span>
+                    </div>
+                    <label htmlFor='checkbox' className='label'>
+                        I agree to receive email notification(s). We will only send emails with important information,
+                        like project start dates. We will not sell your information!
+                    </label>
+                    {formik.errors.checkbox && formik.touched.checkbox && (
+                        <div className='errors'>{formik.errors.checkbox}</div>
+                    )}
+                    </div>
                 <div className='error'>
                 {errors}</div>
                 <button type='submit' className={!formik.errors ? 'confirm' : null} children="Sign up" />
