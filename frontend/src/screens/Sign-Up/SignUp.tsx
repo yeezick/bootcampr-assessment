@@ -97,6 +97,7 @@ const SignUpForm: React.FC = () => {
             <button 
               type='submit'
               disabled={Object.values(passwordValidation).includes(false)}
+              onClick={handleSubmit}
             >
               Submit
             </button>
