@@ -87,6 +87,10 @@ const SignUpForm: React.FC = () => {
               name='password'
               onChange={handleChange}
             />
+            <p className={passwordValidation.minLength ? 'minchar-valid': 'minchar-invalid'}>Min 8 characters</p>
+            <p className={passwordValidation.hasUppercase ? 'hasuppercase-valid': 'hasuppercase-invalid'}>1 upper</p>
+            <p className={passwordValidation.hasLowerCase ? 'haslowercase-valid': 'haslowercase-invalid'}>1 lower</p>
+            <p className={passwordValidation.hasSpecialChar ? 'hasspecialchar-valid': 'hasspecialchar-invalid'}>1 symbol</p>
           <h3>Re-enter password</h3>
             <input 
               type='password'

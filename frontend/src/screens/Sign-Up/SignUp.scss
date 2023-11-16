@@ -1,0 +1,26 @@
+.form{
+    .minchar-valid {
+        color: green
+    }
+    .minchar-invalid {
+        color: red
+    }
+    .hasuppercase-valid {
+        color: green
+    }
+    .hasuppercase-invalid {
+        color: red
+    }
+    .haslowercase-valid {
+        color: green
+    }
+    .haslowercase-invalid {
+        color: red
+    }
+    .hasspecialchar-valid {
+        color: green
+    }
+    .hasspecialchar-invalid {
+        color: red
+    }
+}
