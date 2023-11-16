@@ -3,21 +3,21 @@ import { IconButton, InputAdornment, TextField } from '@mui/material'
 import VisibilityOutlined from '@mui/icons-material/VisibilityOutlined'
 import VisibilityOffOutlined from '@mui/icons-material/VisibilityOffOutlined'
 
-const RePasswordInput = ({ repassword, handleRePassword }) => {
+const PasswordAgainInput = ({ passwordAgain, handlePasswordAgain }) => {
 
-    const [showRePassword, setShowRePassword] = useState(false);
+    const [showPasswordAgain, setShowPasswordAgain] = useState(false);
 
-    const handleClickShowRePassword = () => {
-        setShowRePassword(!showRePassword);
+    const handleClickShowPasswordAgain = () => {
+        setShowPasswordAgain(!showPasswordAgain);
     };
 
     return (
         <TextField
             required 
-            id="repassword" 
-            type={showRePassword ? "text" : "password"}
-            value={repassword}
-            onChange={handleRePassword}
+            id="passwordAgain" 
+            type={showPasswordAgain ? "text" : "password"}
+            value={passwordAgain}
+            onChange={handlePasswordAgain}
             variant="filled" 
             InputProps={{ 
                 disableUnderline: true,
@@ -25,10 +25,10 @@ const RePasswordInput = ({ repassword, handleRePassword }) => {
                     <InputAdornment position="end">
                         <IconButton
                             aria-label="toggle re-entered password visibility"
-                            onClick={handleClickShowRePassword}
+                            onClick={handleClickShowPasswordAgain}
                             edge="end"
                         >
-                            {showRePassword ? <VisibilityOffOutlined sx={{ color: 'black' }} /> : <VisibilityOutlined sx={{ color: 'black' }} />}
+                            {showPasswordAgain ? <VisibilityOffOutlined sx={{ color: 'black' }} /> : <VisibilityOutlined sx={{ color: 'black' }} />}
                         </IconButton>
                     </InputAdornment>
                 )
@@ -38,4 +38,4 @@ const RePasswordInput = ({ repassword, handleRePassword }) => {
     );
 };
 
-export default RePasswordInput;
+export default PasswordAgainInput;

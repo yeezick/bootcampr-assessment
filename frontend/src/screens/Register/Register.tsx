@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, Paper, TextField } from '@mui/material'
+import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, Paper, TextField } from '@mui/material'
 import './Register.scss'
 import RegisterPageImage from 'assets/RegisterPageImage.png'
 import PasswordInput from 'components/PasswordInput'
-import RePasswordInput from 'components/RePasswordInput'
+import PasswordAgainInput from 'components/PasswordAgainInput'
+import PasswordChecklist from 'react-password-checklist'
 
 export const Register: React.FC = () => {
     const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
@@ -15,13 +16,13 @@ export const Register: React.FC = () => {
             lastLame: data.get('lastName'),
             email: data.get('email'),
             password: password,
-            rePassword: rePassword,
+            passwordAgain: passwordAgain,
         });
     }
 
     const [password, setPassword] = useState("")
 
-    const [rePassword, setRePassword] = useState("")
+    const [passwordAgain, setPasswordAgain] = useState("")
 
     return (
         <div className='register-container'>
@@ -84,10 +85,27 @@ export const Register: React.FC = () => {
                                 handlePassword={(e) => setPassword(e.target.value)}
                             />
                             <p>Re-enter password</p>
-                            <RePasswordInput
-                                repassword={rePassword}
-                                handleRePassword={(e) => setRePassword(e.target.value)}
+                            <PasswordAgainInput
+                                passwordAgain={passwordAgain}
+                                handlePasswordAgain={(e) => setPasswordAgain(e.target.value)}
                             />
+                            
+                            {password ? 
+                            <PasswordChecklist
+                                rules={["capital","lowercase","specialChar","minLength","match"]}
+                                minLength={8}
+                                value={password}
+                                valueAgain={passwordAgain}
+                                messages={{
+                                    capital: "1 uppercase",
+                                    lowercase: "1 lowercase",
+                                    specialChar: "1 symbol",
+                                    minLength: "Minimum 8 characters",
+                                    match: "Passwords must match",
+                                }}
+                            /> 
+                            : ""}
+
                             <FormControlLabel 
                                 control={
                                     <Checkbox 
