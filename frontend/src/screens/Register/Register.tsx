@@ -3,6 +3,7 @@ import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton,
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import './Register.scss'
+import RegisterPageImage from 'assets/RegisterPageImage.png'
 
 export const Register: React.FC = () => {
     // const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,10 +42,10 @@ return (
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: '../assets/RegisterPageImage.png',
+                        backgroundImage: 'url('+ RegisterPageImage+')',
                         backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
+                        backgroundSize: '40%',
+                        backgroundPosition: '65% 25%',
                     }}
                 />
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -84,7 +85,7 @@ return (
                                 />
                             </TextField>
                             <TextField id="filled-password-reentered-input" label="Re-Enter Password" type="password" variant="filled" />
-                            <FormControlLabel control={<Checkbox />} label="I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!" />
+                            <FormControlLabel control={<Checkbox value="allowEmails" />} label="I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!" />
                             <Button variant="contained">Sign up</Button>
                         </FormControl>
                     </Box>
