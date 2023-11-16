@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import './SignUp.scss' // Your SCSS file for styling
+import { checkEmail } from 'utils/sampleController'
 
 interface FormValues {
   firstName: string
@@ -23,23 +24,31 @@ const SignUp: React.FC = () => {
   } = useForm<FormValues>()
   const [showPassword, setShowPassword] = useState(false)
 
+
   const handleBlurValidation = async (fieldName: keyof FormValues) => {
-    await trigger(fieldName) // Trigger validation onBlur
+    if (fieldName==='email') {
+       handleEmailCheck(watch('email'))
+    }
+    await trigger(fieldName) 
+  }
+  const handleEmailCheck = async (email: string) => {
+    await checkEmail(email)
+
   }
 
   const togglePasswordVisibility = () => {
     setShowPassword(prev => !prev)
   }
   const onSubmit: SubmitHandler<FormValues> = data => {
-    console.log(data) // Handle form submission here
+    console.log(data) 
   }
 
   const password = watch('password')
 
   return (
     <div className='signup-container'>
-      <h1 className='main-heading'>Sign Up</h1>
-      <p className='tagline'>Your tagline here</p>
+      <h1 className='main-heading'>Join Bootcampr today.</h1>
+      <p className='tagline'>Get the experience. Get the job.</p>
       <div className='form-container'>
         <div className='image-section'>
           {/* Image Placeholder */}
@@ -51,7 +60,6 @@ const SignUp: React.FC = () => {
             <input
               type='text'
               {...register('firstName', { required: true })}
-              placeholder='First Name'
               onBlur={() => handleBlurValidation('firstName')}
             />
             {errors.firstName && (
@@ -61,7 +69,6 @@ const SignUp: React.FC = () => {
             <input
               type='text'
               {...register('lastName', { required: true })}
-              placeholder='Last Name'
               onBlur={() => handleBlurValidation('lastName')}
             />
             {errors.lastName && (
@@ -77,18 +84,19 @@ const SignUp: React.FC = () => {
                 required: true,
                 pattern: /^\S+@\S+\.com$/i,
               })}
-              placeholder='Email'
               onBlur={() => handleBlurValidation('email')}
             />
             {errors.email && (
               <span className='error-message'>Valid email is required</span>
             )}
 
+            <label htmlFor='password'>
+              Password
+              <span className='spanLabelText'>
+                (Min 8 characters, 1 upper, 1 lower, 1 symbol)
+              </span>
+            </label>
             <div className='password-field'>
-              <label htmlFor='password'>
-                Password
-                <span className="spanLabelText">(Min 8 characters, 1 upper, 1 lower, 1 symbol)</span>
-              </label>
               <input
                 type={showPassword ? 'text' : 'password'}
                 {...register('password', {
@@ -97,7 +105,6 @@ const SignUp: React.FC = () => {
                   pattern:
                     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                 })}
-                placeholder='Password'
                 onBlur={() => handleBlurValidation('password')}
               />
               <span
@@ -115,8 +122,8 @@ const SignUp: React.FC = () => {
             </div>
 
             {/* Re-enter password field with onBlur validation */}
+            <label htmlFor='reenterPassword'>Re-enter Password</label>
             <div className='password-field'>
-              <label htmlFor='reenterPassword'>Re-enter Password</label>
               <input
                 type={showPassword ? 'text' : 'password'}
                 {...register('reenterPassword', {
@@ -124,7 +131,6 @@ const SignUp: React.FC = () => {
                   validate: value =>
                     value === password || 'Passwords do not match',
                 })}
-                placeholder='Re-enter Password'
                 onBlur={() => handleBlurValidation('reenterPassword')}
               />
               <span
@@ -141,13 +147,18 @@ const SignUp: React.FC = () => {
             </div>
 
             {/* Checkbox for agreeing to terms */}
-            <label>
+            <div className='checkBoxInput'>
+
               <input
                 type='checkbox'
                 {...register('agreeToTerms', { required: true })}
-              />
-              I agree to the terms
+                />
+            <label>
+              I agree to receive email notification(s). We will only send emails
+              with important information, like project start dates. We will not
+              sell your information!
             </label>
+                </div>
             {errors.agreeToTerms && (
               <span className='error-message'>You must agree to the terms</span>
             )}

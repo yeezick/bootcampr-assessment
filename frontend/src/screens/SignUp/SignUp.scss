@@ -1,18 +1,18 @@
 .signup-container {
   text-align: center;
-  padding-top: 40px;
+  padding: 10px 15%;
+  
 }
 
 .main-heading {
-  font-size: 2.5em;
-  color: #333;
-  margin-bottom: 10px;
+  font-size: 38px;
+font-weight: 600;
 }
 
 .tagline {
-  font-size: 1.2em;
-  color: #666;
-  margin-bottom: 40px;
+ font-size: 24px;
+font-weight: 600;
+margin:0;
 }
 
 .form-container {
@@ -20,7 +20,7 @@
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  max-width: 800px;
+  width: 100%;
   background-color: #fff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -31,7 +31,7 @@
 .image-section {
   flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   
 }
@@ -58,12 +58,14 @@
 }
 
 .form-fields input {
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1em;
+  padding: 10px 15px;
+  margin-bottom: 24px;
+  background:#ECEBEB;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight:400;
   width:100%;
+  border:none;
 }
 
 .error-message {
@@ -74,11 +76,31 @@
 }
 
 label {
-  font-size: 0.9em;
+ font-size:16px;
+ font-weight:400px;
   display: flex;
-  align-items: center;
+  text-align:start;
+  
+}
+.checkBoxInput{
+  width: 100%;
+  display:flex;
+  align-items: start;
+  justify-content: start;
+  gap:10px;
+}
+.checkBoxInput input{
+  width: 40px;
+  color:#022888;
+}
+.checkBoxInput label{
+  font-size: 14px;
 }
 
+label span{
+  color:#313335;
+  margin-left: 4px;
+}
 .signup-button {
   padding: 10px 20px;
   background-color: #4caf50;
