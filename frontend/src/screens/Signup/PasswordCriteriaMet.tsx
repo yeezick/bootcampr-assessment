@@ -1,4 +1,6 @@
 import React from 'react'
+import './Signup.scss'
+import { ReactComponent as Check } from 'assets/check-icon.svg'
 
 interface PasswordCriteriaMetProps {
     isLengthMet: boolean;
@@ -13,14 +15,14 @@ interface PasswordCriteriaMetProps {
     isLowercaseMet,
     isSpecialCharMet,
   }) => {
-    const getCriteriaColor = (isMet: boolean) => (isMet ? 'green' : 'red');
+    const getCriteriaColor = (isMet: boolean) => (isMet ? '#23A6A1' : '#D90000');
   
     return (
-      <div>
-        <p style={{ color: getCriteriaColor(isUppercaseMet) }}>1 uppercase</p>
-        <p style={{ color: getCriteriaColor(isLowercaseMet) }}>1 lowercase</p>
-        <p style={{ color: getCriteriaColor(isSpecialCharMet) }}>1 symbol</p>
-        <p style={{ color: getCriteriaColor(isLengthMet) }}>Minimum 8 characters</p>
+      <div className='password-criteria-container'>
+        <p style={{ color: getCriteriaColor(isUppercaseMet) }}>{isUppercaseMet && <Check />}1 uppercase</p>
+        <p style={{ color: getCriteriaColor(isLowercaseMet) }}>{isLowercaseMet && <Check />}1 lowercase</p>
+        <p style={{ color: getCriteriaColor(isSpecialCharMet) }}>{isSpecialCharMet && <Check />}1 symbol</p>
+        <p style={{ color: getCriteriaColor(isLengthMet) }}>{isLengthMet && <Check />}Minimum 8 characters</p>
       </div>
     );
   };
