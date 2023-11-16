@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Button } from '@mui/material'
 import './Signup.scss'
 import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
@@ -70,13 +69,13 @@ export const Signup: React.FC = () => {
       <div className='body-container'>
       <div className='image-container'>
         <div className='image-wrapper'>
-        <img src={signup}></img>
+        <img src={signup} alt='Hand drawing diagram with black pen'></img>
         </div>
       </div>
       <div className='form-container'>
         <form onSubmit={formik.handleSubmit}>
             <div className='form-wrapper'>
-                <div>
+                <div className='form-item'>
                     <label 
                     htmlFor='firstName' 
                     className='label'>First name</label>
@@ -93,7 +92,7 @@ export const Signup: React.FC = () => {
                         <div className='errors'>{formik.errors.firstName}</div>)
                         : null}
                 </div>
-                <div>
+                <div className='form-item'>
                     <label 
                     htmlFor='lastName' 
                     className='label'>Last name</label>
@@ -110,7 +109,7 @@ export const Signup: React.FC = () => {
                         <div className='errors'>{formik.errors.lastName}</div>)
                         : null}
                 </div>
-                <div>
+                <div className='form-item'>
                     <label 
                     htmlFor='email' 
                     className='label'>Email address (ex. {exampleUser.email})</label>
@@ -127,7 +126,7 @@ export const Signup: React.FC = () => {
                         <div className='errors'>{formik.errors.email}</div>)
                         : null}
                 </div>
-                <div>
+                <div className='form-item'>
                     <label 
                     htmlFor='password' 
                     className='label'>Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</label>
@@ -143,7 +142,7 @@ export const Signup: React.FC = () => {
                         <div className='errors'>{formik.errors.password}</div>)
                         : null}
                 </div>
-                <div>
+                <div className='form-item'>
                     <label 
                     htmlFor='passwordConfirmation' 
                     className='label'>Re-enter password</label>
@@ -174,7 +173,7 @@ export const Signup: React.FC = () => {
                 </div> */}
                 <div className='error'>
                 {errors}</div>
-                <Button type='submit' children="Sign up" />
+                <button type='submit' children="Sign up" />
             </div>
         </form>
       </div>

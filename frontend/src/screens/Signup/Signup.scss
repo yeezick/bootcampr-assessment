@@ -6,6 +6,23 @@
     .body-container {
         display: flex;
         flex-direction: column;
+        justify-content: space-evenly;
+        width: 100%;
+        align-items: center;
+
+        img {
+            height: 400px;
+            width: 337px;
+        }
+
+        .form-wrapper {
+            width: 456px;
+        }
+
+        .form-item {
+            display: flex;
+            flex-direction: column;
+        }
     }
 
     @media (min-width: 900px) {

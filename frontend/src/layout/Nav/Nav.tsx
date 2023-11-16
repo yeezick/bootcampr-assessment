@@ -13,7 +13,7 @@ export const Nav = () => {
             <img src={Logo} alt='logo' />
           </Link>
         </div>
-        {location.pathname != '/sign-up' ? <div>
+        {location.pathname !== '/sign-up' ? <div>
           <Link className='sign-up' to='/sign-up'>
             Sign up
           </Link>
