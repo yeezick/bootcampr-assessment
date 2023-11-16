@@ -27,7 +27,7 @@ type Values = {
   lastName: string
   email: string
   password: string
-  reenterPassword: string
+  confirmPassword: string
 }
 
 const inputStyles = {
@@ -42,7 +42,9 @@ const validationSchema = Yup.object().shape({
     .email('Invalid email')
     .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, 'Invalid email')
     .required('Email is required'),
-  message: Yup.string().required('Message is required'),
+  confirmPassword: Yup.string()
+    .required('Please re-enter your password')
+    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 })
 
 export default function SignUpForm() {
@@ -57,14 +59,15 @@ export default function SignUpForm() {
           lastName: '',
           email: '',
           password: '',
-          reenterPassword: '',
+          confirmPassword: '',
         }}
         onSubmit={(
           values: Values,
           { setSubmitting }: FormikHelpers<Values>
         ) => {
+          const { confirmPassword, ...restValues } = values
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2))
+            alert(JSON.stringify(restValues, null, 2))
             setSubmitting(false)
           }, 500)
         }}
@@ -132,12 +135,12 @@ export default function SignUpForm() {
             )}
           </Field>
 
-          <Field name='reenterPassword'>
+          <Field name='confirmPassword'>
             {({ field, form }: FieldProps) => (
               <FormControl
                 isInvalid={
                   !!(
-                    form.errors.reenterPassword && form.touched.reenterPassword
+                    form.errors.confirmPassword && form.touched.confirmPassword
                   )
                 }
                 sx={inputStyles}
@@ -147,11 +150,11 @@ export default function SignUpForm() {
                   <Input {...field} type={show ? 'text' : 'password'} />
                   <InputRightElement>
                     <Button background='none' onClick={() => setShow(!show)}>
-                      {show ? <VisibilityOff /> : <Visibility />}{' '}
+                      {show ? <VisibilityOff /> : <Visibility />}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                <ErrorMessage name='reenterPassword' />
+                <ErrorMessage name='confirmPassword' />
               </FormControl>
             )}
           </Field>
