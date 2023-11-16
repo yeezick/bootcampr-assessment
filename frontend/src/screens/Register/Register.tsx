@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, TextField } from '@mui/material'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import VisibilityOutlined from '@mui/icons-material/VisibilityOutlined'
+import VisibilityOffOutlined from '@mui/icons-material/VisibilityOffOutlined'
 import './Register.scss'
 import RegisterPageImage from 'assets/RegisterPageImage.png'
 
@@ -78,7 +78,7 @@ return (
                                                 onClick={handleClickShowPassword}
                                                 edge="end"
                                             >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                {showPassword ? <VisibilityOffOutlined sx={{ color: 'black' }} /> : <VisibilityOutlined sx={{ color: 'black' }} />}
                                             </IconButton>
                                         </InputAdornment>
                                     )}}>
@@ -99,7 +99,7 @@ return (
                                                 onClick={handleClickShowPassword}
                                                 edge="end"
                                             >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                {showPassword ? <VisibilityOffOutlined sx={{ color: 'black' }}/> : <VisibilityOutlined sx={{ color: 'black' }} />}
                                             </IconButton>
                                         </InputAdornment>
                                     )}}>
