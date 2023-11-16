@@ -26,20 +26,61 @@ export const SignUp: React.FC = () => {
   }
 
 const SignUpForm: React.FC = () => {
+  const [signupDetails, setSignupDetails] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    passwordRe: '',
+  });
+
+  const handleChange = (event) => {
+    console.log(signupDetails)
+    event.preventDefault();
+    const field = event.target.name;
+    const value = event.target.value;
+
+    setSignupDetails((previous) => {
+      return {...previous, [field]: value}
+    })
+    
+  }
+
   return (
     <div>
       <div className='form'>
         <form>
           <h3>First name</h3>
-            <input type='text'/>
+            <input 
+              type='text'
+              name='firstName'
+              onChange={handleChange}
+            />
           <h3>Last name</h3>
-            <input type='text'/>
+            <input 
+              type='text'
+              name='lastName'
+              onChange={handleChange}
+            />
           <h3>{'Email address [ex. jeanine@bootcampr.io]'}</h3>
-            <input type='email'/>
+            <input
+              type='email'
+              name='email'
+              onChange={handleChange}
+            />
           <h3>{'Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)'}</h3>
-            <input type='password'/>
+            <input 
+              type='password'
+              name='password'
+              onChange={handleChange}
+            />
           <h3>Re-enter password</h3>
-           <input type='password'/>  
+            <input 
+              type='password'
+              name='passwordRe'
+              onChange={handleChange}
+            />  
+          <button type='submit'>Submit</button>
         </form>
       </div>
     </div>
