@@ -13,8 +13,6 @@ import {
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 
-
-
 const SignUpForm: React.FC = () => {
   const emailNotificationAgreement =
     'I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!'
@@ -29,6 +27,7 @@ const SignUpForm: React.FC = () => {
 
   const [passwordState, setPasswordState] = useState({
     showPassword: false,
+    hasTyped: false,
   })
 
   const [confirmPasswordState, setConfirmPasswordState] = useState({
@@ -39,9 +38,13 @@ const SignUpForm: React.FC = () => {
     event.preventDefault()
     // TODO: handle submit
   }
-  
+
   const handleInputChange = (field: string, value: string) => {
-    setFormData({ ...formData, [field]: value})
+    setFormData({ ...formData, [field]: value })
+
+    if (field === 'password') {
+      setPasswordState({ ...passwordState, hasTyped: true })
+    }
   }
 
   const handleTogglePasswordVisibility = () => {
@@ -58,6 +61,13 @@ const SignUpForm: React.FC = () => {
     })
   }
 
+  //validation
+  const isLengthValid = formData.password.length >= 8
+  const hasUpperCase = /[A-Z]/.test(formData.password)
+  const hasLowerCase = /[a-z]/.test(formData.password)
+  const hasSymbol = /[\p{P}]/u.test(formData.password)
+
+  const showCriteria = passwordState.hasTyped && formData.password.length > 0
 
   return (
     <Box component='form' onSubmit={handleSubmit} className='form'>
@@ -99,6 +109,18 @@ const SignUpForm: React.FC = () => {
           </InputAdornment>
         }
       />
+      {showCriteria && (
+        <Box>
+          <ul className='criteria'>
+            <li className={hasUpperCase ? 'success' : 'error'}>1 uppercase</li>
+            <li className={hasLowerCase ? 'success' : 'error'}>1 lowercase</li>
+            <li className={hasSymbol ? 'success' : 'error'}>1 symbol</li>
+            <li className={isLengthValid ? 'success' : 'error'}>
+              Minimum 8 characters
+            </li>
+          </ul>
+        </Box>
+      )}
       <InputLabel htmlFor='confirmPassword'>Re-enter password</InputLabel>
       <OutlinedInput
         required
@@ -115,7 +137,11 @@ const SignUpForm: React.FC = () => {
               onClick={handleToggleConfirmPasswordVisibility}
               edge='end'
             >
-              {confirmPasswordState.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+              {confirmPasswordState.showConfirmPassword ? (
+                <VisibilityOff />
+              ) : (
+                <Visibility />
+              )}
             </IconButton>
           </InputAdornment>
         }
