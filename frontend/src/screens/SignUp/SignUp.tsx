@@ -1,5 +1,7 @@
 import React from 'react'
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Logo from '../../assets/SignUpImage.svg'
 import './SignUp.scss'
 
@@ -29,7 +31,7 @@ export const SignUp: React.FC = () => {
                 //   onMouseDown={handleMouseDownPassword}
                   edge="end"
                 >
-                  {/* {<Visibility />} */}
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             }
