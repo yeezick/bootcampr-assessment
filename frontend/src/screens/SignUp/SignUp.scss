@@ -1,11 +1,13 @@
 .signup-container {
-  //   display: flex;
-  //   justify-content: center;
-  // //   align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .top-container {
   margin-top: 3%;
+  margin-left: auto;
+  margin-right: auto;
 
   .second {
     font-size: 18px;
@@ -16,5 +18,5 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin: 10%;
+  margin: 5%;
 }
