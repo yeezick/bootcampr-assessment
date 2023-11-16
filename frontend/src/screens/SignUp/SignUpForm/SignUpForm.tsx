@@ -20,6 +20,7 @@ import {
   FormikHelpers,
 } from 'formik'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
 type Values = {
@@ -66,12 +67,21 @@ const validationSchema = Yup.object().shape({
 export default function SignUpForm() {
   const [agree, setAgree] = useState<boolean>(false)
   const [show, setShow] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   return (
     <VStack>
       <Formik
         initialValues={initialValues}
-        onSubmit={handleSubmit}
+        onSubmit={(values: Values, actions: FormikHelpers<Values>) => {
+          const { confirmPassword, ...restValues } = values
+          setTimeout(() => {
+            alert(JSON.stringify(restValues, null, 2))
+            navigate('/congrats')
+            actions.setSubmitting(false)
+            actions.resetForm()
+          }, 500)
+        }}
         validationSchema={validationSchema}
       >
         <Form>
