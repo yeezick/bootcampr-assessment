@@ -10,19 +10,17 @@ export const Signup: React.FC = () => {
 
     const navigate = useNavigate();
 
-    const exampleUser = {
-        firstName: 'Jeanine',
-        lastName: 'Bootcampr',
-        email: 'jeanine@bootcampr.io',
-        password: 'Thispassword'
+    const helpText = {
+        email: '(ex. jeanine@bootcampr.io)',
+        password: '(Min 8 characters, 1 upper, 1 lower, 1 symbol)'
     }
 
     const formSchema = yup.object().shape({
-        firstName: yup.string().required(),
-        lastName: yup.string().required(),
-        email: yup.string().required(),
-        password: yup.string().required(),
-        passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], ).required(),
+        firstName: yup.string().required('First name is required.'),
+        lastName: yup.string().required('Last name is required.'),
+        email: yup.string().required('Email address is required.'),
+        password: yup.string().required('Password is required.'),
+        passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], ).required('Please re-enter password.'),
         // checkbox: ,
     });
 
@@ -85,7 +83,6 @@ export const Signup: React.FC = () => {
                     id='firstName' 
                     autoComplete='off' 
                     name='firstName' 
-                    placeholder={exampleUser.firstName}
                     value={formik.values.firstName} 
                     onChange={formik.handleChange} />
                     {formik.errors.firstName && formik.touched.firstName ? (
@@ -102,7 +99,6 @@ export const Signup: React.FC = () => {
                     id='lastName' 
                     autoComplete='off' 
                     name='lastName' 
-                    placeholder={exampleUser.lastName}
                     value={formik.values.lastName} 
                     onChange={formik.handleChange} />
                     {formik.errors.lastName && formik.touched.lastName ? (
@@ -112,14 +108,13 @@ export const Signup: React.FC = () => {
                 <div className='form-item'>
                     <label 
                     htmlFor='email' 
-                    className='label'>Email address (ex. {exampleUser.email})</label>
+                    className='label'>Email address {helpText.email}</label>
                     <input 
                     className='input' 
                     type='text' 
                     id='email' 
                     autoComplete='off' 
                     name='email' 
-                    placeholder={exampleUser.email}
                     value={formik.values.email} 
                     onChange={formik.handleChange} />
                     {formik.errors.email && formik.touched.email ? (
@@ -129,13 +124,12 @@ export const Signup: React.FC = () => {
                 <div className='form-item'>
                     <label 
                     htmlFor='password' 
-                    className='label'>Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</label>
+                    className='label'>Password {helpText.password}</label>
                     <input 
                     className='input' 
                     type='password' 
                     id='password' 
                     name='password' 
-                    placeholder={exampleUser.password}
                     value={formik.values.password} 
                     onChange={formik.handleChange} />
                     {formik.errors.password && formik.touched.password ? (
@@ -173,7 +167,7 @@ export const Signup: React.FC = () => {
                 </div> */}
                 <div className='error'>
                 {errors}</div>
-                <button type='submit' children="Sign up" />
+                <button type='submit' className={!formik.errors ? 'confirm' : null} children="Sign up" />
             </div>
         </form>
       </div>
