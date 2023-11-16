@@ -37,19 +37,33 @@ const SignUpForm: React.FC = () => {
   const [passwordValidation, setPasswordValidation] = useState({
     minLength: false,
     hasLowerCase: false,
-    hasUppercase: false,
+    hasUpperCase: false,
     hasSpecialChar: false
   })
+
+  const validatePassword = (password: string) => {
+    const validations = {
+      minLength: password.length >= 8,
+      hasLowerCase: /[a-z]/.test(password),
+      hasUpperCase: /[A-Z]/.test(password),
+      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+    }
+
+    setPasswordValidation(validations);
+  }
 
   const handleChange = (event) => {
     console.log(signupDetails)
     event.preventDefault();
-    const field = event.target.name;
-    const value = event.target.value;
+    const {name, value} = event.target
 
     setSignupDetails((previous) => {
-      return {...previous, [field]: value}
+      return {...previous, [name]: value}
     })
+
+    if(name === 'password') {
+      validatePassword(value)
+    }
 
   }
 
@@ -88,7 +102,7 @@ const SignUpForm: React.FC = () => {
               onChange={handleChange}
             />
             <p className={passwordValidation.minLength ? 'minchar-valid': 'minchar-invalid'}>Min 8 characters</p>
-            <p className={passwordValidation.hasUppercase ? 'hasuppercase-valid': 'hasuppercase-invalid'}>1 upper</p>
+            <p className={passwordValidation.hasUpperCase ? 'hasuppercase-valid': 'hasuppercase-invalid'}>1 upper</p>
             <p className={passwordValidation.hasLowerCase ? 'haslowercase-valid': 'haslowercase-invalid'}>1 lower</p>
             <p className={passwordValidation.hasSpecialChar ? 'hasspecialchar-valid': 'hasspecialchar-invalid'}>1 symbol</p>
           <h3>Re-enter password</h3>
