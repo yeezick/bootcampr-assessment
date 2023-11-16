@@ -20,6 +20,7 @@ import {
   FormikHelpers,
 } from 'formik'
 import { useState } from 'react'
+import * as Yup from 'yup'
 
 type Values = {
   firstName: string
@@ -33,6 +34,16 @@ const inputStyles = {
   fontSize: '16px',
   fontWeight: '200',
 }
+
+const validationSchema = Yup.object().shape({
+  firstName: Yup.string().required('First name is required'),
+  lastName: Yup.string().required('Last name is required'),
+  email: Yup.string()
+    .email('Invalid email')
+    .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, 'Invalid email')
+    .required('Email is required'),
+  message: Yup.string().required('Message is required'),
+})
 
 export default function SignUpForm() {
   const [agree, setAgree] = useState<boolean>(false)
@@ -57,6 +68,7 @@ export default function SignUpForm() {
             setSubmitting(false)
           }, 500)
         }}
+        validationSchema={validationSchema}
       >
         <Form>
           <Field name='firstName'>
