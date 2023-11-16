@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, TextField } from '@mui/material'
+import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, Paper, TextField } from '@mui/material'
 import VisibilityOutlined from '@mui/icons-material/VisibilityOutlined'
 import VisibilityOffOutlined from '@mui/icons-material/VisibilityOffOutlined'
 import './Register.scss'
@@ -19,10 +19,16 @@ export const Register: React.FC = () => {
     //     });
     // };
 
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [showPassword, setShowPassword] = React.useState(true);
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
+    };
+
+    const [showRePassword, setShowRePassword] = React.useState(true);
+
+    const handleClickShowRePassword = () => {
+        setShowRePassword(!showRePassword);
     };
 
 return (
@@ -95,11 +101,11 @@ return (
                                     endAdornment: (
                                         <InputAdornment position="end">
                                             <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
+                                                aria-label="toggle re-entered password visibility"
+                                                onClick={handleClickShowRePassword}
                                                 edge="end"
                                             >
-                                                {showPassword ? <VisibilityOffOutlined sx={{ color: 'black' }}/> : <VisibilityOutlined sx={{ color: 'black' }} />}
+                                                {showRePassword ? <VisibilityOffOutlined sx={{ color: 'black' }}/> : <VisibilityOutlined sx={{ color: 'black' }} />}
                                             </IconButton>
                                         </InputAdornment>
                                     )}}>
@@ -110,11 +116,13 @@ return (
                                         value="allowEmails"
                                         sx={{
                                             color: 'blue',
+                                            borderRadius: '50',
                                             marginBlockEnd: '60px',
                                             marginRight: '10px',
                                             marginLeft: '5px',
                                             transform: 'scale(1.2)',
-                                            fontSize: '1em'
+                                            stroke: '#ffffff',
+                                            strokeWidth: '1.1'
                                         }} 
                                     />} 
                                 label="I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!" 
