@@ -43,14 +43,6 @@ const initialValues = {
   password: '',
   confirmPassword: '',
 }
-const handleSubmit = (values: Values, actions: FormikHelpers<Values>) => {
-  const { confirmPassword, ...restValues } = values
-  setTimeout(() => {
-    alert(JSON.stringify(restValues, null, 2))
-    actions.setSubmitting(false)
-    actions.resetForm()
-  }, 500)
-}
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('First name is required'),
@@ -59,6 +51,12 @@ const validationSchema = Yup.object().shape({
     .email('Invalid email')
     .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, 'Invalid email')
     .required('Email is required'),
+  password: Yup.string()
+    .required('Password is required')
+    .matches(/[A-Z]/, 'Must contain at least 1 uppercase letter')
+    .matches(/[a-z]/, 'Must contain at least 1 lowercase letter')
+    .matches(/\d/, 'Must contain at least 1 number')
+    .min(8, 'Must be at least 8 characters long'),
   confirmPassword: Yup.string()
     .required('Please re-enter your password')
     .oneOf([Yup.ref('password'), null], 'Passwords must match'),
@@ -73,6 +71,7 @@ export default function SignUpForm() {
     <VStack>
       <Formik
         initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={(values: Values, actions: FormikHelpers<Values>) => {
           const { confirmPassword, ...restValues } = values
           setTimeout(() => {
@@ -82,7 +81,6 @@ export default function SignUpForm() {
             actions.resetForm()
           }, 500)
         }}
-        validationSchema={validationSchema}
       >
         <Form>
           <Field name='firstName'>
@@ -166,6 +164,11 @@ export default function SignUpForm() {
                   </InputRightElement>
                 </InputGroup>
                 <ErrorMessage name='confirmPassword' />
+                {form.touched.confirmPassword &&
+                  !form.errors.confirmPassword &&
+                  form.values.password === form.values.confirmPassword && (
+                    <Text style={{ color: '#23A6A1' }}>Passwords match!</Text>
+                  )}
               </FormControl>
             )}
           </Field>
