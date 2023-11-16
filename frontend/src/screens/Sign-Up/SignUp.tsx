@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { sayHello } from 'utils/sampleController'
 import './SignUp.scss'
+import { sign } from 'crypto'
 
 export const SignUp: React.FC = () => {
   
@@ -39,7 +40,9 @@ const SignUpForm: React.FC = () => {
     hasLowerCase: false,
     hasUpperCase: false,
     hasSpecialChar: false
-  })
+  });
+
+  const [passwordMatch, setPasswordMatch] = useState(false);
 
   const validatePassword = (password: string) => {
     const validations = {
@@ -62,7 +65,21 @@ const SignUpForm: React.FC = () => {
     })
 
     if(name === 'password') {
+      if(value === signupDetails.passwordRe) {
+        setPasswordMatch(true);
+      } else {
+        setPasswordMatch(false);
+      }
+
       validatePassword(value)
+    }
+
+    if(name === 'passwordRe') {
+      if(value === signupDetails.password) {
+        setPasswordMatch(true)
+      } else {
+        setPasswordMatch(false)
+      }
     }
 
   }
@@ -111,10 +128,11 @@ const SignUpForm: React.FC = () => {
               name='passwordRe'
               onChange={handleChange}
             />
+            <p className={passwordMatch ? 'passwordmatch-valid': 'passwordmatch-invalid'}>Passwords match</p>
           <div className='button-container'>
             <button 
               type='submit'
-              disabled={Object.values(passwordValidation).includes(false)}
+              disabled={Object.values(passwordValidation).includes(false) || !passwordMatch}
               onClick={handleSubmit}
             >
               Submit
