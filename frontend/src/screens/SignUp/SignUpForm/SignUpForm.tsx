@@ -30,9 +30,25 @@ type Values = {
   confirmPassword: string
 }
 
-const inputStyles = {
-  fontSize: '16px',
-  fontWeight: '200',
+// const inputStyles = {
+//   // fontSize: '16px',
+//   // fontWeight: '200',
+// }
+
+const initialValues = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+}
+const handleSubmit = (values: Values, actions: FormikHelpers<Values>) => {
+  const { confirmPassword, ...restValues } = values
+  setTimeout(() => {
+    alert(JSON.stringify(restValues, null, 2))
+    actions.setSubmitting(false)
+    actions.resetForm()
+  }, 500)
 }
 
 const validationSchema = Yup.object().shape({
@@ -54,23 +70,8 @@ export default function SignUpForm() {
   return (
     <VStack>
       <Formik
-        initialValues={{
-          firstName: '',
-          lastName: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-        }}
-        onSubmit={(
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>
-        ) => {
-          const { confirmPassword, ...restValues } = values
-          setTimeout(() => {
-            alert(JSON.stringify(restValues, null, 2))
-            setSubmitting(false)
-          }, 500)
-        }}
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <Form>
@@ -78,7 +79,7 @@ export default function SignUpForm() {
             {({ field, form }: FieldProps) => (
               <FormControl
                 isInvalid={!!(form.errors.firstName && form.touched.firstName)}
-                sx={inputStyles}
+                // sx={inputStyles}
               >
                 <FormLabel htmlFor='firstName'>First name</FormLabel>
                 <Input {...field} id='firstName' />
@@ -91,7 +92,7 @@ export default function SignUpForm() {
             {({ field, form }: FieldProps) => (
               <FormControl
                 isInvalid={!!(form.errors.lastName && form.touched.lastName)}
-                sx={inputStyles}
+                // sx={inputStyles}
               >
                 <FormLabel htmlFor='lastName'>Last name</FormLabel>
                 <Input {...field} id='lastName' />
@@ -104,7 +105,7 @@ export default function SignUpForm() {
             {({ field, form }: FieldProps) => (
               <FormControl
                 isInvalid={!!(form.errors.email && form.touched.email)}
-                sx={inputStyles}
+                // sx={inputStyles}
               >
                 <FormLabel htmlFor='email'>
                   Email address (ex. jeanine@bootcampr.io)
@@ -119,7 +120,7 @@ export default function SignUpForm() {
             {({ field, form }: FieldProps) => (
               <FormControl
                 isInvalid={!!(form.errors.password && form.touched.password)}
-                sx={inputStyles}
+                // sx={inputStyles}
               >
                 <FormLabel htmlFor='email'>Password</FormLabel>
                 <InputGroup>
@@ -143,7 +144,7 @@ export default function SignUpForm() {
                     form.errors.confirmPassword && form.touched.confirmPassword
                   )
                 }
-                sx={inputStyles}
+                // sx={inputStyles}
               >
                 <FormLabel htmlFor='email'>Re-enter password</FormLabel>
                 <InputGroup>
