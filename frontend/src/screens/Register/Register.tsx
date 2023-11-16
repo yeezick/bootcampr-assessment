@@ -29,13 +29,13 @@ export const Register: React.FC = () => {
 
 return (
         <div className='register-container'>
-            <h1>
-                Join Bootcampr today.
-            </h1>
-            <h3>
-                Get the experience. Get the job.
-            </h3>
-            <Grid container component="main" sx={{ height: '100vh' }}>
+            <h1>Join Bootcampr today.</h1>
+            <h2>Get the experience. Get the job.</h2>
+            <Grid container component="main" 
+                sx={{ 
+                    height: '100vh'
+                }}
+            >
                 <Grid
                     item
                     xs={false}
@@ -44,28 +44,31 @@ return (
                     sx={{
                         backgroundImage: 'url('+ RegisterPageImage+')',
                         backgroundRepeat: 'no-repeat',
-                        backgroundSize: '40%',
+                        backgroundSize: '50%',
                         backgroundPosition: '65% 25%',
                     }}
                 />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={0}>
                     <Box
                         component="form"
                         // onSubmit={handleRegister}
                         sx={{
-                        my: 8,
-                        mx: 4,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'left',
+                        my: 3,
+                        mx: 2,
+                        display: 'grid',
+                        gridTemplateColumns: { sm: '80%'},
                         }}
                     >
                         <FormControl variant="standard">
-                            <TextField id="filled" label="First name" variant="filled"/>
-                            <TextField id="filled" label="Last name" variant="filled"/>
-                            <TextField required id="filled" label="Email address (ex. jeanine@bootcampr.io)" variant="filled"/>
-                            <TextField id="filled-password-input" label="Password" type="password" variant="filled">
-                            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                            <p>First name</p>
+                            <TextField required id="first-name" variant="filled" InputProps={{ disableUnderline: true}}/>
+                            <p>Last name</p>
+                            <TextField required id="last-name" variant="filled"InputProps={{ disableUnderline: true}}/>
+                            <p>Email address (ex. jeanine@bootcampr.io)</p>
+                            <TextField required id="email" variant="filled" InputProps={{ disableUnderline: true}}/>
+                            <p>Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</p>
+                            <TextField required id="password" type="password" variant="filled" InputProps={{ disableUnderline: true}}>
+                                <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
                                 <OutlinedInput
                                     id="outlined-adornment-password"
                                     type={showPassword ? 'text' : 'password'}
@@ -81,11 +84,12 @@ return (
                                         </IconButton>
                                     </InputAdornment>
                                     }
-                                    label="Password"
+                                    label="Password "
                                 />
                             </TextField>
-                            <TextField id="filled-password-reentered-input" label="Re-Enter Password" type="password" variant="filled" />
-                            <FormControlLabel control={<Checkbox value="allowEmails" />} label="I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!" />
+                            <p>Re-enter Password</p>
+                            <TextField id="reentered-password" type="password" variant="filled" InputProps={{ disableUnderline: true}}/>
+                            <FormControlLabel control={<Checkbox value="allowEmails" />} label="I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!" labelPlacement="end"/>
                             <Button variant="contained">Sign up</Button>
                         </FormControl>
                     </Box>

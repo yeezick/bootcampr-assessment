@@ -11,11 +11,11 @@ export const Nav = () => {
             <img src={Logo} alt='logo' />
           </Link>
         </div>
-        <div>
+        {/* <div>
           <Link className='sign-up' to='/sign-up'>
             Sign up
           </Link>
-        </div>
+        </div> */}
       </div>
     </nav>
   )
