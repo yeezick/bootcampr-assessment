@@ -67,6 +67,7 @@ export const Signup: React.FC = () => {
         <h2>Join Bootcampr today.</h2>
         <h4>Get the experience. Get the job.</h4>
       </div>
+      <div className='body-container'>
       <div className='image-container'>
         <div className='image-wrapper'>
         <img src={signup}></img>
@@ -176,6 +177,7 @@ export const Signup: React.FC = () => {
                 <Button type='submit' children="Sign up" />
             </div>
         </form>
+      </div>
       </div>
     </div>
   )
