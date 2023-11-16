@@ -6,7 +6,13 @@ import Logo from '../../assets/SignUpImage.svg'
 import './SignUp.scss'
 
 export const SignUp: React.FC = () => {
-    const showPassword = false;
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+    };
   return (
     <div className='signup-container'>
       <div className='top-container'>
@@ -27,8 +33,8 @@ export const SignUp: React.FC = () => {
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                //   onClick={handleClickShowPassword}
-                //   onMouseDown={handleMouseDownPassword}
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
                   edge="end"
                 >
                   {showPassword ? <VisibilityOff /> : <Visibility />}
