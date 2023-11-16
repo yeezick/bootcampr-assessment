@@ -1,9 +1,10 @@
 import React from 'react'
-import { TextField } from '@mui/material'
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
 import Logo from '../../assets/SignUpImage.svg'
 import './SignUp.scss'
 
 export const SignUp: React.FC = () => {
+    const showPassword = false;
   return (
     <div className='signup-container'>
       <div className='top-container'>
@@ -15,6 +16,26 @@ export const SignUp: React.FC = () => {
         <div className='form-content'>
           <TextField helperText=' ' label='First Name' />
           <TextField helperText=' ' label='Last Name' />
+          <FormControl variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? 'text' : 'password'}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                //   onClick={handleClickShowPassword}
+                //   onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {/* {<Visibility />} */}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
+          />
+        </FormControl>
         </div>
       </div>
     </div>
