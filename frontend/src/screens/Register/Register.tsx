@@ -1,9 +1,8 @@
-import React from 'react'
+import { useState } from 'react'
 import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, Paper, TextField } from '@mui/material'
-import VisibilityOutlined from '@mui/icons-material/VisibilityOutlined'
-import VisibilityOffOutlined from '@mui/icons-material/VisibilityOffOutlined'
 import './Register.scss'
 import RegisterPageImage from 'assets/RegisterPageImage.png'
+import PasswordInput from 'components/PasswordInput'
 
 export const Register: React.FC = () => {
     // const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
@@ -19,17 +18,7 @@ export const Register: React.FC = () => {
     //     });
     // };
 
-    const [showPassword, setShowPassword] = React.useState(true);
-
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
-
-    const [showRePassword, setShowRePassword] = React.useState(true);
-
-    const handleClickShowRePassword = () => {
-        setShowRePassword(!showRePassword);
-    };
+    const [password, setPassword] = useState("")
 
 return (
         <div className='register-container'>
@@ -69,26 +58,10 @@ return (
                             <p>Email address (ex. jeanine@bootcampr.io)</p>
                             <TextField required id="email" variant="filled" InputProps={{ disableUnderline: true}}/>
                             <p>Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</p>
-                            <TextField 
-                                required 
-                                id="password" 
-                                type="password"
-                                // value={password}
-                                variant="filled" 
-                                InputProps={{ 
-                                    disableUnderline: true,
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                edge="end"
-                                            >
-                                                {showPassword ? <VisibilityOffOutlined sx={{ color: 'black' }} /> : <VisibilityOutlined sx={{ color: 'black' }} />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    )}}>
-                            </TextField>
+                            <PasswordInput
+                                password={password}
+                                handlePassword={(e) => setPassword(e.target.value)}
+                            />
                             <p>Re-enter password</p>
                             <TextField 
                                 required 
@@ -96,19 +69,20 @@ return (
                                 type="password"
                                 // value={password}
                                 variant="filled" 
-                                InputProps={{ 
-                                    disableUnderline: true,
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle re-entered password visibility"
-                                                onClick={handleClickShowRePassword}
-                                                edge="end"
-                                            >
-                                                {showRePassword ? <VisibilityOffOutlined sx={{ color: 'black' }}/> : <VisibilityOutlined sx={{ color: 'black' }} />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    )}}>
+                                // InputProps={{ 
+                                //     disableUnderline: true,
+                                //     endAdornment: (
+                                //         <InputAdornment position="end">
+                                //             <IconButton
+                                //                 aria-label="toggle re-entered password visibility"
+                                //                 onClick={handleClickShowRePassword}
+                                //                 edge="end"
+                                //             >
+                                //                 {showRePassword ? <VisibilityOffOutlined sx={{ color: 'black' }}/> : <VisibilityOutlined sx={{ color: 'black' }} />}
+                                //             </IconButton>
+                                //         </InputAdornment>
+                                // )}}
+                                    >
                             </TextField>
                             <FormControlLabel 
                                 control={
