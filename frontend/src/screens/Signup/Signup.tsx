@@ -4,6 +4,7 @@ import './Signup.scss'
 import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
+import signup from 'assets/signup-image.png'
 
 export const Signup: React.FC = () => {
     const [errors, setErrors] = useState([]);
@@ -68,7 +69,7 @@ export const Signup: React.FC = () => {
       </div>
       <div className='image-container'>
         <div className='image-wrapper'>
-        <img></img>
+        <img src={signup}></img>
         </div>
       </div>
       <div className='form-container'>
