@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, Paper, TextField } from '@mui/material'
 import './Register.scss'
 import RegisterPageImage from 'assets/RegisterPageImage.png'
@@ -6,22 +6,22 @@ import PasswordInput from 'components/PasswordInput'
 import RePasswordInput from 'components/RePasswordInput'
 
 export const Register: React.FC = () => {
-    // const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
 
-    //     event.preventDefault();
-    //     const data = new FormData(event.currentTarget);
-    //     console.log({
-    //         firstname: data.get('firstname'),
-    //         lastname: data.get('lastname'),
-    //         email: data.get('email'),
-    //         password: data.get('password'),
-    //         checkbox: data.get('checkbox'),
-    //     });
-    // };
+        event.preventDefault()
+        const data = new FormData(event.currentTarget);
+        console.log({
+            firstName: data.get('firstName'),
+            lastLame: data.get('lastName'),
+            email: data.get('email'),
+            password: password,
+            rePassword: rePassword,
+        });
+    }
 
     const [password, setPassword] = useState("")
 
-    const [repassword, setRepassword] = useState("")
+    const [rePassword, setRePassword] = useState("")
 
     return (
         <div className='register-container'>
@@ -47,7 +47,7 @@ export const Register: React.FC = () => {
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={0}>
                     <Box
                         component="form"
-                        // onSubmit={handleRegister}
+                        onSubmit={handleRegister}
                         sx={{
                         display: 'grid',
                         gridTemplateColumns: { sm: '75%'},
@@ -55,11 +55,29 @@ export const Register: React.FC = () => {
                     >
                         <FormControl variant="standard">
                             <p>First name</p>
-                            <TextField required id="first-name" variant="filled" InputProps={{ disableUnderline: true}}/>
+                            <TextField 
+                                required 
+                                id="firstName" 
+                                name="firstName"
+                                variant="filled" 
+                                InputProps={{ disableUnderline: true}}
+                            />
                             <p>Last name</p>
-                            <TextField required id="last-name" variant="filled"InputProps={{ disableUnderline: true}}/>
+                            <TextField 
+                                required 
+                                id="lastName" 
+                                name="lastName"
+                                variant="filled"
+                                InputProps={{ disableUnderline: true}}
+                            />
                             <p>Email address (ex. jeanine@bootcampr.io)</p>
-                            <TextField required id="email" variant="filled" InputProps={{ disableUnderline: true}}/>
+                            <TextField 
+                                required 
+                                id="email" 
+                                name="email"
+                                variant="filled" 
+                                InputProps={{ disableUnderline: true}}
+                            />
                             <p>Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</p>
                             <PasswordInput
                                 password={password}
@@ -67,8 +85,8 @@ export const Register: React.FC = () => {
                             />
                             <p>Re-enter password</p>
                             <RePasswordInput
-                                repassword={repassword}
-                                handleRePassword={(e) => setRepassword(e.target.value)}
+                                repassword={rePassword}
+                                handleRePassword={(e) => setRePassword(e.target.value)}
                             />
                             <FormControlLabel 
                                 control={
@@ -91,7 +109,10 @@ export const Register: React.FC = () => {
                                     marginBlockStart: '30px',
                                     marginBlockEnd: '30px'
                                 }} />
-                            <Button variant="contained"
+                            <Button 
+                                variant="contained"
+                                type="submit"
+                                fullWidth 
                                 sx={{
                                     backgroundColor: 'rgba(0, 0, 0, 0.09)',
                                     color: 'rgba(0, 0, 0, 0.8)',
