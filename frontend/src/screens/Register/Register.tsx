@@ -21,10 +21,8 @@ export const Register: React.FC = () => {
 
     const [showPassword, setShowPassword] = React.useState(false);
 
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
     };
 
 return (
@@ -44,7 +42,7 @@ return (
                     sx={{
                         backgroundImage: 'url('+ RegisterPageImage+')',
                         backgroundRepeat: 'no-repeat',
-                        backgroundSize: '50%',
+                        backgroundSize: '40%',
                         backgroundPosition: '65% 25%',
                     }}
                 />
@@ -53,10 +51,8 @@ return (
                         component="form"
                         // onSubmit={handleRegister}
                         sx={{
-                        my: 3,
-                        mx: 2,
                         display: 'grid',
-                        gridTemplateColumns: { sm: '80%'},
+                        gridTemplateColumns: { sm: '75%'},
                         }}
                     >
                         <FormControl variant="standard">
@@ -67,30 +63,74 @@ return (
                             <p>Email address (ex. jeanine@bootcampr.io)</p>
                             <TextField required id="email" variant="filled" InputProps={{ disableUnderline: true}}/>
                             <p>Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</p>
-                            <TextField required id="password" type="password" variant="filled" InputProps={{ disableUnderline: true}}>
-                                <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    type={showPassword ? 'text' : 'password'}
-                                    endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                        >
-                                        {/* {showPassword ? <VisibilityOff /> : <Visibility />} */}
-                                        </IconButton>
-                                    </InputAdornment>
-                                    }
-                                    label="Password "
-                                />
+                            <TextField 
+                                required 
+                                id="password" 
+                                type="password"
+                                // value={password}
+                                variant="filled" 
+                                InputProps={{ 
+                                    disableUnderline: true,
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )}}>
                             </TextField>
-                            <p>Re-enter Password</p>
-                            <TextField id="reentered-password" type="password" variant="filled" InputProps={{ disableUnderline: true}}/>
-                            <FormControlLabel control={<Checkbox value="allowEmails" />} label="I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!" labelPlacement="end"/>
-                            <Button variant="contained">Sign up</Button>
+                            <p>Re-enter password</p>
+                            <TextField 
+                                required 
+                                id="re-entered-password" 
+                                type="password"
+                                // value={password}
+                                variant="filled" 
+                                InputProps={{ 
+                                    disableUnderline: true,
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )}}>
+                            </TextField>
+                            <FormControlLabel 
+                                control={
+                                    <Checkbox 
+                                        value="allowEmails"
+                                        sx={{
+                                            color: 'blue',
+                                            marginBlockEnd: '60px',
+                                            marginRight: '10px',
+                                            marginLeft: '5px',
+                                            transform: 'scale(1.2)',
+                                            fontSize: '1em'
+                                        }} 
+                                    />} 
+                                label="I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!" 
+                                labelPlacement="end"
+                                sx={{
+                                    marginBlockStart: '30px',
+                                    marginBlockEnd: '30px'
+                                }} />
+                            <Button variant="contained"
+                                sx={{
+                                    backgroundColor: 'rgba(0, 0, 0, 0.09)',
+                                    color: 'rgba(0, 0, 0, 0.8)',
+                                    boxShadow: '0',
+                                    textTransform: 'unset',
+                                    fontSize: '22px',
+                                }}>Sign up</Button>
                         </FormControl>
                     </Box>
                 </Grid>
