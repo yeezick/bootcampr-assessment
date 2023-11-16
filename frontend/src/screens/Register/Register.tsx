@@ -5,6 +5,7 @@ import RegisterPageImage from 'assets/RegisterPageImage.png'
 import PasswordInput from 'components/PasswordInput'
 import PasswordAgainInput from 'components/PasswordAgainInput'
 import PasswordChecklist from 'react-password-checklist'
+import AllowEmailsCheckbox from 'components/AllowEmailsCheckbox'
 
 export const Register: React.FC = () => {
     const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,6 +21,8 @@ export const Register: React.FC = () => {
         });
     }
 
+    const [allowEmails, setAllowEmails] = useState(false)
+    console.log({allowEmails})
     const [password, setPassword] = useState("")
 
     const [passwordAgain, setPasswordAgain] = useState("")
@@ -106,31 +109,14 @@ export const Register: React.FC = () => {
                             /> 
                             : ""}
 
-                            <FormControlLabel 
-                                control={
-                                    <Checkbox 
-                                        value="allowEmails"
-                                        sx={{
-                                            color: 'blue',
-                                            borderRadius: '50',
-                                            marginBlockEnd: '60px',
-                                            marginRight: '10px',
-                                            marginLeft: '5px',
-                                            transform: 'scale(1.2)',
-                                            stroke: '#ffffff',
-                                            strokeWidth: '1.1'
-                                        }} 
-                                    />} 
-                                label="I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!" 
-                                labelPlacement="end"
-                                sx={{
-                                    marginBlockStart: '30px',
-                                    marginBlockEnd: '30px'
-                                }} />
+                            <AllowEmailsCheckbox 
+                                allowEmails= {allowEmails}
+                                handleAllowEmails={(e) => setAllowEmails(allowEmails === false ? true : false)} />
                             <Button 
                                 variant="contained"
                                 type="submit"
                                 fullWidth 
+                                disabled={allowEmails === true ? false : true}
                                 sx={{
                                     backgroundColor: 'rgba(0, 0, 0, 0.09)',
                                     color: 'rgba(0, 0, 0, 0.8)',
