@@ -34,6 +34,13 @@ const SignUpForm: React.FC = () => {
     passwordRe: '',
   });
 
+  const [passwordValidation, setPasswordValidation] = useState({
+    minLength: false,
+    hasLowerCase: false,
+    hasUppercase: false,
+    hasSpecialChar: false
+  })
+
   const handleChange = (event) => {
     console.log(signupDetails)
     event.preventDefault();
@@ -43,7 +50,13 @@ const SignUpForm: React.FC = () => {
     setSignupDetails((previous) => {
       return {...previous, [field]: value}
     })
-    
+
+  }
+
+  const handleSubmit = (event) => {
+    console.log(event);
+    event.preventDefault();
+    //send async req to backend here
   }
 
   return (
@@ -79,8 +92,15 @@ const SignUpForm: React.FC = () => {
               type='password'
               name='passwordRe'
               onChange={handleChange}
-            />  
-          <button type='submit'>Submit</button>
+            />
+          <div className='button-container'>
+            <button 
+              type='submit'
+              disabled={Object.values(passwordValidation).includes(false)}
+            >
+              Submit
+            </button>
+          </div>  
         </form>
       </div>
     </div>
