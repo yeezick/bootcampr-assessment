@@ -10,6 +10,10 @@ export const Register: React.FC = () => {
                     <h3>Get the experience. Get the job.</h3>
                 </div>
             </div>
+            <form>
+                <input type="text" placeholder="Submit" />
+                <button type="submit">Submit</button>
+            </form>
             <p>First name</p>
             <p>Last name</p>
             <p>Email address (ex. jeanine@bootcampr.io)</p>
