@@ -80,22 +80,29 @@
         .form-item-checkbox {
             display: flex;
             flex-direction: row;
-            gap: 16px;
+            gap: 37px;
 
             input {
                 position: absolute;
                 opacity: 0;
                 cursor: pointer;
-                height: 25px;
-                width: 25px;
+                height: 20px;
+                width: 20px;
                 z-index: 1;
+                padding: 1px 2px;
               }
               
               .checkbox-container {
                 position: relative;
 
                 input:checked ~ .checkmark {
-                    background-color: blue;
+                    background-color: #022888;
+                    border: 1px solid transparent;
+                    border-radius: 5px;
+                }
+
+                input:checked ~ .checkmark:after {
+                    display: block;
                 }
         
                 .checkmark {
@@ -105,12 +112,26 @@
                     height: 25px;
                     width: 25px;
                     background-color: #eee;
+                    border: 1px solid transparent;
+                    border-radius: 5px;
                 }
 
                 .checkmark:after {
                     content: "";
                     position: absolute;
                     display: none;
+                  }
+
+                .checkmark:after {
+                    left: 9px;
+                    top: 2px;
+                    width: 5px;
+                    height: 15px;
+                    border: solid white;
+                    border-width: 0 2px 2px 0;
+                    -webkit-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    transform: rotate(45deg);
                   }
             }
         }
