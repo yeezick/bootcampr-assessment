@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormPWInput, FormTextInput } from './components/FormTextInput'
 import { FormCheckBoxInput } from './components/FormCheckBoxInput'
 import './Signup.scss'
@@ -20,7 +20,7 @@ export const Signup: React.FC = () => {
   )
 }
 
-interface FormData {
+interface IFormData {
   signUpFirstName: string
   signUpLastName: string
   signUpEmail: string
@@ -29,7 +29,7 @@ interface FormData {
   signUpCheckNotifications: boolean
 }
 
-interface PWChecks {
+interface IPWValidationsData {
   isMinLength: boolean
   containsUpper: boolean
   containsLower: boolean
@@ -37,7 +37,7 @@ interface PWChecks {
 }
 
 const SignUpForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<IFormData>({
     signUpFirstName: '',
     signUpLastName: '',
     signUpEmail: '',
@@ -46,19 +46,54 @@ const SignUpForm: React.FC = () => {
     signUpCheckNotifications: true,
   })
 
-  const [pwChecks, setPWChecks] = useState<PWChecksData>({
+  const [pwValidations, setPWValidations] = useState<IPWValidationsData>({
     isMinLength: false,
     containsUpper: false,
     containsLower: false,
     containsSymbol: false,
   })
 
+  const [formInputsValid, setFormInputsValid] = useState<boolean>(false)
+
+  useEffect(() => {
+    // check form inputs for validity - all fields must be non-empty and checkboxes must be flagged true
+    let inputsFlag = true
+
+    for (const value of Object.values(formData)) {
+      if (
+        !(typeof value === 'boolean' && value === true) &&
+        !(typeof value === 'string' && (value as string).trim() !== '')
+      ) {
+        inputsFlag = false
+      }
+
+      if (!Object.values(pwValidations).includes(false) && inputsFlag) {
+        setFormInputsValid(true)
+      } else {
+        setFormInputsValid(false)
+      }
+    }
+  }, [pwValidations, formData])
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = event.target
+    const { name, id, value, type, checked } = event.target
 
     // validate password
+    const lengthRegex = /^(?=.{8,})/
+    const lowerCaseRegex = /^(?=.*[a-z])/
+    const upperCaseRegex = /^(?=.*[A-Z])/
+    const symbolRegex = /^(?=.*[!@#$%^&*])/
 
-    // update state
+    if (id === 'signUpPassword') {
+      setPWValidations({
+        isMinLength: lengthRegex.test(value),
+        containsUpper: upperCaseRegex.test(value),
+        containsLower: lowerCaseRegex.test(value),
+        containsSymbol: symbolRegex.test(value),
+      })
+    }
+
+    // update form state
     const inputValue = type === 'checkbox' ? checked : value
     setFormData({ ...formData, [name]: inputValue })
   }
