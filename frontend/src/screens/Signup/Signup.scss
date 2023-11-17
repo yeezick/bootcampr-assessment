@@ -1,0 +1,154 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: center;
+    
+    .header {
+        font-family: "Inter-SemiBold", Helvetica;
+
+        h1 {
+            font-size: 38px;
+        }
+    
+        p {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    }
+
+    .content {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 200px;
+        max-width: 1200px;
+        width: 100%;
+        box-sizing: border-box;
+        font-family: "Inter-Regular", Helvetica;
+
+        .signup-image {
+            height: 400px;
+            width: 337px;
+            margin-top: 25px;
+
+            img {
+                max-width: 100%;
+            }
+        }
+
+        .signup-form {
+            form {
+                display: flex;
+                flex-direction: column;
+                max-width: 500px;
+
+                label {
+                    display: flex;
+                    flex-direction: column;
+
+                    &.signup-span {
+                        display: block;
+
+                        span {
+                            color: #313335;
+                            display: inline;
+                        }
+                    }
+
+                    input[type='email'] {
+                        display: block;
+                        width: 100%;
+                        box-sizing: border-box;
+                    }
+
+                    input {
+                        background-color: rgba(236, 235, 235, 1);
+                        border-radius: 4px;
+                        padding: 10px;
+                        margin-top: 5px;
+                        margin-bottom: 20px;
+                        border: 0px;
+                    }
+                }
+
+                .passwordBox label {
+                    input[type='password'] {
+                        margin-bottom: 0;
+                    }
+
+                    div {
+                        display: flex;
+                        flex-direction: column;
+                        margin-bottom: 20px;
+
+                        p {
+                            font-size: 12px;
+                            margin: 3px;
+                            color: #313335;
+                        }
+                    }
+                }
+
+                .signup-checkbox {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-start;
+                    gap: 15px;
+                    margin-top: -5px;
+                    margin-bottom: 30px;
+
+                    input {
+                        cursor: pointer;
+                        // appearance: none;
+                        // -webkit-appearnce: none;
+                        // -moz-appearance: none;
+                        // width: 36px;
+                        // height: 20px;
+                        // border: 1px solid #ccc;
+                        // border-radius: 4px;
+                        // outline: none;
+                        // cursor: pointer;
+
+                        // &:checked {
+                        //     background-color: blue;
+                        //     border-color: blue;
+                        // }
+
+                        // &::before {
+                        //     content: '';
+                        //     display: inline-block;
+                        //     width: 8px; /* Adjust the size of the checkmark */
+                        //     height: 8px;
+                        //     border: 2px solid white;
+                        //     border-top: none;
+                        //     border-right: none;
+                        //     transform: rotate(-45deg);
+                        //     opacity: 0;
+                        //     transition: opacity 0.3s ease;
+                        // }
+                    }
+
+                    input[type='checkbox']:checked::before {
+                        opacity: 1;
+                    }
+                    
+                    label {
+                        margin: auto;
+                        font-size: 14px;
+                        font-weight: 400;
+                        line-height: 19.6px;
+                    }
+                }
+
+                button {
+                    background-color: rgba(236, 235, 235, 1);
+                    border-radius: 4px;
+                    padding: 10px;
+                    border: 0px;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+}
