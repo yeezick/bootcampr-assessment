@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import './SignUp.scss'
 
 export const SignUp = () => {
