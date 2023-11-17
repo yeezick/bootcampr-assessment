@@ -9,7 +9,7 @@ const AllowEmailsCheckbox = ({ allowEmails, handleAllowEmails }) => {
                 value="allowEmails"
                 onClick={handleAllowEmails}
                 sx={{
-                    color: 'blue',
+                    color: '#022888',
                     borderRadius: '50',
                     marginBlockEnd: '60px',
                     marginRight: '10px',
