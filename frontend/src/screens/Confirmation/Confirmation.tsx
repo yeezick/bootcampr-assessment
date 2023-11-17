@@ -6,7 +6,7 @@ export const Confirmation: React.FC = () => {
   return (
     <div className='confirmation-container'>
       <div className='content'>
-        Thank you for signing up for Bootcampr!
+        <h2>Thank you for signing up for Bootcampr!</h2>
       </div>
     </div>
   )

@@ -1,0 +1,13 @@
+.confirmation-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-inline: 16px;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        margin-block: 29px;
+    }
+}
