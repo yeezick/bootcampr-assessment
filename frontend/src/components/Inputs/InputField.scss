@@ -1,0 +1,11 @@
+.input-box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  .input-field {
+    background-color: #ecebeb;
+    border-radius: 4px;
+    margin-block: 4px;
+    padding-inline: 12px;
+  }
+}
