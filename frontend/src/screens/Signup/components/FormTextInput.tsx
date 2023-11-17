@@ -6,10 +6,12 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 interface IFormPWInputProps {
   name: string
   label: string
+  value: string
+  handleInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const FormPWInput: React.FC<IFormPWInputProps> = (props: IFormPWInputProps) => {
-  const { name, label } = props
+  const { name, label, value, handleInputChange } = props
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -43,7 +45,10 @@ const FormPWInput: React.FC<IFormPWInputProps> = (props: IFormPWInputProps) => {
       <label htmlFor={name}>{label}</label>
       <TextField
         type={showPassword ? 'text' : 'password'}
+        value={value}
+        onChange={handleInputChange}
         hiddenLabel
+        name={name}
         id={name}
         variant='filled'
         size='small'
@@ -56,12 +61,14 @@ const FormPWInput: React.FC<IFormPWInputProps> = (props: IFormPWInputProps) => {
 interface IFormTextInputProps {
   name: string
   label: string
+  value: string
+  handleInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const FormTextInput: React.FC<IFormTextInputProps> = (
   props: IFormTextInputProps
 ) => {
-  const { name, label } = props
+  const { name, label, value, handleInputChange } = props
 
   const inputProps = {
     disableUnderline: true,
@@ -73,7 +80,10 @@ const FormTextInput: React.FC<IFormTextInputProps> = (
       <label htmlFor={name}>{label}</label>
       <TextField
         type='text'
+        value={value}
+        onChange={handleInputChange}
         hiddenLabel
+        name={name}
         id={name}
         variant='filled'
         size='small'
