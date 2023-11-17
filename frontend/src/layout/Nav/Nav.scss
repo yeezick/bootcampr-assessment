@@ -1,0 +1,35 @@
+
+nav {
+  align-items: center;
+  background-color: #313335;
+  display: flex;
+  flex-direction: row;
+  height: 65px;
+  justify-content: space-between;
+  left: 0;
+  padding: 16px 32px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10;
+
+  .nav-container { 
+   align-items: center;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   width: 100%;
+  }
+
+  .sign-up {
+    background: #fa9413;
+    border-radius: 4px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #313335;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22.4px;
+    padding: 6px 12px;
+    text-decoration: none;
+  }
+}
