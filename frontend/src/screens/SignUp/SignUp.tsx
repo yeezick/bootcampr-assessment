@@ -10,12 +10,18 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
+import '@fontsource-variable/inter'
 
 export default function SignUp() {
   return (
     <ChakraProvider>
-      <Container centerContent maxWidth={'100vw'} height={'100vh'}>
-        <Stack pb={5} width={'413px'} height={'101px'}>
+      <Container
+        centerContent
+        maxWidth={'100vw'}
+        height={'100vh'}
+        fontFamily={'Inter, sans-serif'}
+      >
+        <Stack mb={5} width={'413px'} height={'101px'}>
           <Text fontWeight={'600'} fontSize={'38px'} lineHeight={'53.2px'}>
             Join Bootcampr today.
           </Text>
@@ -24,14 +30,16 @@ export default function SignUp() {
           </Text>
         </Stack>
         <SimpleGrid columns={{ sm: 1, md: 2 }} height={'100%'} spacingX={5}>
-          <Box>
+          <Box display={{ base: 'none', md: 'block' }}>
             <Image
               src={SignUpImage}
               alt='A person writing in a notebook.'
               mx={'auto'}
               pt={10}
+              pl={10}
               ml={'-20px'}
-              width={'337.483px'}
+              width={'360px'}
+              // width={'337.483px'}
               height={'auto'}
             />
           </Box>
