@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Checkbox,
   FormControl,
@@ -53,18 +54,33 @@ const validationSchema = Yup.object().shape({
     .required('Email is required'),
   password: Yup.string()
     .required('Password is required')
-    .matches(/[A-Z]/, 'Must contain at least 1 uppercase letter')
-    .matches(/[a-z]/, 'Must contain at least 1 lowercase letter')
-    .matches(/\d/, 'Must contain at least 1 number')
-    .min(8, 'Must be at least 8 characters long'),
+    .test('uppercase', 'Choose a stronger password', function (value) {
+      return /[A-Z]/.test(value)
+    })
+    .test('lowercase', 'Choose a stronger password', function (value) {
+      return /[a-z]/.test(value)
+    })
+    .test('number', 'Choose a stronger password', function (value) {
+      return /\d/.test(value)
+    })
+    .test('minLength', 'Choose a stronger password', function (value) {
+      return value.length >= 8
+    }),
   confirmPassword: Yup.string()
     .required('Please re-enter your password')
+    .matches(/[A-Z]/, 'Choose a stronger password')
+    .matches(/[a-z]/, 'Choose a stronger password')
+    .matches(/\d/, 'Choose a stronger password')
+    .min(8)
+
     .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 })
 
 export default function SignUpForm() {
-  const [agree, setAgree] = useState<boolean>(false)
-  const [show, setShow] = useState<boolean>(false)
+  const [agree, setAgree] = useState(false)
+  const [show, setShow] = useState(false)
+  const [didFocus, setDidFocus] = useState(false)
+
   const navigate = useNavigate()
 
   return (
@@ -95,7 +111,6 @@ export default function SignUpForm() {
               </FormControl>
             )}
           </Field>
-
           <Field name='lastName'>
             {({ field, form }: FieldProps) => (
               <FormControl
@@ -108,7 +123,6 @@ export default function SignUpForm() {
               </FormControl>
             )}
           </Field>
-
           <Field name='email'>
             {({ field, form }: FieldProps) => (
               <FormControl
@@ -123,7 +137,6 @@ export default function SignUpForm() {
               </FormControl>
             )}
           </Field>
-
           <Field name='password'>
             {({ field, form }: FieldProps) => (
               <FormControl
@@ -132,7 +145,14 @@ export default function SignUpForm() {
               >
                 <FormLabel htmlFor='email'>Password</FormLabel>
                 <InputGroup>
-                  <Input {...field} type={show ? 'text' : 'password'} />
+                  <Input
+                    {...field}
+                    type={show ? 'text' : 'password'}
+                    // onChange={e => {
+                    //   form.setFieldValue('password', e.target.value)
+                    // }}
+                    onFocus={() => setDidFocus(true)}
+                  />
                   <InputRightElement>
                     <Button background='none' onClick={() => setShow(!show)}>
                       {show ? <VisibilityOff /> : <Visibility />}
@@ -140,6 +160,53 @@ export default function SignUpForm() {
                   </InputRightElement>
                 </InputGroup>
                 <ErrorMessage name='password' />
+
+                <Box>
+                  <Text
+                    color={
+                      !didFocus
+                        ? 'black'
+                        : /[A-Z]/.test(field.value)
+                        ? '#23A6A1'
+                        : '#D90000'
+                    }
+                  >
+                    1 uppercase
+                  </Text>
+                  <Text
+                    color={
+                      !didFocus
+                        ? 'black'
+                        : /[a-z]/.test(field.value)
+                        ? '#23A6A1'
+                        : '#D90000'
+                    }
+                  >
+                    1 lowercase
+                  </Text>
+                  <Text
+                    color={
+                      !didFocus
+                        ? 'black'
+                        : /\d/.test(field.value)
+                        ? '#23A6A1'
+                        : '#D90000'
+                    }
+                  >
+                    1 number
+                  </Text>
+                  <Text
+                    color={
+                      !didFocus
+                        ? 'black'
+                        : field.value.length >= 8
+                        ? '#23A6A1'
+                        : '#D90000'
+                    }
+                  >
+                    Minimum 8 characters
+                  </Text>
+                </Box>
               </FormControl>
             )}
           </Field>
@@ -172,7 +239,6 @@ export default function SignUpForm() {
               </FormControl>
             )}
           </Field>
-
           <HStack alignItems='flex-start'>
             <Checkbox
               isChecked={agree}
@@ -185,7 +251,6 @@ export default function SignUpForm() {
               sell your information!
             </Text>
           </HStack>
-
           <Button
             type='submit'
             isDisabled={!agree}
@@ -195,6 +260,10 @@ export default function SignUpForm() {
             }}
           >
             Sign up
+          </Button>
+          {/* //TODO remove before submitting */}
+          <Button type='reset' onClick={() => setDidFocus(false)}>
+            Reset
           </Button>
         </Form>
       </Formik>
