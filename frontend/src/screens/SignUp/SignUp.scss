@@ -1,0 +1,27 @@
+.SignUp {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 8fr;
+    font-family: 'Inter', sans-serif;
+}
+
+.SignUp header {
+    grid-column: span 2;
+    margin: 0 auto;
+}
+
+.SignUp h2 {
+    text-align: left;
+    font-size: 2.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 3.325rem;
+}
+
+.SignUp h4 {
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 2.1rem;
+}
