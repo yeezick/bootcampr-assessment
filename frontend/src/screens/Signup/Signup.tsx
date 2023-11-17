@@ -22,7 +22,7 @@ export const Signup: React.FC = () => {
         password: yup
         .string()
         .required('Password is required.'),
-        passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], ).required('Please re-enter password.'),
+        passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match.').required('Please re-enter password.'),
     });
 
     const formik = useFormik({
@@ -149,7 +149,7 @@ export const Signup: React.FC = () => {
                     className='input' 
                     type='password' 
                     id='passwordConfirmation' 
-                    name='passwordconfirmation' 
+                    name='passwordConfirmation' 
                     value={formik.values.passwordConfirmation} 
                     onChange={formik.handleChange} />
                     {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation && 
