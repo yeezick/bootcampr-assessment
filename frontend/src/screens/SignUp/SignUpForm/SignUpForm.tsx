@@ -148,9 +148,6 @@ export default function SignUpForm() {
                   <Input
                     {...field}
                     type={show ? 'text' : 'password'}
-                    // onChange={e => {
-                    //   form.setFieldValue('password', e.target.value)
-                    // }}
                     onFocus={() => setDidFocus(true)}
                   />
                   <InputRightElement>
@@ -171,7 +168,8 @@ export default function SignUpForm() {
                         : '#D90000'
                     }
                   >
-                    1 uppercase
+                    {/[A-Z]/.test(field.value) ? <span>&#10003;</span> : null} 1
+                    uppercase
                   </Text>
                   <Text
                     color={
@@ -182,7 +180,8 @@ export default function SignUpForm() {
                         : '#D90000'
                     }
                   >
-                    1 lowercase
+                    {/[a-z]/.test(field.value) ? <span>&#10003;</span> : null} 1
+                    lowercase
                   </Text>
                   <Text
                     color={
@@ -193,7 +192,8 @@ export default function SignUpForm() {
                         : '#D90000'
                     }
                   >
-                    1 number
+                    {/\d/.test(field.value) ? <span>&#10003;</span> : null} 1
+                    number
                   </Text>
                   <Text
                     color={
@@ -204,6 +204,7 @@ export default function SignUpForm() {
                         : '#D90000'
                     }
                   >
+                    {field.value.length >= 8 ? <span>&#10003;</span> : null}
                     Minimum 8 characters
                   </Text>
                 </Box>
