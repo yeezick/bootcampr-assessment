@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import heroImage from '../../assets/SignUpHeroImage.jpg'
 import { FormPWInput, FormTextInput } from './components/FormTextInput'
 import { FormCheckBoxInput } from './components/FormCheckBoxInput'
 import { Button } from '@mui/material'
@@ -14,7 +15,9 @@ export const Signup: React.FC = () => {
         </div>
       </div>
       <div className='body-container'>
-        <div>Image goes here</div>
+        <div className='body-image-grid'>
+          <img src={heroImage} alt='sign up hero' />
+        </div>
         <SignUpForm />
       </div>
     </div>
@@ -44,7 +47,7 @@ const SignUpForm: React.FC = () => {
     signUpEmail: '',
     signUpPassword: '',
     signUpRePassword: '',
-    signUpCheckNotifications: true,
+    signUpCheckNotifications: false,
   })
 
   const [pwValidations, setPWValidations] = useState<IPWValidationsData>({
@@ -125,6 +128,7 @@ const SignUpForm: React.FC = () => {
       />
       <FormTextInput
         name='signUpEmail'
+        type='email'
         label='Email address (ex. jeanine@bootcampr.io)'
         value={formData.signUpEmail}
         handleInputChange={handleInputChange}

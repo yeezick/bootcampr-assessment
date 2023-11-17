@@ -60,6 +60,7 @@ const FormPWInput: React.FC<IFormPWInputProps> = (props: IFormPWInputProps) => {
 
 interface IFormTextInputProps {
   name: string
+  type?: string
   label: string
   value: string
   handleInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -68,7 +69,7 @@ interface IFormTextInputProps {
 const FormTextInput: React.FC<IFormTextInputProps> = (
   props: IFormTextInputProps
 ) => {
-  const { name, label, value, handleInputChange } = props
+  const { name, type, label, value, handleInputChange } = props
 
   const inputProps = {
     disableUnderline: true,
@@ -79,7 +80,7 @@ const FormTextInput: React.FC<IFormTextInputProps> = (
     <div className='signup-form-text-input'>
       <label htmlFor={name}>{label}</label>
       <TextField
-        type='text'
+        type={type ? type : 'text'}
         value={value}
         onChange={handleInputChange}
         hiddenLabel

@@ -7,6 +7,7 @@
   max-width: 1024px;
   margin: auto;
   font-family: Inter;
+  width: 100%;
 
   .header-container {
     align-items: center;
@@ -22,7 +23,6 @@
     display: flex;
     flex-direction: column;
     height: fit-content;
-    max-width: 450px;
     margin-top: 20px;
     padding: 10px;
 
@@ -40,14 +40,21 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    margin-bottom: 72px;
+
+    .body-image-grid {
+      display: none;
+      margin: 72px 0;
+    }
 
     .signup-form-container > .signup-form-text-input:not(:first-child)  {
       margin-top: 28px;
     }
 
     .signup-form-container {
-      width: 50%;
+      width: 100%;
+      padding: 0px 18px;
 
       .signup-form-text-input {
         display: flex;
@@ -82,8 +89,23 @@
       }
 
       .signup-form-submit {
-        margin-top: 35px;
+        margin-top: 36px;
+      }
+    }
+  }
+}
 
+@media screen and (min-width: 1024px) {
+  .signup-container {
+    .body-container {   
+      justify-content: space-between;  
+  
+      .body-image-grid {
+        display: block;
+      }
+
+      .signup-form-container {
+        width: 50%;
       }
     }
   }
