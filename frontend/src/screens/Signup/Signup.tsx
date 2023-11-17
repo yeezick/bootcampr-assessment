@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FormPWInput, FormTextInput } from './components/FormTextInput'
 import { FormCheckBoxInput } from './components/FormCheckBoxInput'
+import { Button } from '@mui/material'
 import './Signup.scss'
 
 export const Signup: React.FC = () => {
@@ -104,8 +105,12 @@ const SignUpForm: React.FC = () => {
     setFormData({ ...formData, [name]: inputValue })
   }
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+  }
+
   return (
-    <form className='signup-form-container'>
+    <form onSubmit={handleSubmit} className='signup-form-container'>
       <FormTextInput
         name='signUpFirstName'
         label='First name'
@@ -130,12 +135,42 @@ const SignUpForm: React.FC = () => {
         value={formData.signUpPassword}
         handleInputChange={handleInputChange}
       />
+      {(Object.values(pwValidations).includes(false) ||
+        formData.signUpPassword !== formData.signUpRePassword) && (
+        <div className='signup-form-pw-valid-msgs'>
+          {formData.signUpPassword.trim() !== '' && (
+            <p className={pwValidations.containsUpper ? 'valid' : ''}>
+              1 uppercase
+            </p>
+          )}
+          {formData.signUpPassword.trim() !== '' && (
+            <p className={pwValidations.containsLower ? 'valid' : ''}>
+              1 lowercase
+            </p>
+          )}
+          {formData.signUpPassword.trim() !== '' && (
+            <p className={pwValidations.containsSymbol ? 'valid' : ''}>
+              1 symbol
+            </p>
+          )}
+          {formData.signUpPassword.trim() !== '' && (
+            <p className={pwValidations.isMinLength ? 'valid' : ''}>
+              Minimum 8 characters
+            </p>
+          )}
+        </div>
+      )}
       <FormPWInput
         name='signUpRePassword'
         label='Re-enter password'
         value={formData.signUpRePassword}
         handleInputChange={handleInputChange}
       />
+      {!formInputsValid &&
+        formData.signUpPassword === formData.signUpRePassword &&
+        !Object.values(pwValidations).includes(false) && (
+          <p className='signup-form-pw-match-msgs'>Passwords match!</p>
+        )}
       <FormCheckBoxInput
         name='signUpCheckNotifications'
         label='I agree to receive email notification(s). We will only send 
@@ -144,6 +179,17 @@ We will not sell your information!'
         value={formData.signUpCheckNotifications}
         handleInputChange={handleInputChange}
       />
+      <Button
+        className='signup-form-submit'
+        type='submit'
+        variant='contained'
+        color='primary'
+        disabled={!formInputsValid}
+        sx={{ textTransform: 'none' }}
+        fullWidth
+      >
+        Sign up
+      </Button>
     </form>
   )
 }

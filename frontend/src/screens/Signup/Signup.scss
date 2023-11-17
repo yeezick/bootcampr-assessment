@@ -24,7 +24,7 @@
     height: fit-content;
     max-width: 450px;
     margin-top: 20px;
-    padding: 20px;
+    padding: 10px;
 
     h2 {
       margin: 0;
@@ -60,8 +60,30 @@
         }
       }
 
+      .signup-form-pw-valid-msgs {
+        font-size: 12px;
+        line-height: 6px;
+        color: #D90000;
+
+        & .valid {
+          color: #23A6A1;
+
+        }
+      }
+
+      .signup-form-pw-match-msgs {
+        font-size: 12px;
+        line-height: 6px;
+        color: #23A6A1;
+      }
+
       .signup-form-checkbox-input {
         margin-top: 16px;
+      }
+
+      .signup-form-submit {
+        margin-top: 35px;
+
       }
     }
   }
