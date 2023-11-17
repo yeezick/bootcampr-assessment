@@ -34,6 +34,10 @@ const SignUpForm: React.FC = () => {
     showConfirmPassword: false,
   })
 
+  const [emailState, setEmailState] = useState({
+    emailError: '',
+  })
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     // TODO: handle submit
@@ -69,6 +73,14 @@ const SignUpForm: React.FC = () => {
 
   const showCriteria = passwordState.hasTyped && formData.password.length > 0
 
+  const handleEmailValidation = () => {
+    if (!/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/.test(formData.email)) {
+      setEmailState({ ...emailState, emailError: 'Invalid email address' })
+    } else {
+      setEmailState({ ...emailState, emailError: '' })
+    }
+  }
+
   return (
     <Box component='form' onSubmit={handleSubmit} className='form'>
       <InputLabel htmlFor='firstName'>First name</InputLabel>
@@ -84,6 +96,10 @@ const SignUpForm: React.FC = () => {
         name='email'
         type='email'
         autoComplete='email'
+        onChange={e => handleInputChange('email', e.target.value)}
+        onBlur={handleEmailValidation}
+        helperText={emailState.emailError}
+        error={Boolean(emailState.emailError)}
       />
       <InputLabel htmlFor='password'>
         Password (Minimum 8 characters, 1 uppercase, 1 lowercase, 1 symbol)
