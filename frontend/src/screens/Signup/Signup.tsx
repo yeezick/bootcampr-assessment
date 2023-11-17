@@ -56,7 +56,9 @@ const SignUpForm: React.FC = () => {
   const [formInputsValid, setFormInputsValid] = useState<boolean>(false)
 
   useEffect(() => {
-    // check form inputs for validity - all fields must be non-empty and checkboxes must be flagged true
+    // check form inputs for validity
+    // All fields must be complete and checkboxes must be flagged true
+    // PW must meet requirements and must match
     let inputsFlag = true
 
     for (const value of Object.values(formData)) {
@@ -67,7 +69,11 @@ const SignUpForm: React.FC = () => {
         inputsFlag = false
       }
 
-      if (!Object.values(pwValidations).includes(false) && inputsFlag) {
+      if (
+        !Object.values(pwValidations).includes(false) &&
+        formData.signUpPassword === formData.signUpRePassword &&
+        inputsFlag
+      ) {
         setFormInputsValid(true)
       } else {
         setFormInputsValid(false)
