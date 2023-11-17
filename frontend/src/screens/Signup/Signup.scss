@@ -42,10 +42,14 @@
     flex-direction: row;
     justify-content: space-between;
 
+    .signup-form-container > .signup-form-text-input:not(:first-child)  {
+      margin-top: 28px;
+    }
+
     .signup-form-container {
       width: 50%;
 
-      .signup-form-input {
+      .signup-form-text-input {
         display: flex;
         flex-direction: column;
 
@@ -56,6 +60,9 @@
         }
       }
 
+      .signup-form-checkbox-input {
+        margin-top: 16px;
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { FormControl, InputLabel, TextField } from '@mui/material'
+import React from 'react'
+import { FormPWInput, FormTextInput } from './components/FormTextInput'
+import { FormCheckBoxInput } from './components/FormCheckBoxInput'
 import './Signup.scss'
 
 export const Signup: React.FC = () => {
@@ -20,52 +20,24 @@ export const Signup: React.FC = () => {
   )
 }
 
-/* Signup Form */
 const SignUpForm: React.FC = () => {
   return (
     <div className='signup-form-container'>
-      <FormInput name='signup-firstname' label='First name' />
-      <FormInput name='signup-lastname' label='Last name' />
-      <FormInput
+      <FormTextInput name='signup-firstname' label='First name' />
+      <FormTextInput name='signup-lastname' label='Last name' />
+      <FormTextInput
         name='signup-email'
         label='Email address (ex. jeanine@bootcampr.io)'
       />
-      <FormInput
+      <FormPWInput
         name='signup-password'
         label='Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)'
-        type='password'
       />
-      <FormInput
-        name='signup-re-password'
-        label='Re-enter password'
-        type='password'
-      />
-    </div>
-  )
-}
-
-interface IFormInputProps {
-  name: string
-  label: string
-  type?: string
-}
-
-const FormInput: React.FC<IFormInputProps> = (props: IFormInputProps) => {
-  const { name, label, type } = props
-
-  return (
-    <div className='signup-form-input'>
-      <label htmlFor={name}>{label}</label>
-      <TextField
-        type={type ? type : 'text'}
-        hiddenLabel
-        id={name}
-        variant='filled'
-        size='small'
-        InputProps={{
-          disableUnderline: true,
-          sx: { borderRadius: 1 },
-        }}
+      <FormPWInput name='signup-re-password' label='Re-enter password' />
+      <FormCheckBoxInput
+        label='I agree to receive email notification(s). We will only send 
+emails with important information, like project start dates. 
+We will not sell your information!'
       />
     </div>
   )
