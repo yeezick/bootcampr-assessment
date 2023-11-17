@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { getHelloWorld } from '../controllers/hello-world.js';
+import addUser from '../controllers/userController.js';
 
 const router = Router();
 
 // Hello World!
-router.get('/hello-world', getHelloWorld)
+router.post('/add-user', addUser)
 
 export default router;
