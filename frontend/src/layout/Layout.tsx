@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Nav } from "./Nav/Nav";
 import "./Layout.scss";
 
@@ -7,9 +7,15 @@ type LayoutProps = {
 };
 
 export const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
+  // const [showSignup, setShowSignup] = useState(true)
+
+  // const updateSignupButton = () => {
+  //   setShowSignup(false)
+  // }
+
   return (
     <>
-      <Nav />
+      <Nav  />
       <div className="main-wrapper">
         <div className={"main-content-container"}>{children}</div>
       </div>

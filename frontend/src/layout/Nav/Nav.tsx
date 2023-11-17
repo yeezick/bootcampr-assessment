@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import Logo from 'assets/Logo.svg'
 import './Nav.scss'
+import { useState } from 'react'
 
-export const Nav = () => {
+export const Nav = (showNav, updateSignupButton) => {
+
   return (
     <nav>
       <div className='nav-container'>
@@ -12,9 +14,9 @@ export const Nav = () => {
           </Link>
         </div>
         <div>
-          <Link className='sign-up' to='/sign-up'>
+          <Link className='sign-up' to='/sign-up' >
             Sign up
-          </Link>
+          </Link> 
         </div>
       </div>
     </nav>
