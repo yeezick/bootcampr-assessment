@@ -30,9 +30,9 @@ We are a classic MERN app, with subtle additions to the frontend.
 
 ### Frontend
 
-1. Clone down the repo
+1. Fork the repo to your own GitHub account
 1. Create your own assessment branch:
-   - `git checkout -b assess/nov-22-2023/<firstname>-<lastname>`
+   - `git checkout -b assess/nov-23-2023/<firstname>-<lastname>`
 1. cd into `frontend`
 1. run `npm install`
 1. run `npm start`
@@ -95,3 +95,15 @@ For example:
 #### Bonus
 
 - Create controller to verify existing emails
+
+
+## Submission
+To submit, just open a pull request pointing your forked assessment repo to "yeezick/bootcampr-assessment:main". 
+
+Make sure to include your full name in the pull request title field so we know who did the work, and feel free to add any comments you think we'll find useful in the description.
+
+Click "Create pull request" to submit - Woot woot!!
+
+Reminder: submissions are due Thursday November 23rd, 2023.
+
+Happy Coding!
