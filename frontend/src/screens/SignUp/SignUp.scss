@@ -22,4 +22,50 @@
       margin: 0;
     }
   }
+  .form-container {
+    display: flex;
+    justify-content: center;
+    gap: 138.52px;
+
+    .notes-hexagon {
+      position: relative;
+      margin-top: 61px;
+      width: 337.48px;
+      height: 400.17px;
+    }
+
+    .test-form {
+      margin-top: 29px;
+      width: 456px;
+
+      .input-container {
+        display: flex;
+        flex-direction: column;
+        width: 448px;
+        gap: 5px;
+
+        label {
+          text-align: left;
+          font-family: Outfit;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 22px;
+          letter-spacing: 0em;
+          text-align: left;
+          color: #313335;
+        }
+
+        input {
+          background-color: #ecebeb;
+          padding: 10px 350px 10px 15px;
+          border-radius: 4px;
+          border: 0;
+        }
+      }
+
+      .input-container:not(:first-child) {
+        margin-top: 25px;
+      }
+    }
+  }
 }
