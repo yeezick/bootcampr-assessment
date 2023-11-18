@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
-import { sayHello } from 'utils/sampleController'
+import { addUser, validateEmail } from 'utils/sampleController'
 import './SignUp.scss'
 import { sign } from 'crypto'
+import { isTypeAssertionExpression } from 'typescript'
+
+const navigate = useNavigate();
 
 export const SignUp: React.FC = () => {
-  
     return (
       <div>
         <div className='signup-container'>
@@ -44,6 +46,8 @@ const SignUpForm: React.FC = () => {
 
   const [passwordMatch, setPasswordMatch] = useState(false);
 
+  const [emailValidation, setEmailValidation] = useState(false);
+
   const validatePassword = (password: string) => {
     const validations = {
       minLength: password.length >= 8,
@@ -55,10 +59,20 @@ const SignUpForm: React.FC = () => {
     setPasswordValidation(validations);
   }
 
+  const handleEmail = async (event) => {
+    try {
+      const email = event.target.value;
+      const apiResponse = await validateEmail(email);
+      setEmailValidation(!apiResponse);
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
   const handleChange = (event) => {
     console.log(signupDetails)
     event.preventDefault();
-    const {name, value} = event.target
+    const {name, value} = event.target;
 
     setSignupDetails((previous) => {
       return {...previous, [name]: value}
@@ -84,10 +98,18 @@ const SignUpForm: React.FC = () => {
 
   }
 
-  const handleSubmit = (event) => {
-    console.log(event);
-    event.preventDefault();
-    //send async req to backend here
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      const apiResponse = await addUser(signupDetails);
+      if(apiResponse.status === 200){
+        navigate('/success');
+      } else {
+        alert('Internal server error, please try again later');
+      }
+    } catch(err) {
+      console.error(err);
+    }
   }
 
   return (
@@ -111,7 +133,9 @@ const SignUpForm: React.FC = () => {
               type='email'
               name='email'
               onChange={handleChange}
+              onBlur={handleEmail}
             />
+            <p className={emailValidation ? 'email-valid' : 'email-invalid'}>Must use unique email</p>
           <h3>{'Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)'}</h3>
             <input 
               type='password'
@@ -132,7 +156,7 @@ const SignUpForm: React.FC = () => {
           <div className='button-container'>
             <button 
               type='submit'
-              disabled={Object.values(passwordValidation).includes(false) || !passwordMatch}
+              disabled={Object.values(passwordValidation).includes(false) || !passwordMatch || !emailValidation}
               onClick={handleSubmit}
             >
               Submit

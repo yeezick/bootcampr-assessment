@@ -10,7 +10,7 @@ export const Landing: React.FC = () => {
     <div className='landing-container'>
       <div className='header-container'>
         <div className='header-grid'>
-          <h1>Surpass Your Competition In The Tech Job Market</h1>
+          <h1>SUCCESSFUL USER SIGNUP!</h1>
           <p>
             A platform to collaborate on real-world projects! Don't wait to
             build your development experience.

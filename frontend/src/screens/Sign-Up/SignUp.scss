@@ -1,8 +1,8 @@
 .form{
-    .minchar-valid, .hasuppercase-valid, .haslowercase-valid, .hasspecialchar-valid, .passwordmatch-valid{
+    .minchar-valid, .hasuppercase-valid, .haslowercase-valid, .hasspecialchar-valid, .passwordmatch-valid, .email-valid{
         color: green
     }
-    .minchar-invalid, .hasuppercase-invalid, .haslowercase-invalid, .hasspecialchar-invalid, .passwordmatch-invalid{
+    .minchar-invalid, .hasuppercase-invalid, .haslowercase-invalid, .hasspecialchar-invalid, .passwordmatch-invalid, .email-invalid{
         color: red
     }
 }
