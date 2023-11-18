@@ -1,5 +1,5 @@
 import { Landing } from './screens/Landing/Landing'
-import { SignUp } from './screens/Sign-Up/SignUp'
+import { SignUp } from './screens/SignUp/SignUp'
 import { Route, Routes } from 'react-router'
 import { Layout } from './layout/Layout'
 
