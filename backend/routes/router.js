@@ -9,4 +9,6 @@ router.get("/hello-world", getHelloWorld);
 
 router.post("/sign-up", createUser);
 
+router.get("/check-email", checkEmail);
+
 export default router;
