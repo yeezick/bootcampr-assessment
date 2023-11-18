@@ -12,3 +12,15 @@ app.use(express.json());
 app.use(logger("dev"));
 app.use(routes);
 app.listen(PORT, console.log(`Now listening on PORT: ${PORT}`));
+
+db.on("connected", () => {
+  console.log("Connected to MongoDB");
+});
+
+db.on("disconnected", () => {
+  console.log("MongoDB has disconnected!");
+});
+
+db.on("error", (error) => {
+  console.error(`Error connecting to MongoDB: ${error}`);
+});
