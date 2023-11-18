@@ -6,8 +6,6 @@ import './SignUp.scss'
 import { sign } from 'crypto'
 import { isTypeAssertionExpression } from 'typescript'
 
-const navigate = useNavigate();
-
 export const SignUp: React.FC = () => {
     return (
       <div>
@@ -29,6 +27,7 @@ export const SignUp: React.FC = () => {
   }
 
 const SignUpForm: React.FC = () => {
+  const navigate = useNavigate();
   const [signupDetails, setSignupDetails] = useState({
     firstName: '',
     lastName: '',
@@ -102,7 +101,7 @@ const SignUpForm: React.FC = () => {
     try {
       event.preventDefault();
       const apiResponse = await addUser(signupDetails);
-      if(apiResponse.status === 200){
+      if(apiResponse && apiResponse.status === 200){
         navigate('/success');
       } else {
         alert('Internal server error, please try again later');

@@ -4,7 +4,7 @@ const addUser = async (details) => {
   try {
     const res = await api.post('/add-user', details);
     console.log('response to addUser', res);
-    return res.data
+    return res;
   } catch (err) {
     console.error(err)
     return false

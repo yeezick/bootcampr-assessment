@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
-import './Landing.scss'
+import './Success.scss'
 
-export const Landing: React.FC = () => {
+export const Success: React.FC = () => {
   const [helloResponse, setHelloResponse] = useState<string>('')
 
   return (

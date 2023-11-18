@@ -2,6 +2,7 @@ import { Landing } from './screens/Landing/Landing'
 import { Route, Routes } from 'react-router'
 import { Layout } from './layout/Layout'
 import { SignUp } from 'screens/Sign-Up/SignUp'
+import { Success } from 'screens/Success/Success'
 
 function App() {
   return (
