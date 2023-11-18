@@ -3,6 +3,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 8fr;
     font-family: 'Inter', sans-serif;
+    height: 90vh;
 }
 
 .SignUp header {
@@ -24,4 +25,10 @@
     font-weight: 600;
     font-style: normal;
     line-height: 2.1rem;
+}
+
+.SignUp img {
+    width: 21.09269rem;
+    height: 25.0105rem;
+    flex-shrink: 0;
 }

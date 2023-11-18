@@ -1,0 +1,44 @@
+.SignUpForm {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.3125rem;
+    height: 500px;
+    width: 448px;
+}
+
+.SignUpForm input {
+    display: flex;
+    width: 448px;
+    height: 64px;
+    padding: 0.625rem 21.875rem 0.625rem 0.9375rem;
+    align-items: center;
+    padding: 0;
+    border-radius: 5px;
+    border: none;
+    background-color: #ECEBEB;
+}
+
+#agree-check {
+    height: 20px;
+    width: 20px;
+    padding: 0.0625rem 0.125rem;
+    gap: 0.625rem;
+    flex-shrink: 0;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.SignUpForm label {
+    font-size: 16px;
+}
+
+.checkbox-group label {
+    font-size: 14px;
+    margin-left: 16px;
+}
