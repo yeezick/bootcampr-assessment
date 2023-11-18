@@ -42,3 +42,20 @@
     font-size: 14px;
     margin-left: 16px;
 }
+
+.password-div {
+    position: relative;
+}
+
+.password-div img {
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    right: 5px;
+    top: 16px;
+}
+
+.password-div input {
+    width: 448px;
+    height: 48px;
+}
