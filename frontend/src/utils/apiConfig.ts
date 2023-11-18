@@ -9,6 +9,10 @@ api.interceptors.response.use(
     return response
   },
   error => {
-    return error.response
+    const { status, data } = error.response || {}
+    return Promise.reject({
+      status,
+      message: data?.error || 'An error occurred',
+    })
   }
 )

@@ -21,6 +21,7 @@ import {
 } from 'formik'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { createUser } from 'utils/userController'
 import * as Yup from 'yup'
 
 type Values = {
@@ -91,14 +92,20 @@ export default function SignUpForm() {
         validationSchema={validationSchema}
         validateOnChange={true}
         initialErrors={{ firstName: '' }} // Just to set isValid to false initially
-        onSubmit={(values: Values, actions: FormikHelpers<Values>) => {
+        onSubmit={async (values: Values, actions: FormikHelpers<Values>) => {
           const { confirmPassword, ...restValues } = values
-          setTimeout(() => {
-            alert(JSON.stringify(restValues, null, 2))
+          try {
+            actions.setSubmitting(true)
+            await createUser(restValues)
             navigate('/congrats')
-            actions.setSubmitting(false)
             actions.resetForm()
-          }, 500)
+            actions.setSubmitting(false)
+          } catch (error) {
+            console.error(error)
+          }
+          // setTimeout(() => {
+          //   // alert(JSON.stringify(restValues, null, 2))
+          // }, 500)
         }}
       >
         {({ isValid, isSubmitting }) => (
