@@ -11,3 +11,15 @@ export const createUser = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+export const checkEmail = async (req, res) => {
+  try {
+    const { email } = req.query;
+    const existingUser = await User.findOne({ email });
+
+    res.json({ exists: !!existingUser });
+  } catch (error) {
+    console.error("Error checking email: ", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
