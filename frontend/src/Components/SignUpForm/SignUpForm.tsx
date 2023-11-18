@@ -24,6 +24,9 @@ export const SignUpForm: React.FC = () => {
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setNewUser({ ...newUser, [e.target.name]: e.target.value })
     }
+    const handleAgreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewUser({ ...newUser, [e.target.name]: e.target.checked });
+    };
 
     function handleToggle() {
         setType(type === 'password' ? 'text' : 'password');
@@ -48,7 +51,7 @@ export const SignUpForm: React.FC = () => {
                 <img onClick={handleToggle} src='Icon.svg' alt='toggle password view'></img>
             </div>
             <div className="checkbox-group">
-                <input required type="checkbox" name="agreeCheck" id="agree-check" onChange={handleChange} />
+                <input required type="checkbox" name="agreeCheck" id="agree-check" onChange={handleAgreeChange} />
                 <label htmlFor="agree-check">I agree to receive email notification(s). We will only send
                     emails with important information, like project start dates.
                     We will not sell your information!
