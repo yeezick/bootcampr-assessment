@@ -1,14 +1,14 @@
 .SignUp {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 8fr;
+    grid-template-rows: 1fr 3fr;
     font-family: 'Inter', sans-serif;
-    height: 90vh;
+
 }
 
 .SignUp header {
     grid-column: span 2;
-    margin: 0 auto;
+    margin: 0 auto 0.8rem auto;
 }
 
 .SignUp h2 {
@@ -27,8 +27,6 @@
     line-height: 2.1rem;
 }
 
-.SignUp img {
-    width: 21.09269rem;
-    height: 25.0105rem;
-    flex-shrink: 0;
+.main-img {
+    margin-top: -5rem;
 }

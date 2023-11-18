@@ -3,7 +3,7 @@
     height: 43px;
     background-color: #FA9413;
     padding: 10px 16px;
-    border-radius: 5px;
+    border-radius: 4px;
     border: none;
     gap: 8px;
     font-family: 'Inter', sans-serif;
@@ -12,4 +12,9 @@
     font-style: normal;
     font-weight: 500;
     line-height: 22.4px;
+    margin-top: 0.75rem;
+}
+
+#sign-up-btn:disabled {
+    background: var(--smoke-ecebeb, #ECEBEB);
 }

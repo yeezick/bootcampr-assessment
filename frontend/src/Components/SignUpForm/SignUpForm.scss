@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: flex-start;
     gap: 0.3125rem;
-    height: 500px;
+    height: 560px;
     width: 448px;
 }
 
@@ -22,6 +22,7 @@
     box-sizing: border-box;
     padding-left: 1rem;
     padding-right: 0;
+    margin-bottom: 1rem;
 }
 
 #agree-check {
@@ -55,7 +56,7 @@
     height: 16px;
     width: 16px;
     position: absolute;
-    right: 5px;
+    right: 10px;
     top: 16px;
     cursor: pointer;
 }
