@@ -1,13 +1,23 @@
 import { api } from './apiConfig'
 
-export const getUser = async (email: String) => {
+const getUser = async (email: String) => {
   try {
     const res = await api.get(`user?email=${email.toLowerCase()}`)
-
-    console.log(res.data)
     return res.data
   } catch (error) {
     console.error(error)
     return false
   }
 }
+
+const addUser = async (email: String, password: string) => {
+  try {
+    const res = await api.post('user', { email, password })
+    return res
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}
+
+export { getUser, addUser }

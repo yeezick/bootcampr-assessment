@@ -7,7 +7,9 @@ import {
 } from './components/FormTextInput'
 import { FormCheckBoxInput } from './components/FormCheckBoxInput'
 import { Button } from '@mui/material'
+import { addUser } from 'utils/userController'
 import './Signup.scss'
+import { AxiosResponse } from 'axios'
 
 export const Signup: React.FC = () => {
   return (
@@ -115,8 +117,18 @@ const SignUpForm: React.FC = () => {
     setFormData({ ...formData, [name]: inputValue })
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    const response = await addUser(
+      formData.signUpEmail,
+      formData.signUpPassword
+    )
+
+    if ((response as AxiosResponse).statusText === 'OK') {
+      // TODO: update to store JWT and load next page
+      window.alert('Success!')
+      window.location.reload()
+    }
   }
 
   return (
