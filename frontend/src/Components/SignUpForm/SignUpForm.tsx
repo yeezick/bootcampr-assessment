@@ -17,6 +17,9 @@ export const SignUpForm: React.FC = () => {
         newUser.lastName.trim() !== '' &&
         newUser.email.trim() !== '' &&
         newUser.password.length >= 8 &&
+        /[A-Z]/.test(newUser.password) && // At least one uppercase letter
+        /[a-z]/.test(newUser.password) && // At least one lowercase letter
+        /[!@#$%^&*(),.?":{}|<>]/.test(newUser.password) && // At least one symbol
         newUser.password === newUser.confirmPassword &&
         newUser.agreeCheck;
 
