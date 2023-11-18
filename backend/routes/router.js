@@ -7,12 +7,16 @@ const router = Router();
 // Hello World!
 router.get("/hello-world", getHelloWorld);
 
-router.get("/users", userController.getUsers, (req, res) => {
-  return res.status(200).json(res.locals.users);
+router.get("/user", userController.getUser, (req, res) => {
+  return res.status(200).json(res.locals.user);
 });
 
-router.post("/users", userController.addUser, (req, res) => {
-  return res.status(200).json({});
+router.post("/user", userController.addUser, (req, res) => {
+  return res.status(200).json("user created");
+});
+
+router.get("/users", userController.getUsers, (req, res) => {
+  return res.status(200).json(res.locals.users);
 });
 
 export default router;
