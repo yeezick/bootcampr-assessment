@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { getUser } from 'utils/userController'
 import { TextField, InputAdornment, IconButton } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
@@ -58,6 +59,55 @@ const FormPWInput: React.FC<IFormPWInputProps> = (props: IFormPWInputProps) => {
   )
 }
 
+interface IFormEmailInputProps {
+  name: string
+  type?: string
+  label: string
+  value: string
+  setEmailValid?: (value: boolean) => void
+  handleInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const FormEmailInput: React.FC<IFormEmailInputProps> = (
+  props: IFormEmailInputProps
+) => {
+  const { name, type, label, value, handleInputChange, setEmailValid } = props
+
+  const inputProps = {
+    disableUnderline: true,
+    sx: { borderRadius: 1 },
+  }
+
+  const handleBlur = async () => {
+    if (value.includes('@')) {
+      const response = await getUser(value)
+      if (!response) {
+        setEmailValid(true)
+        return
+      }
+    }
+    setEmailValid(false)
+  }
+
+  return (
+    <div className='signup-form-text-input'>
+      <label htmlFor={name}>{label}</label>
+      <TextField
+        type={type ? type : 'text'}
+        value={value}
+        onBlur={handleBlur}
+        onChange={handleInputChange}
+        hiddenLabel
+        name={name}
+        id={name}
+        variant='filled'
+        size='small'
+        InputProps={inputProps}
+      />
+    </div>
+  )
+}
+
 interface IFormTextInputProps {
   name: string
   type?: string
@@ -94,4 +144,4 @@ const FormTextInput: React.FC<IFormTextInputProps> = (
   )
 }
 
-export { FormPWInput, FormTextInput }
+export { FormPWInput, FormTextInput, FormEmailInput }

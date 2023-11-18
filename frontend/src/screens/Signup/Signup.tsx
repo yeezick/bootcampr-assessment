@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import heroImage from '../../assets/SignUpHeroImage.jpg'
-import { FormPWInput, FormTextInput } from './components/FormTextInput'
+import {
+  FormEmailInput,
+  FormPWInput,
+  FormTextInput,
+} from './components/FormTextInput'
 import { FormCheckBoxInput } from './components/FormCheckBoxInput'
 import { Button } from '@mui/material'
 import './Signup.scss'
@@ -50,6 +54,8 @@ const SignUpForm: React.FC = () => {
     signUpCheckNotifications: false,
   })
 
+  const [emailValid, setEmailValid] = useState<boolean>(false)
+
   const [pwValidations, setPWValidations] = useState<IPWValidationsData>({
     isMinLength: false,
     containsUpper: false,
@@ -76,6 +82,7 @@ const SignUpForm: React.FC = () => {
       if (
         !Object.values(pwValidations).includes(false) &&
         formData.signUpPassword === formData.signUpRePassword &&
+        emailValid &&
         inputsFlag
       ) {
         setFormInputsValid(true)
@@ -83,7 +90,7 @@ const SignUpForm: React.FC = () => {
         setFormInputsValid(false)
       }
     }
-  }, [pwValidations, formData])
+  }, [pwValidations, formData, emailValid])
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, id, value, type, checked } = event.target
@@ -126,51 +133,59 @@ const SignUpForm: React.FC = () => {
         value={formData.signUpLastName}
         handleInputChange={handleInputChange}
       />
-      <FormTextInput
+      <FormEmailInput
         name='signUpEmail'
         type='email'
         label='Email address (ex. jeanine@bootcampr.io)'
         value={formData.signUpEmail}
+        setEmailValid={setEmailValid}
         handleInputChange={handleInputChange}
       />
+      {formData.signUpEmail.length > 0 && !emailValid && (
+        <p className='signup-form-pw-valid-msgs'>
+          This email is taken. Please try another email
+        </p>
+      )}
       <FormPWInput
         name='signUpPassword'
         label='Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)'
         value={formData.signUpPassword}
         handleInputChange={handleInputChange}
       />
-      {(Object.values(pwValidations).includes(false) ||
-        formData.signUpPassword !== formData.signUpRePassword) && (
-        <div className='signup-form-pw-valid-msgs'>
-          {formData.signUpPassword.trim() !== '' && (
-            <p className={pwValidations.containsUpper ? 'valid' : ''}>
-              1 uppercase
-            </p>
-          )}
-          {formData.signUpPassword.trim() !== '' && (
-            <p className={pwValidations.containsLower ? 'valid' : ''}>
-              1 lowercase
-            </p>
-          )}
-          {formData.signUpPassword.trim() !== '' && (
-            <p className={pwValidations.containsSymbol ? 'valid' : ''}>
-              1 symbol
-            </p>
-          )}
-          {formData.signUpPassword.trim() !== '' && (
-            <p className={pwValidations.isMinLength ? 'valid' : ''}>
-              Minimum 8 characters
-            </p>
-          )}
-        </div>
-      )}
+      {emailValid &&
+        (Object.values(pwValidations).includes(false) ||
+          formData.signUpPassword !== formData.signUpRePassword) && (
+          <div className='signup-form-pw-valid-msgs'>
+            {formData.signUpPassword.trim() !== '' && (
+              <p className={pwValidations.containsUpper ? 'valid' : ''}>
+                1 uppercase
+              </p>
+            )}
+            {formData.signUpPassword.trim() !== '' && (
+              <p className={pwValidations.containsLower ? 'valid' : ''}>
+                1 lowercase
+              </p>
+            )}
+            {formData.signUpPassword.trim() !== '' && (
+              <p className={pwValidations.containsSymbol ? 'valid' : ''}>
+                1 symbol
+              </p>
+            )}
+            {formData.signUpPassword.trim() !== '' && (
+              <p className={pwValidations.isMinLength ? 'valid' : ''}>
+                Minimum 8 characters
+              </p>
+            )}
+          </div>
+        )}
       <FormPWInput
         name='signUpRePassword'
         label='Re-enter password'
         value={formData.signUpRePassword}
         handleInputChange={handleInputChange}
       />
-      {!formInputsValid &&
+      {emailValid &&
+        !formInputsValid &&
         formData.signUpPassword === formData.signUpRePassword &&
         !Object.values(pwValidations).includes(false) && (
           <p className='signup-form-pw-match-msgs'>Passwords match!</p>
