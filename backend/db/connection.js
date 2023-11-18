@@ -8,7 +8,7 @@ mongoose.set("strictQuery", false);
 mongoose.set("returnOriginal", false); //for findByAndUpdate to return a reference to object at location
 
 mongoose
-  .connect(MONGODB_URI, {
+  .connect((process.env.MONGODB_URI), {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })
