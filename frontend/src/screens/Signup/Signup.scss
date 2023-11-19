@@ -61,7 +61,22 @@
                 border-radius: 4px;
                 background: #ecebeb;
                 padding: 10px 15px;
+                position: relative;
             }
+
+            #password-span, #passwordConfirmation-span {
+                width: 100%;
+                &::after {
+                    content: url('../../assets/toggle-password.svg');
+                    display: inline-block;
+                    height: 24px;
+                    width: 24px;
+                    position: absolute;
+                    margin-top: -30px;
+                    right: 3.5rem;
+                }
+            }
+
 
             .password-criteria-container {
                 display: flex;

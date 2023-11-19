@@ -130,6 +130,7 @@ export const Signup: React.FC = () => {
                     name='password' 
                     value={formik.values.password} 
                     onChange={formik.handleChange} />
+                    <span id='password-span'></span>
                     {formik.touched.password && formik.errors.password ? (
                 <div className='errors'>{formik.errors.password}</div>
                 ) : (
@@ -152,7 +153,8 @@ export const Signup: React.FC = () => {
                     name='passwordConfirmation' 
                     value={formik.values.passwordConfirmation} 
                     onChange={formik.handleChange} />
-                    {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation && 
+                    <span id='passwordConfirmation-span'></span>
+                    {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation &&
                         <div className='errors'>{formik.errors.passwordConfirmation}</div>}
                 </div>
                 <div className='form-item-checkbox'>
