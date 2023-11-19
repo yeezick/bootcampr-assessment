@@ -76,5 +76,31 @@
     .input-container:not(:first-child) {
       margin-top: 25px;
     }
+
+    .agreement-box {
+      margin-top: 15px;
+      display: flex;
+      width: 456px;
+
+      .checkbox {
+        padding: 2px;
+        // padding-top: 0;
+        // margin: 0;
+        gap: 10px;
+        width: 23.9px;
+        height: 24px;
+      }
+
+      p{
+        margin: 0;
+        margin-left: 14.93px;
+        font-family: Outfit;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 19.6px;
+        width: 417.17px;
+        height: 59px;
+      }
+    }
   }
 }

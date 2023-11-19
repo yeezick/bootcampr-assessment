@@ -33,6 +33,14 @@ export const SignUp: React.FC = () => {
           <label>Re-enter Password</label>
           <input type='password' name='passwordConfirmation' />
         </div>
+        <div className='agreement-box'>
+          <input className='checkbox' type='checkbox' />
+          <p>
+            I agree to receive email notification(s). We will only send emails
+            with important information, like project start dates. We will not
+            sell your information!
+          </p>
+        </div>
       </form>
     </div>
   )
