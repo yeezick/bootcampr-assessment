@@ -41,6 +41,7 @@ export const SignUp: React.FC = () => {
             sell your information!
           </p>
         </div>
+        <button>Sign Up</button>
       </form>
     </div>
   )

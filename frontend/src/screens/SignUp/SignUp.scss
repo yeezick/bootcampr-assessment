@@ -44,6 +44,7 @@
     width: 456px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     position: absolute;
     left: 730px;
     top: calc(256px - 93px);
@@ -84,8 +85,6 @@
 
       .checkbox {
         padding: 2px;
-        // padding-top: 0;
-        // margin: 0;
         gap: 10px;
         width: 23.9px;
         height: 24px;
@@ -101,6 +100,21 @@
         width: 417.17px;
         height: 59px;
       }
+    }
+
+    button {
+      background-color: #ECEBEB;
+      width: 448px;
+      height: 43px;
+      margin-top: 35px;
+      border: 0;
+      border-radius: 4px;
+      font-family: Outfit;
+      padding: 10px 16px 10px 16px;
+      margin-bottom: 109px;
+      font-size: 16px;
+      line-height: 22.4px;
+      font-weight: 500;
     }
   }
 }
