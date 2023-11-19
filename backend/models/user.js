@@ -3,28 +3,31 @@ import bcrypt from "bcrypt";
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-  firstName: {
-    type: String,
-    required: true,
+const userSchema = new Schema(
+  {
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      select: false,
+    },
   },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    select: false,
-  },
-});
+  { timestamps: true }
+);
 
-userSchema.statics.signup = async function({
+userSchema.statics.signup = async function ({
   firstName,
   lastName,
   email,
@@ -54,7 +57,7 @@ userSchema.statics.signup = async function({
   }
 };
 
-userSchema.statics.signup = async function({
+userSchema.statics.signup = async function ({
   firstName,
   lastName,
   email,
