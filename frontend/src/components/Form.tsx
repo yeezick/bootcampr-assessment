@@ -1,5 +1,6 @@
-import { useState,ChangeEvent } from "react";
+import { useState,ChangeEvent, useRef } from "react";
 import eyeLock from 'assets/eye_icon.png'
+
 
 
 type FormState = {
@@ -12,6 +13,9 @@ type FormState = {
   }
 
 const Form = () => {
+    const toggleRef = useRef<HTMLInputElement>(null);
+    const toggleRef2 = useRef<HTMLInputElement>(null);
+
 
     const [formState, setFormState] = useState<FormState>({
         firstName: '',
@@ -36,9 +40,28 @@ const Form = () => {
           ...formState,
           checkbox: e.target.checked,
         });
-    
       };
 
+      const togglePassword=()=>{
+          const checked =  toggleRef.current ;
+          console.log(checked)
+          if(checked.type === 'password'){
+            checked.type='text';
+          }else{
+            checked.type='password';
+          }
+        
+      }
+      const togglePassword2=()=>{
+        const checked =  toggleRef2.current ;
+        console.log(checked)
+        if(checked.type === 'password'){
+          checked.type='text';
+        }else{
+          checked.type='password';
+        }
+      
+    }
 
     // Check if all Form Input have been filled
     const isCompleted = formState.firstName && formState.lastName &&
@@ -97,12 +120,13 @@ const Form = () => {
             <div className="password-wrapper">
             <input
               type="password"
+              ref={toggleRef}
               value={formState.password}
               onChange={handleInputChange}
               name="password"
               id="password"
             />
-              <img className='eyeLock' src={eyeLock} alt="eye" />
+              <img  onClick={togglePassword} className='eyeLock' src={eyeLock} alt="eye" />
             </div>
 
             <label htmlFor="confirmPassword">Re-enter password</label>
@@ -110,12 +134,13 @@ const Form = () => {
             <div className="password-wrapper">
             <input
               type="password"
+              ref={toggleRef2}
               value={formState.confirmPassword}
               onChange={handleInputChange}
               name="confirmPassword"
               id="confirmPassword"
             />
-              <img className='eyeLock' src={eyeLock} alt="eye" />
+              <img onClick={togglePassword2} className='eyeLock' src={eyeLock} alt="eye" />
             </div>
 
             <div className="checkbox-group">
