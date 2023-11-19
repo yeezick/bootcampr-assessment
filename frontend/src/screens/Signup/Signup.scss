@@ -47,7 +47,7 @@ input[type='password']{
     padding-inline: .5rem;
 }
 
-input[type='text']{
+input[type='text'],input[type='email']{
   margin-bottom: 1.3rem;
 }
 
@@ -69,9 +69,7 @@ label :is(.email,.password){
     right: .4rem;
 
 }
-small{
 
-}
 .checkbox-group{
     display: flex;
     gap: 1rem;

@@ -2,7 +2,6 @@ import { useState,ChangeEvent, useRef } from "react";
 import eyeLock from 'assets/eye_icon.png'
 
 
-
 type FormState = {
     firstName: string;
     lastName: string;
@@ -16,6 +15,7 @@ const Form = () => {
     const toggleRef = useRef<HTMLInputElement>(null);
     const toggleRef2 = useRef<HTMLInputElement>(null);
     const [ log,setLog ] = useState(false)
+    const [ regexLog,setRegexLog ] = useState(false)
     const [ message,setMessage]= useState('')
     const [ errorColor,setErrorColor] = useState(false)
 
@@ -140,6 +140,13 @@ const Form = () => {
               id="password"
             />
               <img  onClick={togglePassword} className='eyeLock' src={eyeLock} alt="eye" />
+              {regexLog &&(
+              <div className="message-log">
+                 <small>1 uppercase</small>
+                 <small>1 lowercase</small>
+                 <small>1 number</small>
+
+                </div>)}
             </div>
 
             <label htmlFor="confirmPassword">Re-enter password</label>
