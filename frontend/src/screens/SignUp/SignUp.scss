@@ -1,5 +1,5 @@
 .signup-container {
-    align-items: center;
+  align-items: center;
   display: flex;
   flex-direction: column;
 
@@ -14,11 +14,12 @@
   .column {
     flex: 1;
     padding: 20px;
-    box-sizing: border-box;
   }
 
   .image {
     background-color: #f0f0f0;
+    min-width: 300px;
+    max-width: 500px;
   }
 
   .form {
