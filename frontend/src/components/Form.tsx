@@ -38,8 +38,15 @@ const Form = () => {
         });
     
       };
-    
+
+
+    // Check if all Form Input have been filled
+    const isCompleted = formState.firstName && formState.lastName &&
+                        formState.email && formState.password && 
+                        formState.confirmPassword && formState.checkbox;
       console.log(formState);
+      console.log("isCompleted:", isCompleted)
+
     
   return (
        <>
@@ -110,7 +117,7 @@ const Form = () => {
             />
               <img className='eyeLock' src={eyeLock} alt="eye" />
             </div>
-            
+
             <div className="checkbox-group">
               <input
                 type="checkbox"
@@ -126,7 +133,15 @@ const Form = () => {
                 will not sell your information!
               </span>
             </div>
-            <button type="submit">Sign Up</button>
+            <button type="submit"
+             style={{ pointerEvents: isCompleted ? 'auto' : 'none',
+                     backgroundColor: isCompleted ?   '#FA9413' : '',
+                     cursor:isCompleted ?'pointer':'auto',
+                    transition:"all ease-in-out 300ms"
+                     }}>
+            Sign Up
+            </button>
+
           </form>
        </>
   )

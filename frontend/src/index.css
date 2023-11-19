@@ -3,6 +3,7 @@
   padding: 0;
   margin: 0;
   font-family: 'Inter', sans-serif;
+  user-select: none;
 }
 body {
   margin: 0;
