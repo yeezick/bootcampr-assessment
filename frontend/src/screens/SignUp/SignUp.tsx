@@ -6,6 +6,7 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  Radio,
   TextField,
 } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
@@ -83,6 +84,14 @@ export const SignUp: React.FC = () => {
                 </InputAdornment>
               ),
             }}
+          />
+          <Radio
+            // checked={selectedValue === 'a'}
+            // onChange={handleChange}
+            value='a'
+            name='radio-buttons'
+            inputProps={{ 'aria-label': 'A' }}
+            sx={{ width: '10%' }}
           />
         </div>
       </div>
