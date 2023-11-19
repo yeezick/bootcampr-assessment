@@ -44,10 +44,13 @@ input[type='password']{
     border: 0;
     background-color:#ECEBEB;
    margin-top: .4rem;
-    margin-bottom: 1.3rem;
     padding-inline: .5rem;
-
 }
+
+input[type='text']{
+  margin-bottom: 1.3rem;
+}
+
 
 label :is(.email,.password){
     color: #313335;
@@ -55,13 +58,18 @@ label :is(.email,.password){
 
 .password-wrapper{
     position: relative;
-    // border: 2px solid red;
+  margin-bottom: 1.3rem;
+
 }
+
 .eyeLock{
     cursor: pointer;
     position: absolute;
     top: 1rem;
     right: .4rem;
+
+}
+small{
 
 }
 .checkbox-group{

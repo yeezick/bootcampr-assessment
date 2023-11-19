@@ -15,6 +15,9 @@ type FormState = {
 const Form = () => {
     const toggleRef = useRef<HTMLInputElement>(null);
     const toggleRef2 = useRef<HTMLInputElement>(null);
+    const [ log,setLog ] = useState(false)
+    const [ message,setMessage]= useState('')
+    const [ errorColor,setErrorColor] = useState(false)
 
 
     const [formState, setFormState] = useState<FormState>({
@@ -29,6 +32,7 @@ const Form = () => {
       const handleInputChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
       ) => {
+       
         setFormState({
           ...formState,
           [e.target.name]: e.target.value,
@@ -42,9 +46,19 @@ const Form = () => {
         });
       };
 
+      const handlePasswordCheck=()=>{
+          setLog(true);
+           if(formState.password !== formState.confirmPassword){
+            setErrorColor(true)
+            setMessage('Passwords mismatch!')
+           }else{
+            setErrorColor(false)
+            setMessage('Passwords match!')
+           }
+      }
+
       const togglePassword=()=>{
           const checked =  toggleRef.current ;
-          console.log(checked)
           if(checked.type === 'password'){
             checked.type='text';
           }else{
@@ -54,7 +68,6 @@ const Form = () => {
       }
       const togglePassword2=()=>{
         const checked =  toggleRef2.current ;
-        console.log(checked)
         if(checked.type === 'password'){
           checked.type='text';
         }else{
@@ -137,10 +150,12 @@ const Form = () => {
               ref={toggleRef2}
               value={formState.confirmPassword}
               onChange={handleInputChange}
+              onKeyUp={handlePasswordCheck}
               name="confirmPassword"
               id="confirmPassword"
             />
               <img onClick={togglePassword2} className='eyeLock' src={eyeLock} alt="eye" />
+           { log && <small style={{color:errorColor?'red' :' #23A6A1'}}>{message}</small>}
             </div>
 
             <div className="checkbox-group">
