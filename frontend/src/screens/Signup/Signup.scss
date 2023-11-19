@@ -1,0 +1,86 @@
+
+h2,h4{
+    text-align: center;
+    font-weight: 600;
+}
+h2{
+    font-size: 2.4rem;
+}
+h4{
+    font-size: 1.4rem;
+    line-height: 60px;
+
+}
+
+.signup-content{
+    // border: 2px solid red;
+    display: flex;
+    justify-content: center;
+    gap: 8rem;
+    margin: 0 auto;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+.signup-image{
+    align-self: center;
+}
+
+// SignUp Form
+form{
+    // border: 3px solid yellow;
+    width: 100%;
+    min-width: 300px;
+}
+label{
+    font-size: 1rem;
+    color: #000;
+}
+input[type='text'],
+input[type='email'],
+input[type='password']{
+    width: 100%;
+    height: 34px;
+    border-radius: 5px;
+    border: 0;
+    background-color:#ECEBEB;
+   margin-top: .4rem;
+    margin-bottom: 1.3rem;
+
+}
+
+label :is(.email,.password){
+    color: #313335;
+}
+
+.password-wrapper{
+    position: relative;
+    // border: 2px solid red;
+}
+.eyeLock{
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: .4rem;
+
+}
+.checkbox-group{
+    display: flex;
+    gap: 1rem;
+}
+.checkbox{
+    align-self: start;
+    margin-top: .5rem;
+}
+.checkbox-text{
+    font-size: 0.9rem;
+    max-width: 48ch;
+}
+
+button{
+    width: 100%;
+    font-weight: 500;
+    margin-top: 1.5rem;
+    padding: .6rem 0;
+    border: 0;
+}
+

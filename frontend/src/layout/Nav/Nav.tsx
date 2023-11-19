@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Logo from 'assets/Logo.svg'
 import './Nav.scss'
 
 export const Nav = () => {
+  const location = useLocation()
   return (
     <nav>
       <div className='nav-container'>
@@ -12,9 +13,11 @@ export const Nav = () => {
           </Link>
         </div>
         <div>
-          <Link className='sign-up' to='/sign-up'>
+         { location.pathname !== '/sign-up' && (
+         <Link className='sign-up' to='/sign-up'>
             Sign up
           </Link>
+          )}
         </div>
       </div>
     </nav>
