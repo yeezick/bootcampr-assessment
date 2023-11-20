@@ -1,0 +1,122 @@
+.signup-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 5rem;
+
+  .header-container {
+    // align-items: center;
+    // // background-image: url('https://i.postimg.cc/KjZRDzjx/developer.jpg');
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    // display: flex;
+    // flex-direction: row;
+    // height: 100vh;
+    // justify-content: space-around;
+    text-align: center;
+    width: 100%;
+  }
+
+  .body-container {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+
+    & > div {
+      width: 50%;
+
+      // Image Section
+      &.image-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & > div {
+          width: 75%;
+          height: 100%;
+          background-image: url('https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e');
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+
+        & img {
+          width: 50%;
+          transform: rotate(-45deg);
+          height: 50%;
+          object-fit: cover;
+          // border-radius: 50%;
+        }
+      }
+
+      // Form Section
+      &.form-container {
+        & > form {
+          width: 75%;
+        }
+
+        // Text labels
+        & label {
+          display: block;
+          margin: 0.5rem 0;
+
+          & p {
+            margin: 0 0 0.25rem 0;
+          }
+
+          & input[type='text'],
+          & input[type='email'],
+          & input[type='password'] {
+            width: 100%;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            padding: 0.5rem;
+            box-sizing: border-box;
+            background-color: #f1f3f5;
+
+            &:invalid ~ p {
+              visibility: visible;
+              color: #fa5252;
+            }
+
+            &:valid ~ p {
+              visibility: hidden;
+              color: #40c057;
+            }
+          }
+
+          & p.error-message {
+            height: 1rem;
+            font-size: 0.85rem;
+          }
+        }
+
+        // Checkbox Label
+        & label#notification-consent {
+          display: flex;
+          align-items: flex-start;
+
+          & input[type='checkbox'] {
+            margin: 0.5rem 1rem 0 0;
+          }
+        }
+
+        // Submit Button
+        & button {
+          width: 100%;
+          border: none;
+          border-radius: 0.25rem;
+          padding: 0.5rem;
+          font-size: 1rem;
+          text-align: center;
+          background-color: #f1f3f5;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #e9ecef;
+          }
+        }
+      }
+    }
+  }
+}
