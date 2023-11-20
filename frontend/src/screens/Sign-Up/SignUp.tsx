@@ -6,6 +6,7 @@ import './SignUp.scss'
 import { sign } from 'crypto'
 import { isTypeAssertionExpression } from 'typescript'
 import Image from 'assets/Image.svg';
+import Icon from 'assets/Icon.png';
 
 export const SignUp: React.FC = () => {
   return (
@@ -30,6 +31,7 @@ export const SignUp: React.FC = () => {
 
 const SignUpForm: React.FC = () => {
   const navigate = useNavigate();
+  
   const [signupDetails, setSignupDetails] = useState({
     firstName: '',
     lastName: '',
@@ -37,17 +39,15 @@ const SignUpForm: React.FC = () => {
     password: '',
     passwordRe: '',
   });
-
   const [passwordValidation, setPasswordValidation] = useState({
     minLength: false,
     hasLowerCase: false,
     hasUpperCase: false,
     hasSpecialChar: false
   });
-
   const [passwordMatch, setPasswordMatch] = useState(false);
-
   const [emailValidation, setEmailValidation] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const validatePassword = (password: string) => {
     const validations = {
@@ -150,22 +150,42 @@ const SignUpForm: React.FC = () => {
             <h3 className='mini-header'>{'Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)'}</h3>
             <input
               className='input'
-              type='password'
-              name='password'
+              type= {showPassword ? 'text' : 'password'}
+              name= 'password'
               onChange={handleChange}
             />
           </div>
           <div className='validation-container'>
-              <p className={passwordValidation.minLength ? 'minchar-valid' : 'minchar-invalid'}>Min 8 characters</p>
-              <p className={passwordValidation.hasUpperCase ? 'hasuppercase-valid' : 'hasuppercase-invalid'}>1 upper</p>
-              <p className={passwordValidation.hasLowerCase ? 'haslowercase-valid' : 'haslowercase-invalid'}>1 lower</p>
-              <p className={passwordValidation.hasSpecialChar ? 'hasspecialchar-valid' : 'hasspecialchar-invalid'}>1 symbol</p>
+              {passwordValidation.minLength ? <p className='minchar-valid'>
+              <img className="icon" src={Icon}></img> Min 8 characters
+                </p> : 
+                <p className='minchar-invalid'>
+                  Min 8 characters
+                </p>}
+                {passwordValidation.hasUpperCase ? <p className='minchar-valid'>
+                <img className="icon" src={Icon}></img> 1 upper
+                </p> : 
+                <p className='minchar-invalid'>
+                  1 upper
+                </p>}
+                {passwordValidation.hasLowerCase ? <p className='minchar-valid'>
+              <img className="icon" src={Icon}></img> 1 lower
+                </p> : 
+                <p className='minchar-invalid'>
+                  1 lower
+                </p>}
+                {passwordValidation.hasSpecialChar ? <p className='minchar-valid'>
+                <img className="icon" src={Icon}></img> 1 symbol
+                </p> : 
+                <p className='minchar-invalid'>
+                  1 symbol
+                </p>}
           </div>
           <div className='input-common input-passwordre'>
             <h3 className='mini-header'>Re-enter password</h3>
             <input
               className='input'
-              type='password'
+              type= {showPassword ? 'text' : 'password'}
               name='passwordRe'
               onChange={handleChange}
             />
