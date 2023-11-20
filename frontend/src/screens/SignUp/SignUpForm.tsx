@@ -14,6 +14,7 @@ import {
   FormControl,
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import axios, { AxiosResponse } from 'axios'
 
 type formDataType = {
   firstName: string
@@ -74,11 +75,32 @@ const SignUpForm: React.FC = () => {
 
   const [isChecked, setIsChecked] = useState(false)
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    // TODO: handle submit
-  }
 
+    const { firstName, lastName, email, password } = formData
+    const isEmailExisting = await isEmailExist()
+    let response: AxiosResponse<any, any>
+
+    if (!isEmailExisting) {
+      try {
+        response = await axios.post(`${baseUrl}/sign-up`, {
+          firstName,
+          lastName,
+          email,
+          password,
+        })
+      } catch (error) {
+        console.error(error)
+        console.error('Server Response:', response)
+      }
+    } else {
+      setFormErrors(prevErrors => ({
+        ...prevErrors,
+        email: 'Email already exists',
+      }))
+    }
+  }
   const handleInputChange = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value })
 
@@ -161,6 +183,29 @@ const SignUpForm: React.FC = () => {
     }
   }
 
+  const isEmailExist = async () => {
+    let response: AxiosResponse<any, any>
+
+    try {
+      response = await axios.get(
+        `${baseUrl}/check-email?email=${formData.email}`
+      )
+      const data = response.data.exists
+      return data
+    } catch (error) {
+      if (error.response && error.response.status === 200) {
+        setFormErrors(prevErrors => ({
+          ...prevErrors,
+          email: 'Email already exists.',
+        }))
+        return true
+      } else {
+        console.error('Error checking email:', error)
+        return false
+      }
+    }
+  }
+
   const isNotEmpty = () => {
     return (
       formData.firstName !== '' &&
@@ -176,7 +221,7 @@ const SignUpForm: React.FC = () => {
   }
 
   return (
-    <Box component='form' onSubmit={handleSubmit} className='form' noValidate>
+    <Box component='form' onSubmit={handleSignUp} className='form' noValidate>
       <InputLabel htmlFor='firstName'>First name</InputLabel>
       <FormControl>
         <TextField
