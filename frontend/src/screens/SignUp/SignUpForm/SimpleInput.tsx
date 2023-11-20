@@ -1,7 +1,10 @@
 import { FormControl, FormLabel, Input, Text } from '@chakra-ui/react'
 import { ErrorMessage, Field, FieldProps } from 'formik'
+import { useUsers } from 'hooks/useUser'
 
 export default function SimpleInput({ inputName, children }) {
+  const [savedUsers] = useUsers()
+
   return (
     <Field name={inputName}>
       {({ field, form }: FieldProps) => (
@@ -18,6 +21,15 @@ export default function SimpleInput({ inputName, children }) {
             name={inputName}
             bg={'#ECEBEB'}
             onFocus={() => form.setFieldTouched(inputName)}
+            onBlur={e => {
+              if (field.name === 'email') {
+                return savedUsers.some(user => user.email === e.target.value)
+                  ? form.setFieldError('email', 'Email already in use')
+                  : // ? console.log('oops')
+                    null
+              }
+              field.onBlur(e)
+            }}
           />
           <Text color={'red'}>
             <ErrorMessage name={inputName} />

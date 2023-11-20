@@ -36,7 +36,7 @@ export default function SignUpForm() {
     try {
       const { confirmPassword, ...restUser } = user
       setSavedUsers((prevState = []) => [...prevState, restUser])
-      // await createUser(restValues)
+      // await createUser(restUser)
       setTimeout(() => {
         navigate('/congrats')
       }, 1000)
