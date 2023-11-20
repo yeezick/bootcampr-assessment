@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import './SignUpForm.scss'
 import {
   Button,
@@ -126,8 +126,9 @@ const SignUpForm: React.FC = () => {
   }
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event.target.checked)
-  }
+    setIsChecked((prevIsChecked) => !prevIsChecked);
+  };
+  
 
   //validation
   const isLengthValid = formData.password.length >= 8
@@ -167,21 +168,28 @@ const SignUpForm: React.FC = () => {
     return isLengthValid && hasUpperCase && hasLowerCase && hasSymbol
   }
 
-  const isPasswordMatch = () => {
-    const { password, confirmPassword } = formData
+  const isPasswordMatch = useMemo(() => {
+    const { password, confirmPassword } = formData;
     const match =
-      password === confirmPassword && password !== '' && confirmPassword !== ''
-
+      password === confirmPassword && password !== '' && confirmPassword !== '';
+  
     if (match) {
-      return true
+      if (formErrors.confirmPassword !== '') {
+        setFormErrors((prevErrors) => ({
+          ...prevErrors,
+          confirmPassword: '',
+        }));
+      }
     } else {
-      setFormErrors(prevErrors => ({
+      setFormErrors((prevErrors) => ({
         ...prevErrors,
         confirmPassword: 'The Password entered does not match.',
-      }))
-      return false
+      }));
     }
-  }
+  
+    return match;
+  }, [formData.password, formData.confirmPassword, formErrors.confirmPassword]);
+  
 
   const isEmailExist = async () => {
     let response: AxiosResponse<any, any>
@@ -217,7 +225,7 @@ const SignUpForm: React.FC = () => {
   }
 
   const isValid = () => {
-    return isNotEmpty() && isChecked && isPasswordValid() && isPasswordMatch()
+    return isNotEmpty() && isChecked && isPasswordValid() && isPasswordMatch
   }
 
   return (
@@ -319,7 +327,6 @@ const SignUpForm: React.FC = () => {
           onChange={e => handleInputChange('confirmPassword', e.target.value)}
           onBlur={() => {
             handleEmptyInput('confirmPassword', 'Confirm Password')
-            isPasswordMatch()
           }}
           error={Boolean(formErrors.confirmPassword)}
           endAdornment={
