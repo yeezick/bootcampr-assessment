@@ -25,11 +25,19 @@ export const SignUpForm: React.FC = () => {
 
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setNewUser({ ...newUser, [e.target.name]: e.target.value })
+        setNewUser({ ...newUser, [e.target.name]: e.target.value });
     }
     const handleAgreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewUser({ ...newUser, [e.target.name]: e.target.checked });
     };
+
+    function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setNewUser({ ...newUser, [e.target.name]: e.target.value });
+
+
+    }
+
+
 
     function handleToggle() {
         setType(type === 'password' ? 'text' : 'password');
@@ -44,9 +52,15 @@ export const SignUpForm: React.FC = () => {
             <label htmlFor="email">Email addresss (ex. jeanine@Bootcampr.io) </label>
             <input required id='email' type="email" name='email' onChange={handleChange} />
             <label htmlFor="password">Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</label>
-            <div>
-                <input required id='password' type={type} name='password' onChange={handleChange} />
+            <div className='password-div'>
+                <input required id='password' type={type} name='password' onChange={handlePasswordChange} />
                 <img onClick={handleToggle} src='Icon.svg' alt='toggle password view'></img>
+            </div>
+            <div className="password-feedback">
+                <p>1 uppercase</p>
+                <p>1 uppercase</p>
+                <p>1 uppercase</p>
+                <p>1 uppercase</p>
             </div>
             <label htmlFor="confirm">Re-enter password</label>
             <div>
