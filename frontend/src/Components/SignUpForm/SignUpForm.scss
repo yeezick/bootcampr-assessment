@@ -66,10 +66,16 @@
     height: 48px;
 }
 
-.SignUpForm .password-feedback {
+.SignUpForm .is-valid {
     font-size: 12px;
     line-height: 6px;
-    color: green;
+    color: #23A6A1;
+}
+
+.SignUpForm .is-invalid {
+    font-size: 12px;
+    line-height: 6px;
+    color: #D90000;
 }
 
 .SignUpForm .password-div {

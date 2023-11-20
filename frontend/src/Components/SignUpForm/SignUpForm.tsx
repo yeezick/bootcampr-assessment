@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SignUpBtn } from '../../Components/SignUpBtn/SignUpBtn';
 import './SignUpForm.scss';
+
 export const SignUpForm: React.FC = () => {
     const [newUser, setNewUser] = useState({
         firstName: '',
@@ -8,36 +9,50 @@ export const SignUpForm: React.FC = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        agreeCheck: false
-    })
+        agreeCheck: false,
+    });
     const [type, setType] = useState('password');
-
+    const [passwordMsgs, setPasswordMsgs] = useState([]);
     const isFormValid =
         newUser.firstName.trim() !== '' &&
         newUser.lastName.trim() !== '' &&
         newUser.email.trim() !== '' &&
         newUser.password.length >= 8 &&
-        /[A-Z]/.test(newUser.password) && // At least one uppercase letter
-        /[a-z]/.test(newUser.password) && // At least one lowercase letter
-        /[!@#$%^&*(),.?":{}|<>]/.test(newUser.password) && // At least one symbol
+        /[A-Z]/.test(newUser.password) &&
+        /[a-z]/.test(newUser.password) &&
+        /[!@#$%^&*(),.?":{}|<>]/.test(newUser.password) &&
         newUser.password === newUser.confirmPassword &&
         newUser.agreeCheck;
-
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setNewUser({ ...newUser, [e.target.name]: e.target.value });
     }
+
     const handleAgreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewUser({ ...newUser, [e.target.name]: e.target.checked });
     };
 
     function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
         setNewUser({ ...newUser, [e.target.name]: e.target.value });
-
-
+        calculatePasswordMsgs(e.target.value);
     }
 
+    function calculatePasswordMsgs(password: string) {
+        if (password === '') {
+            // If password is empty, clear messages
+            setPasswordMsgs([]);
+            return;
+        }
 
+        const messages = [
+            { text: '1 uppercase', isValid: /[A-Z]/.test(password) },
+            { text: '1 lowercase', isValid: /[a-z]/.test(password) },
+            { text: '1 symbol', isValid: /[!@#$%^&*(),.?":{}|<>]/.test(password) },
+            { text: 'Minimum 8 characters', isValid: password.length >= 8 },
+        ];
+
+        setPasswordMsgs(messages);
+    }
 
     function handleToggle() {
         setType(type === 'password' ? 'text' : 'password');
@@ -57,10 +72,9 @@ export const SignUpForm: React.FC = () => {
                 <img onClick={handleToggle} src='Icon.svg' alt='toggle password view'></img>
             </div>
             <div className="password-feedback">
-                <p>1 uppercase</p>
-                <p>1 uppercase</p>
-                <p>1 uppercase</p>
-                <p>1 uppercase</p>
+                {passwordMsgs.map((msg, idx) => (
+                    <p key={idx} className={msg.isValid ? 'is-valid' : 'is-invalid'}>{msg.text}</p>
+                ))}
             </div>
             <label htmlFor="confirm">Re-enter password</label>
             <div>
