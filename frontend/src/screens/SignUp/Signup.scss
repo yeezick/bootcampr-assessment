@@ -1,0 +1,49 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.body-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 413px;
+    height: 101px;
+}
+
+.h1-title {
+    width: 413px;
+    height: 54px;
+    font-weight: 600;
+    line-height: 53.2px;
+    size: 38px;
+    margin: 0;
+}
+
+.h3-title {
+    width: 368px;
+    height: 34px;
+    font-weight: 600;
+    line-height: 33.6px;
+    size: 24px;
+    margin: 0;
+}
+
+
+
+.form-container {
+    width: 456px;
+    height: 572px;
+}
