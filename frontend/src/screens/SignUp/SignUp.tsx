@@ -1,13 +1,17 @@
 import React from 'react'
 import {
   FormControl,
+  FormControlLabel,
   IconButton,
   Input,
   InputAdornment,
   InputLabel,
   OutlinedInput,
   Radio,
+  RadioGroup,
   TextField,
+  Typography,
+  createStyles,
 } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
@@ -85,14 +89,21 @@ export const SignUp: React.FC = () => {
               ),
             }}
           />
-          <Radio
-            // checked={selectedValue === 'a'}
-            // onChange={handleChange}
-            value='a'
-            name='radio-buttons'
-            inputProps={{ 'aria-label': 'A' }}
-            sx={{ width: '10%' }}
-          />
+          <FormControl>
+            <RadioGroup>
+              <FormControlLabel
+                control={<Radio />}
+                label={
+                  <Typography sx={{ fontSize: '0.8rem' }}>
+                    I agree to receive email notification(s). We will only send
+                    emails with important information, like project start dates.
+                    We will not sell your information!
+                  </Typography>
+                }
+              />
+            </RadioGroup>
+          </FormControl>
+          <div className='signup-button'>Sign Up</div>
         </div>
       </div>
     </div>
