@@ -84,12 +84,24 @@ export default function SignUpForm() {
             <SimpleInput inputName={'email'} />
 
             <PasswordInput
+              inputName={'password'}
               show={show}
               setShow={setShow}
               showPasswordHints={showPasswordHints}
-            />
+            >
+              Password
+            </PasswordInput>
 
-            <Field name='confirmPassword'>
+            <PasswordInput
+              inputName={'confirmPassword'}
+              show={show}
+              setShow={setShow}
+              showPasswordHints={showPasswordHints}
+            >
+              Re-enter password
+            </PasswordInput>
+
+            {/* <Field name='confirmPassword'>
               {({ field, form }: FieldProps) => (
                 <FormControl
                   mb={5}
@@ -134,7 +146,7 @@ export default function SignUpForm() {
                     )}
                 </FormControl>
               )}
-            </Field>
+            </Field> */}
 
             <ConsentCheckbox
               agree={agree}

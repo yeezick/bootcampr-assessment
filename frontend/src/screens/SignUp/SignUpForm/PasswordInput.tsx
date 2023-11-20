@@ -11,23 +11,29 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { ErrorMessage, Field, FieldProps } from 'formik'
 
-export default function PasswordInput({ show, setShow, showPasswordHints }) {
+export default function PasswordInput({
+  inputName,
+  show,
+  setShow,
+  showPasswordHints,
+  children,
+}) {
   return (
-    <Field name='password'>
+    <Field name={inputName}>
       {({ field, form }: FieldProps) => (
         <FormControl
           mb={5}
-          isInvalid={!!(form.errors.password && form.touched.password)}
+          isInvalid={!!(form.errors.inputName && form.touched.inputName)}
         >
-          <FormLabel htmlFor='email' fontWeight={'normal'} m={0}>
-            Password
+          <FormLabel htmlFor={inputName} fontWeight={'normal'} m={0}>
+            {children}
           </FormLabel>
           <InputGroup>
             <Input
               {...field}
               type={show ? 'text' : 'password'}
               bg={'#ECEBEB'}
-              onFocus={() => form.setFieldTouched('password')}
+              onFocus={() => form.setFieldTouched(inputName)}
             />
             <InputRightElement>
               <Button
@@ -40,11 +46,20 @@ export default function PasswordInput({ show, setShow, showPasswordHints }) {
             </InputRightElement>
           </InputGroup>
           <Text color={'red'}>
-            <ErrorMessage name='password' />
+            <ErrorMessage name={inputName} />
           </Text>
 
-          {showPasswordHints ? (
+          {field.name === 'password' && showPasswordHints ? (
             <PasswordHints field={field} form={form} />
+          ) : null}
+
+          {showPasswordHints &&
+          form.touched.confirmPassword &&
+          !form.errors.confirmPassword &&
+          form.values.password === form.values.confirmPassword ? (
+            <Text color={'#23A6A1'} fontSize={'12px'}>
+              Passwords match!
+            </Text>
           ) : null}
         </FormControl>
       )}
