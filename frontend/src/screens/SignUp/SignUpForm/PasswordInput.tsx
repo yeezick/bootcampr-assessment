@@ -31,6 +31,8 @@ export default function PasswordInput({
           <InputGroup>
             <Input
               {...field}
+              id={inputName}
+              name={inputName}
               type={show ? 'text' : 'password'}
               bg={'#ECEBEB'}
               onFocus={() => form.setFieldTouched(inputName)}

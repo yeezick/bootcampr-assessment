@@ -15,6 +15,7 @@ export default function SimpleInput({ inputName, children }) {
           <Input
             {...field}
             id={inputName}
+            name={inputName}
             bg={'#ECEBEB'}
             onFocus={() => form.setFieldTouched(inputName)}
           />
