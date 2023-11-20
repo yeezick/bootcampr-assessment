@@ -7,6 +7,7 @@ import Form from 'components/Form';
 const Signup: React.FC = () => {
   return (
     <>
+      <div className="signup-wrapper">
       <h2>Join Bootcampr today.</h2>
       <h4>Get the experience. Get the job.</h4>
       <div className="signup-content">
@@ -16,6 +17,7 @@ const Signup: React.FC = () => {
         <div className="signup-form">
         <Form/>
         </div>
+      </div>
       </div>
     </>
   );

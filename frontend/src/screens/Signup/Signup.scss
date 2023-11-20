@@ -1,15 +1,28 @@
+.signup-wrapper{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    user-select: none;
+  }
 
 h2,h4{
     text-align: center;
     font-weight: 600;
+    padding: 0;
+    margin: 0;
 }
+
 h2{
     font-size: 2.4rem;
+    padding: 0;
+    margin-top: 2rem;
 }
 h4{
     font-size: 1.4rem;
     line-height: 60px;
-
+    padding: 0;
+    margin-bottom: 1rem;
 }
 
 .signup-content{
@@ -22,7 +35,8 @@ h4{
     margin-bottom: 2rem;
 }
 .signup-image{
-    align-self: center;
+    align-self: start;
+    padding-block: 1.5rem;
 }
 
 // SignUp Form
@@ -43,7 +57,7 @@ input[type='password']{
     border-radius: 5px;
     border: 0;
     background-color:#ECEBEB;
-   margin-top: .4rem;
+    margin-top: .4rem;
     padding-inline: .5rem;
 }
 
@@ -51,23 +65,30 @@ input[type='text'],input[type='email']{
   margin-bottom: 1.3rem;
 }
 
-
-label :is(.email,.password){
+label .email{
     color: #313335;
 }
 
 .password-wrapper{
     position: relative;
-  margin-bottom: 1.3rem;
+    margin-bottom: 1.3rem;
+    // border: 2px solid red;
+    box-sizing: border-box;
+}
 
+.password-wrapper .message-log{
+    margin-top: 0.3rem;
+    display: flex;
+    gap: .3rem;
+    flex-direction: column;
+    color: #313335;
 }
 
 .eyeLock{
     cursor: pointer;
     position: absolute;
     top: 1rem;
-    right: .4rem;
-
+    right: .1rem;
 }
 
 .checkbox-group{
@@ -83,12 +104,20 @@ label :is(.email,.password){
     max-width: 45ch;
 }
 
-button{
+.signup-wrapper button{
     width: 100%;
     font-weight: 500;
     margin-top: 1.5rem;
     padding: .6rem 0;
     border: 0;
     border-radius: 5px;
+}
+
+// Regex Validation
+.validated{
+    color: #23A6A1;
+}
+.not-validated{
+    color: red;
 }
 

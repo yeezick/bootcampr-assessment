@@ -18,6 +18,10 @@ const Form = () => {
     const [ regexLog,setRegexLog ] = useState(false)
     const [ message,setMessage]= useState('')
     const [ errorColor,setErrorColor] = useState(false)
+    const [ lowerValidated,setLowerValidated]=useState(false)
+    const [ upperValidated,setUpperValidated]=useState(false)
+    const [ numberValidated,setNumberValidated]= useState(false)
+    const [ lengthValidated,setLengthValidated]= useState(false)
 
 
     const [formState, setFormState] = useState<FormState>({
@@ -57,6 +61,43 @@ const Form = () => {
            }
       }
 
+      const handleRegexCheck=()=>{
+        setRegexLog(true);
+        const lower = new RegExp('(?=.*[a-z])');
+        const upper = new RegExp('(?=.*[A-Z])');
+        const number = new RegExp('(?=.*[0-9])');
+        const length = new RegExp('(?=.{8,})');
+
+        // lowercase validation
+        if( lower.test(formState.password)){
+              setLowerValidated(true)
+        }else{
+             setLowerValidated(false)
+        }
+
+        // uppercase validation
+        if(upper.test(formState.password)){
+          setUpperValidated(true)
+        }else{
+          setUpperValidated(false)
+        }
+
+        // number validation
+        if(number.test(formState.password)){
+          setNumberValidated(true)
+        }else{
+          setNumberValidated(false)
+        }
+
+         // length validation
+         if(length.test(formState.password)){
+          setLengthValidated(true)
+        }else{
+          setLengthValidated(false)
+        }
+
+      }
+
       const togglePassword=()=>{
           const checked =  toggleRef.current ;
           if(checked.type === 'password'){
@@ -64,8 +105,8 @@ const Form = () => {
           }else{
             checked.type='password';
           }
-        
       }
+
       const togglePassword2=()=>{
         const checked =  toggleRef2.current ;
         if(checked.type === 'password'){
@@ -124,11 +165,7 @@ const Form = () => {
             <br />
 
             <label htmlFor="password">
-              Password{' '}
-              <span className="password">
-                (Min 8 characters, 1 upper, 1 lower, 1 symbol)
-              </span>
-            </label>
+               Password </label>
             <br />
             <div className="password-wrapper">
             <input
@@ -136,16 +173,29 @@ const Form = () => {
               ref={toggleRef}
               value={formState.password}
               onChange={handleInputChange}
+              onKeyUp={handleRegexCheck}
               name="password"
               id="password"
             />
               <img  onClick={togglePassword} className='eyeLock' src={eyeLock} alt="eye" />
               {regexLog &&(
               <div className="message-log">
-                 <small>1 uppercase</small>
-                 <small>1 lowercase</small>
-                 <small>1 number</small>
-
+                 <small 
+                 className={upperValidated ? 'validated':'not-validated'}>
+                 {upperValidated ? <span>&#x2713;</span>:''} 1 uppercase
+                </small>
+                 <small
+                  className={lowerValidated ? 'validated':'not-validated'}>
+                   {lowerValidated ? <span>&#x2713;</span>:''} 1 lowercase
+                   </small>
+                 <small
+                  className={numberValidated ? 'validated':'not-validated'}> 
+                  {numberValidated ? <span>&#x2713;</span>:''} 1 number
+                  </small>
+                 <small 
+                 className={lengthValidated ? 'validated':'not-validated'}>
+                   {lengthValidated ? <span>&#x2713;</span>:''} Minimum 8 characters
+                   </small>
                 </div>)}
             </div>
 
@@ -186,7 +236,7 @@ const Form = () => {
                      cursor:isCompleted ?'pointer':'auto',
                     transition:"all ease-in-out 300ms"
                      }}>
-            Sign Up
+            Sign up
             </button>
 
           </form>
