@@ -15,6 +15,7 @@ import {
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import axios, { AxiosResponse } from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 type formDataType = {
   firstName: string
@@ -47,6 +48,8 @@ const emailNotificationAgreement =
 const baseUrl = 'http://localhost:8001'
 
 const SignUpForm: React.FC = () => {
+  const navigate = useNavigate()
+
   const [formData, setFormData] = useState<formDataType>({
     firstName: '',
     lastName: '',
@@ -75,6 +78,16 @@ const SignUpForm: React.FC = () => {
 
   const [isChecked, setIsChecked] = useState(false)
 
+  const resetForm = () => {
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    })
+  }
+
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -90,6 +103,9 @@ const SignUpForm: React.FC = () => {
           email,
           password,
         })
+
+        resetForm()
+        navigate('/congrats')
       } catch (error) {
         console.error(error)
         console.error('Server Response:', response)
