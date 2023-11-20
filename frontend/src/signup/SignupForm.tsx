@@ -45,18 +45,7 @@ export const SignupForm = (props:any) => {
       }
     }
    
-
   }
-
-  function validatePassword(){
-    setShowValidation(true)
-    
-  }
-
-  function hidePasswordValidation(){
-    setShowValidation(false)
-  }
-
   
 
   return (
@@ -76,7 +65,7 @@ export const SignupForm = (props:any) => {
         </div>
         <div className="input-divs">
         <label>Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</label>
-        <input type="password" name="password" value={formData.password} onChange={handleFormChange} onClick={validatePassword}/>
+        <input type="password" name="password" value={formData.password} onChange={handleFormChange} onClick={() => setShowValidation(true)}/>
         {showValidation?
         <div className='password-validations'>
         <p style={{color: upperCase ? 'black' : 'red' }}>1 uppercase</p>
@@ -89,7 +78,7 @@ export const SignupForm = (props:any) => {
         </div>
         <div className="input-divs" style={{marginBottom: '0px'}}>
         <label>Re-enter password</label>
-        <input type="password" name="password2" onClick={hidePasswordValidation}/>
+        <input type="password" name="password2" onClick={() => setShowValidation(false)}/>
         </div>
         <div className='checkbox-div'>
         <input type="checkbox"/>
