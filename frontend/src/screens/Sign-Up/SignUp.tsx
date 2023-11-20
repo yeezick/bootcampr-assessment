@@ -7,6 +7,7 @@ import { sign } from 'crypto'
 import { isTypeAssertionExpression } from 'typescript'
 import Image from 'assets/Image.svg';
 import Icon from 'assets/Icon.png';
+import Icon2 from 'assets/icon2.png';
 
 export const SignUp: React.FC = () => {
   return (
@@ -48,6 +49,7 @@ const SignUpForm: React.FC = () => {
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [emailValidation, setEmailValidation] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordRe, setShowPasswordRe] = useState(false);
   const [notification, setNotification] = useState(false);
 
 
@@ -72,8 +74,18 @@ const SignUpForm: React.FC = () => {
     }
   }
 
-  const handleCheck = () => {
+  const handleCheck = (event) => {
     setNotification(!notification);
+  }
+
+  const handleVisibility = (event) => {
+    event.preventDefault()
+    setShowPassword(!showPassword);
+  }
+
+  const handleVisibilityRe = (event) => {
+    event.preventDefault()
+    setShowPasswordRe(!showPasswordRe);
   }
 
   const handleChange = (event) => {
@@ -152,21 +164,23 @@ const SignUpForm: React.FC = () => {
             {signupDetails.email.length ? <p className={emailValidation ? 'email-valid' : 'email-invalid'}>Must use unique email</p> : ""}
           </div>
           <div className='input-common input-password'>
-            <h3 className='mini-header'>{'Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)'}</h3>
+            <h3 className='mini-header'>{'Password'}</h3>
             <input
               className='input'
               type= {showPassword ? 'text' : 'password'}
               name= 'password'
               onChange={handleChange}
             />
+            <button className='visibility-button'>
+              <img 
+                className='visibility-icon'
+                src={Icon2}
+                alt="visibility-button"
+                onClick={handleVisibility}
+              ></img>
+            </button>
           </div>
           {signupDetails.password.length ? <div className='validation-container'>
-              {passwordValidation.minLength ? <p className='minchar-valid'>
-              <img className="icon" src={Icon}></img> Min 8 characters
-                </p> : 
-                <p className='minchar-invalid'>
-                  Min 8 characters
-                </p>}
                 {passwordValidation.hasUpperCase ? <p className='minchar-valid'>
                 <img className="icon" src={Icon}></img> 1 upper
                 </p> : 
@@ -185,15 +199,29 @@ const SignUpForm: React.FC = () => {
                 <p className='minchar-invalid'>
                   1 symbol
                 </p>}
+                {passwordValidation.minLength ? <p className='minchar-valid'>
+              <img className="icon" src={Icon}></img> Min 8 characters
+                </p> : 
+                <p className='minchar-invalid'>
+                  Minimum 8 characters
+                </p>}
           </div> : ""}
           <div className='input-common input-passwordre'>
             <h3 className='mini-header'>Re-enter password</h3>
             <input
               className='input'
-              type= {showPassword ? 'text' : 'password'}
+              type= {showPasswordRe ? 'text' : 'password'}
               name='passwordRe'
               onChange={handleChange}
             />
+            <button className='visibility-button'>
+              <img 
+                className='visibility-icon'
+                src={Icon2}
+                alt="visibility-button"
+                onClick={handleVisibilityRe}
+              ></img>
+            </button>
             {signupDetails.passwordRe.length ? <p className={passwordMatch ? 'passwordmatch-valid' : 'passwordmatch-invalid'}>Passwords match</p>: ""}
           </div>
           <div className='notification-container'>
