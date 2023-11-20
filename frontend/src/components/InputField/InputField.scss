@@ -1,0 +1,61 @@
+// Text labels
+label {
+  display: block;
+  margin: 0.5rem 0;
+
+  & input[type='text'],
+  & input[type='email'],
+  & input[type='password'] {
+    width: 100%;
+    height: 3rem;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    background-color: #f1f3f5;
+    border: 1px solid transparent;
+
+    &::placeholder {
+      color: #868e96;
+    }
+  }
+
+  & .password-field {
+    display: flex;
+    align-items: center;
+
+    & button {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+
+  & p {
+    margin: 0 0 0.25rem 0;
+
+    &.error-message {
+      min-height: 1rem;
+      font-size: 0.85rem;
+      visibility: hidden;
+      color: #40c057;
+    }
+  }
+
+  &.invalid {
+    & input[type='text'],
+    & input[type='email'],
+    & input[type='password'] {
+      border-color: #fa5252;
+    }
+
+    & p.error-message {
+      visibility: visible;
+      color: #fa5252;
+
+      & > span {
+        display: block;
+      }
+    }
+  }
+}

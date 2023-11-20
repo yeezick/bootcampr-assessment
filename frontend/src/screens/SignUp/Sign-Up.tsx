@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
-// import { useNavigate } from 'react-router-dom'
-// import { Button } from '@mui/material'
-// import { sayHello } from 'utils/sampleController'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
+import IconButton from '@mui/material/IconButton'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import InputField from '../../components/InputField/InputField'
 import './Sign-Up.scss'
+import PasswordField from 'components/PasswordField/PasswordField'
 
 export const SignUp: React.FC = () => {
-  // const [helloResponse, setHelloResponse] = useState<string>('')
+  const handleValidity = e => {
+    if (e.target.checkValidity()) {
+      e.target.className += ''
+    }
+    console.log(e.target.checkValidity())
+  }
 
   return (
     <div className='signup-container'>
@@ -26,33 +31,45 @@ export const SignUp: React.FC = () => {
         </div>
         <div className='form-container'>
           <form>
-            <label htmlFor='first-name'>
-              <p>First Name</p>
-              <input id='first-name' type='text' required />
-              <p className='first-name-error-message error-message'>error</p>
-            </label>
-            <label htmlFor='last-name'>
-              <p>Last Name</p>
-              <input id='last-name' type='text' required />
-              <p className='last-name-error-message error-message'>error</p>
-            </label>
-            <label htmlFor='email-address'>
-              <p>Email Address (ex. jeanine@bootcampr.io)</p>
-              <input id='email-address' type='email' required />
-              <p className='email-address-error-message error-message'>error</p>
-            </label>
-            <label htmlFor='password'>
-              <p>Password</p>
-              <input id='password' type='password' required />
-              <p className='password-error-message error-message'>error</p>
-            </label>
-            <label htmlFor='confirm-password'>
+            <InputField
+              type='text'
+              label='First Name'
+              identifier='first-name'
+            />
+            <InputField type='text' label='Last Name' identifier='last-name' />
+            <InputField
+              type='email'
+              label='Email Address'
+              placeholder='ex. jeanine@bootcampr.io'
+              identifier='email-address'
+            />
+            <PasswordField
+              type={'password'}
+              label={'Password'}
+              identifier={'password'}
+            />
+
+            {/* <label htmlFor='confirm-password'>
               <p>Re-enter Password</p>
-              <input id='confirm-password' type='password' required />
+              <div className='password-field'>
+                <input
+                  id='confirm-password'
+                  type={passwordVisible ? 'text' : 'password'}
+                  required
+                />
+                <IconButton
+                  onClick={handlePasswordVisibility}
+                  aria-label={
+                    passwordVisible ? 'Hide Password' : 'Show Password'
+                  }
+                >
+                  {passwordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </IconButton>
+              </div>
               <p className='confirm-password-error-message error-message'>
-                error
+                Password Doesn't Match!
               </p>
-            </label>
+            </label> */}
             <label
               htmlFor='notification-consent-checkbox'
               id='notification-consent'
