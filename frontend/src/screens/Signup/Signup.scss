@@ -61,7 +61,7 @@ input[type='password']{
     padding-inline: .5rem;
 }
 
-input[type='text'],input[type='email']{
+input[type='text']{
   margin-bottom: 1.3rem;
 }
 
@@ -72,8 +72,12 @@ label .email{
 .password-wrapper{
     position: relative;
     margin-bottom: 1.3rem;
-    // border: 2px solid red;
     box-sizing: border-box;
+}
+.email-wrapper{
+  position: relative;
+  margin-bottom: 1.3rem;
+
 }
 
 .password-wrapper .message-log{
@@ -127,3 +131,25 @@ label .email{
     border:1px solid red !important ;
 }
 
+// Email Loader
+  .loader {
+    position: absolute;
+    top: 30%;
+    right: .1rem;
+    border: 4px solid rgba(0, 0, 0, .8);
+    border-left-color: transparent;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    animation: emailLoader 1s linear infinite;
+  }
+  
+  @keyframes emailLoader {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }

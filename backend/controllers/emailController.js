@@ -12,7 +12,7 @@ export const emailController=async (req,res)=>{
           if(verifyEmail){
             res.status(401).json("This Email is already registered")
           }else{
-            res.status(201).json('Email can register')
+            res.status(201).json('Email valid')
           }
       }catch(err){
           res.status(500).json('Internal Server Error',err)

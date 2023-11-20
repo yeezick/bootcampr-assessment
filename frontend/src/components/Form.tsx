@@ -20,6 +20,10 @@ const Form = () => {
     const [ regexLog,setRegexLog ] = useState(false)
     const [ message,setMessage]= useState('')
     const [ errorColor,setErrorColor] = useState(false)
+    const [ emailLoader,setEmailLoader ]= useState(false)
+    const [ emailLog,setEmailLog]= useState(false)
+    const [ emailColor,setEmailColor]= useState(false)
+    const [ apiResponse,setApiResponse]= useState(false)
     const [ lowerValidated,setLowerValidated]=useState(false)
     const [ upperValidated,setUpperValidated]=useState(false)
     const [ numberValidated,setNumberValidated]= useState(false)
@@ -68,16 +72,27 @@ const Form = () => {
 
       // Check the database to verify email onblur of input
       const handleVerifyEmail=async()=>{
-         const apiResponse =  await verifyEmail()
+        setEmailLoader(true)
+         const apiResponse =  await verifyEmail(formState.email)
          console.log(apiResponse)
+         if(apiResponse === 'Email valid'){
+              setApiResponse(true)
+              setEmailColor(false)
+              setEmailLog(false)
+            }else{
+              setEmailColor(true)
+              setEmailLog(true)
+              setApiResponse(false)
+        }
+        setEmailLoader(false)
       }
 
       // check if Password Matches
       const validatePassword = formState.password === formState.confirmPassword;
 
        // Check if the password passes the regex matches
-    const isMatched = lowerValidated && upperValidated && 
-                       numberValidated && lengthValidated;
+    const isMatched =lowerValidated && upperValidated && 
+                      numberValidated && lengthValidated;
 
     // update confirm password input state based on password regex passes
     useEffect(()=>{
@@ -149,7 +164,7 @@ const Form = () => {
 
 
     // Check if all Form Input have been filled
-    const isCompleted = isMatched && formState.firstName && formState.lastName &&
+    const isCompleted =  apiResponse && isMatched && formState.firstName && formState.lastName &&
                         formState.email && formState.password && 
                         formState.confirmPassword && formState.checkbox;
       console.log(formState);
@@ -186,15 +201,19 @@ const Form = () => {
               <span className="email">(ex. jeanine@bootcampr.io)</span>
             </label>
             <br />
+              <div className="email-wrapper">
             <input
               type="email"
+              className={ emailColor ? 'input-invalid':''}
               value={formState.email}
               onChange={handleInputChange}
               onBlur={handleVerifyEmail}
               name="email"
               id="email"
             />
-            <br />
+           { emailLoader && <div className="loader"></div>}
+           {emailLog && <small className="not-validated">Email already exists!</small> }
+              </div>
 
             <label htmlFor="password">
                Password </label>
