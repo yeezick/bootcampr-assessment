@@ -11,7 +11,7 @@
 .SignUpForm input {
     display: flex;
     width: 448px;
-    height: 64px;
+    height: 40px;
     padding: 0.625rem 21.875rem 0.625rem 0.9375rem;
     align-items: center;
     border-radius: 5px;
@@ -22,7 +22,7 @@
     box-sizing: border-box;
     padding-left: 1rem;
     padding-right: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0.3rem;
 }
 
 #agree-check {
@@ -57,13 +57,13 @@
     width: 16px;
     position: absolute;
     right: 10px;
-    top: 16px;
+    top: 13px;
     cursor: pointer;
 }
 
 .SignUpForm div input {
     width: 448px;
-    height: 48px;
+    height: 40px;
 }
 
 .SignUpForm .is-valid {
@@ -80,4 +80,15 @@
 
 .SignUpForm .password-div {
     height: 40px;
+}
+
+.SignUpForm .confirm-feedback {
+    font-size: 12px;
+    line-height: 6px;
+    padding: 0;
+    color: #23A6A1;
+}
+
+.confirm-feedback>p {
+    margin-top: 0;
 }

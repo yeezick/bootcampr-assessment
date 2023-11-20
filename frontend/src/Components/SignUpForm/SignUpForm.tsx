@@ -13,6 +13,7 @@ export const SignUpForm: React.FC = () => {
     });
     const [type, setType] = useState('password');
     const [passwordMsgs, setPasswordMsgs] = useState([]);
+    const [confirmMsg, setConfirmMsg] = useState('');
     const isFormValid =
         newUser.firstName.trim() !== '' &&
         newUser.lastName.trim() !== '' &&
@@ -37,21 +38,35 @@ export const SignUpForm: React.FC = () => {
         calculatePasswordMsgs(e.target.value);
     }
 
+    function handlePasswordConfirmChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setNewUser({ ...newUser, [e.target.name]: e.target.value });
+        calculateConfirmChange(e.target.value);
+    }
+
     function calculatePasswordMsgs(password: string) {
         if (password === '') {
             // If password is empty, clear messages
             setPasswordMsgs([]);
             return;
         }
-
         const messages = [
             { text: '1 uppercase', isValid: /[A-Z]/.test(password) },
             { text: '1 lowercase', isValid: /[a-z]/.test(password) },
             { text: '1 symbol', isValid: /[!@#$%^&*(),.?":{}|<>]/.test(password) },
             { text: 'Minimum 8 characters', isValid: password.length >= 8 },
         ];
-
         setPasswordMsgs(messages);
+    }
+
+    function calculateConfirmChange(confirmPassword: string) {
+        if (confirmPassword === '') {
+            setConfirmMsg('');
+        }
+        else if (confirmPassword === newUser.password) {
+            setConfirmMsg('Passwords match!')
+        } else {
+            setConfirmMsg('');
+        }
     }
 
     function handleToggle() {
@@ -78,8 +93,11 @@ export const SignUpForm: React.FC = () => {
             </div>
             <label htmlFor="confirm">Re-enter password</label>
             <div>
-                <input required id='confirm' type={type} name='confirmPassword' onChange={handleChange} />
+                <input required id='confirm' type={type} name='confirmPassword' onChange={handlePasswordConfirmChange} />
                 <img onClick={handleToggle} src='Icon.svg' alt='toggle password view'></img>
+            </div>
+            <div className="confirm-feedback">
+                <p>{confirmMsg}</p>
             </div>
             <div className="checkbox-group">
                 <input required type="checkbox" name="agreeCheck" id="agree-check" onChange={handleAgreeChange} />
