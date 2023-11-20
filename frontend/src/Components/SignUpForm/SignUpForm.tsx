@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { SignUpBtn } from '../../Components/SignUpBtn/SignUpBtn';
+import * as api from '../../utils/sampleController';
 import './SignUpForm.scss';
 
 export const SignUpForm: React.FC = () => {
@@ -73,8 +74,18 @@ export const SignUpForm: React.FC = () => {
         setType(type === 'password' ? 'text' : 'password');
     }
 
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        try {
+            const { firstName, lastName, email, password } = newUser
+            const formData = { firstName, lastName, email, password };
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
-        <form className='SignUpForm'>
+        <form onSubmit={handleSubmit} className='SignUpForm'>
             <label htmlFor="first-name">First name</label>
             <input required id='first-name' name='firstName' type="text" onChange={handleChange} />
             <label htmlFor="last-name">Last name</label>

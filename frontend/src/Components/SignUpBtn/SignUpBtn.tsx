@@ -4,9 +4,8 @@ interface SignUpBtnProps {
 }
 
 export const SignUpBtn: React.FC<SignUpBtnProps> = ({ isDisabled }) => {
-    // Your SignUpBtn component implementation
     return (
-        <button disabled={isDisabled} id='sign-up-btn'>Sign Up</button>
+        <button type='submit' disabled={isDisabled} id='sign-up-btn'>Sign Up</button>
     );
 };
 
