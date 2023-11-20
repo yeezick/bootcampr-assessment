@@ -1,6 +1,6 @@
 import { Checkbox, HStack, Text } from '@chakra-ui/react'
 
-export default function CheckBox({
+export default function ConsentCheckbox({
   agree,
   setAgree,
   showPasswordHints,

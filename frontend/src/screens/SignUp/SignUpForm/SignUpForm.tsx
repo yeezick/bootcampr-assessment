@@ -24,7 +24,7 @@ import { useNavigate } from 'react-router-dom'
 import { createUser } from 'utils/userController'
 import { validationSchema } from './validationSchema'
 import SubmitButton from './SubmitButton'
-import CheckBox from './ConsentCheckbox'
+import ConsentCheckbox from './ConsentCheckbox'
 
 type Values = {
   firstName: string
@@ -284,7 +284,7 @@ export default function SignUpForm() {
               )}
             </Field>
 
-            <CheckBox
+            <ConsentCheckbox
               agree={agree}
               setAgree={setAgree}
               showPasswordHints={showPasswordHints}
@@ -294,7 +294,7 @@ export default function SignUpForm() {
               I agree to receive email notification(s). We will only send emails
               with important information, like project start dates. We will not
               sell your information!
-            </CheckBox>
+            </ConsentCheckbox>
 
             <SubmitButton
               isSubmitting={isSubmitting}
