@@ -48,6 +48,8 @@ const SignUpForm: React.FC = () => {
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [emailValidation, setEmailValidation] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [notification, setNotification] = useState(false);
+
 
   const validatePassword = (password: string) => {
     const validations = {
@@ -70,9 +72,12 @@ const SignUpForm: React.FC = () => {
     }
   }
 
+  const handleCheck = () => {
+    setNotification(!notification);
+  }
+
   const handleChange = (event) => {
     console.log(signupDetails)
-    event.preventDefault();
     const { name, value } = event.target;
 
     setSignupDetails((previous) => {
@@ -195,6 +200,7 @@ const SignUpForm: React.FC = () => {
             <input
               className='notification-checkbox' 
               type='checkbox'
+              onChange={handleCheck}
             ></input>
             <p className='notification-text'>
               I agree to receive email notification(s). We will only send 
@@ -204,11 +210,12 @@ const SignUpForm: React.FC = () => {
           </div>
           <div className='button-container'>
             <button
+              className={Object.values(passwordValidation).includes(false) || !passwordMatch || !emailValidation || !notification ? 'submit-invalid' : 'submit-valid'}
               type='submit'
-              disabled={Object.values(passwordValidation).includes(false) || !passwordMatch || !emailValidation}
+              disabled={Object.values(passwordValidation).includes(false) || !passwordMatch || !emailValidation || !notification}
               onClick={handleSubmit}
             >
-              Submit
+              Sign up
             </button>
           </div>
         </form>

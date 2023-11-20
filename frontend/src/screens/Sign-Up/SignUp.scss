@@ -227,8 +227,13 @@ $line-height-h4: 33.6px;
         width: 100%;
         height: 43px;
         border-radius: 4px;
-        background-color: #ECEBEB;
         border: none; 
+    }
+    .submit-invalid {
+        background-color: #ECEBEB;
+    }
+    .submit-valid {
+        background-color: #FA9413;
     }
 }
 
