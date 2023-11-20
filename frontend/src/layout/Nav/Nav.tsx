@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import Logo from 'assets/Logo.svg'
 import './Nav.scss'
+import { useState } from 'react'
 
 export const Nav = () => {
+  const [showSignUp, setShowSignUp] = useState(false)
   return (
     <nav>
       <div className='nav-container'>
@@ -11,11 +13,15 @@ export const Nav = () => {
             <img src={Logo} alt='logo' />
           </Link>
         </div>
-        <div>
-          <Link className='sign-up' to='/sign-up'>
-            Sign up
-          </Link>
-        </div>
+        {showSignUp ? (
+          <div>
+            <Link className='sign-up' to='/sign-up'>
+              Sign up
+            </Link>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </nav>
   )
