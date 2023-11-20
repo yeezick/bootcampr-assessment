@@ -1,4 +1,5 @@
 import Users from "../models/users.js";
+import bcrypt from "bcrypt";
 
 const userController = {};
 
@@ -6,19 +7,12 @@ userController.getUser = async (req, res, next) => {
   console.log("in getUser");
   try {
     console.log(req.query.email.toLowerCase());
-    const response = await Users.find({ email: req.query.email.toLowerCase() });
-    res.locals.user = response.length > 0 ? { email: response[0].email } : null;
-    return next();
-  } catch (error) {
-    console.log(error.message);
-  }
-};
 
-userController.getUsers = async (req, res, next) => {
-  console.log("in getUsers");
-  try {
-    const response = await Users.find({});
-    res.locals.users = await response;
+    const response = await Users.find(
+      req.query.email ? { email: req.query.email.toLowerCase() } : {}
+    );
+
+    res.locals.user = response.length > 0 ? response : null;
     return next();
   } catch (error) {
     console.log(error.message);
@@ -27,12 +21,18 @@ userController.getUsers = async (req, res, next) => {
 
 userController.addUser = async (req, res, next) => {
   console.log("in addUser");
+
+  const saltRounds = 10;
   const { email, password } = req.body;
+
   try {
-    const response = await Users.create({
+    const hashedPW = await bcrypt.hash(password, saltRounds);
+
+    Users.create({
       email: email.toLowerCase(),
-      password,
+      password: hashedPW,
     });
+
     return next();
   } catch (error) {
     return next(error.message);
