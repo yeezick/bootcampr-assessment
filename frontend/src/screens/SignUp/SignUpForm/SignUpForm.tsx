@@ -25,6 +25,7 @@ import { createUser } from 'utils/userController'
 import { validationSchema } from './validationSchema'
 import SubmitButton from './SubmitButton'
 import ConsentCheckbox from './ConsentCheckbox'
+import SimpleInput from './SimpleInput'
 
 type Values = {
   firstName: string
@@ -62,6 +63,7 @@ export default function SignUpForm() {
             actions.setSubmitting(true)
             await createUser(restValues)
             navigate('/congrats')
+            console.log(values)
             actions.resetForm()
             actions.setSubmitting(false)
           } catch (error) {
@@ -74,73 +76,11 @@ export default function SignUpForm() {
       >
         {({ isValid, isSubmitting }) => (
           <Form>
-            <Field name='firstName'>
-              {({ field, form }: FieldProps) => (
-                <FormControl
-                  mb={5}
-                  isInvalid={
-                    !!(form.errors.firstName && form.touched.firstName)
-                  }
-                >
-                  <FormLabel htmlFor='firstName' fontWeight={'normal'} m={0}>
-                    First name
-                  </FormLabel>
-                  <Input
-                    {...field}
-                    id='firstName'
-                    bg={'#ECEBEB'}
-                    onFocus={() => form.setFieldTouched('firstName')}
-                  />
-                  <Text color={'red'}>
-                    <ErrorMessage name='firstName' />
-                  </Text>
-                </FormControl>
-              )}
-            </Field>
+            <SimpleInput inputName={'firstName'} />
 
-            <Field name='lastName'>
-              {({ field, form }: FieldProps) => (
-                <FormControl
-                  mb={5}
-                  isInvalid={!!(form.errors.lastName && form.touched.lastName)}
-                >
-                  <FormLabel htmlFor='lastName' fontWeight={'normal'} m={0}>
-                    Last name
-                  </FormLabel>
-                  <Input
-                    {...field}
-                    id='lastName'
-                    bg={'#ECEBEB'}
-                    onFocus={() => form.setFieldTouched('lastName')}
-                  />
-                  <Text color={'red'}>
-                    <ErrorMessage name='lastName' />
-                  </Text>
-                </FormControl>
-              )}
-            </Field>
+            <SimpleInput inputName={'lastName'} />
 
-            <Field name='email'>
-              {({ field, form }: FieldProps) => (
-                <FormControl
-                  mb={5}
-                  isInvalid={!!(form.errors.email && form.touched.email)}
-                >
-                  <FormLabel htmlFor='email' fontWeight={'normal'} m={0}>
-                    Email address (ex. jeanine@bootcampr.io)
-                  </FormLabel>
-                  <Input
-                    {...field}
-                    id='email'
-                    bg={'#ECEBEB'}
-                    onFocus={() => form.setFieldTouched('email')}
-                  />
-                  <Text color={'red'}>
-                    <ErrorMessage name='email' />
-                  </Text>
-                </FormControl>
-              )}
-            </Field>
+            <SimpleInput inputName={'email'} />
 
             <Field name='password'>
               {({ field, form }: FieldProps) => (
