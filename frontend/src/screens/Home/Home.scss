@@ -1,0 +1,27 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1024px;
+  margin: auto;
+  font-family: Inter;
+  width: 100%;
+
+  h2 {
+    text-align: left;
+  }
+
+  .home-users-table {
+    border-collapse: collapse;
+
+    td {
+      margin: 0;
+      padding: 20px;
+      border: 1px solid black;
+    }
+
+    .home-users-table-headers {
+      font-weight: 900;
+    }
+
+  }
+}

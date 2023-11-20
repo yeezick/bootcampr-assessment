@@ -10,9 +10,29 @@ const getUser = async (email: String) => {
   }
 }
 
-const addUser = async (email: String, password: string) => {
+const getUsers = async () => {
   try {
-    const res = await api.post('api/user', { email, password })
+    const res = await api.get(`api/user`)
+    return res.data
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}
+
+const addUser = async (
+  firstname: string,
+  lastname: string,
+  email: String,
+  password: string
+) => {
+  try {
+    const res = await api.post('api/user', {
+      firstname,
+      lastname,
+      email,
+      password,
+    })
     return res
   } catch (error) {
     console.error(error)
@@ -20,4 +40,4 @@ const addUser = async (email: String, password: string) => {
   }
 }
 
-export { getUser, addUser }
+export { getUser, getUsers, addUser }

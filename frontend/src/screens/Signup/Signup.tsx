@@ -123,6 +123,8 @@ const SignUpForm: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const response = await addUser(
+      formData.signUpFirstName,
+      formData.signUpLastName,
       formData.signUpEmail,
       formData.signUpPassword
     )
