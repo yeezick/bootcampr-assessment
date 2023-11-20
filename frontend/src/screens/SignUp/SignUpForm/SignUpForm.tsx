@@ -23,6 +23,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createUser } from 'utils/userController'
 import { validationSchema } from './validationSchema'
+import SubmitButton from './SubmitButton'
 
 type Values = {
   firstName: string
@@ -47,7 +48,7 @@ export default function SignUpForm() {
 
   const navigate = useNavigate()
 
-  const handleCheck = isValid => {
+  const handleCheck = (isValid: boolean) => {
     setAgree(!agree)
     if (isValid) {
       setShowPasswordHints(!showPasswordHints)
@@ -302,17 +303,13 @@ export default function SignUpForm() {
               </Text>
             </HStack>
 
-            <Button
-              type='submit'
-              isLoading={isSubmitting}
-              isDisabled={!agree || !isValid}
-              // _disabled={{ opacity: 1, cursor: 'not-allowed' }} //matches design but impacts UX
-              backgroundColor={agree && isValid ? '#EC993B' : '#ECEBEB'}
-              _hover={{ background: agree && isValid ? '#EC993B' : '#ECEBEB' }}
-              width={'448px'}
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              agree={agree}
+              isValid={isValid}
             >
               Sign up
-            </Button>
+            </SubmitButton>
           </Form>
         )}
       </Formik>
