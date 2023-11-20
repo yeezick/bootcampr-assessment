@@ -144,7 +144,7 @@ const SignUpForm: React.FC = () => {
               onChange={handleChange}
               onBlur={handleEmail}
             />
-            <p className={emailValidation ? 'email-valid' : 'email-invalid'}>Must use unique email</p>
+            {signupDetails.email.length ? <p className={emailValidation ? 'email-valid' : 'email-invalid'}>Must use unique email</p> : ""}
           </div>
           <div className='input-common input-password'>
             <h3 className='mini-header'>{'Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)'}</h3>
@@ -155,7 +155,7 @@ const SignUpForm: React.FC = () => {
               onChange={handleChange}
             />
           </div>
-          <div className='validation-container'>
+          {signupDetails.password.length ? <div className='validation-container'>
               {passwordValidation.minLength ? <p className='minchar-valid'>
               <img className="icon" src={Icon}></img> Min 8 characters
                 </p> : 
@@ -180,7 +180,7 @@ const SignUpForm: React.FC = () => {
                 <p className='minchar-invalid'>
                   1 symbol
                 </p>}
-          </div>
+          </div> : ""}
           <div className='input-common input-passwordre'>
             <h3 className='mini-header'>Re-enter password</h3>
             <input
@@ -189,7 +189,7 @@ const SignUpForm: React.FC = () => {
               name='passwordRe'
               onChange={handleChange}
             />
-            <p className={passwordMatch ? 'passwordmatch-valid' : 'passwordmatch-invalid'}>Passwords match</p>
+            {signupDetails.passwordRe.length ? <p className={passwordMatch ? 'passwordmatch-valid' : 'passwordmatch-invalid'}>Passwords match</p>: ""}
           </div>
           <div className='notification-container'>
             <input
