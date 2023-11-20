@@ -1,6 +1,7 @@
 import { useState,ChangeEvent, useRef, useEffect } from "react";
 import eyeLock from 'assets/eye_icon.png'
 import PasswordValidation from "./PasswordValidation";
+import { verifyEmail } from "utils/emailController";
 
 
 type FormState = {
@@ -63,6 +64,12 @@ const Form = () => {
             setErrorColor(false)
             setMessage('Passwords match!')
            }
+      }
+
+      // Check the database to verify email onblur of input
+      const handleVerifyEmail=async()=>{
+         const apiResponse =  await verifyEmail()
+         console.log(apiResponse)
       }
 
       // check if Password Matches
@@ -183,6 +190,7 @@ const Form = () => {
               type="email"
               value={formState.email}
               onChange={handleInputChange}
+              onBlur={handleVerifyEmail}
               name="email"
               id="email"
             />
