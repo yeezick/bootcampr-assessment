@@ -13,7 +13,7 @@ export const Nav = () => {
           </Link>
         </div>
         <div>
-         { location.pathname !== '/sign-up' && (
+         { location.pathname === '/' && (
          <Link className='sign-up' to='/sign-up'>
             Sign up
           </Link>

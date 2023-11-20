@@ -1,0 +1,36 @@
+/* OnboardingPage.css */
+
+.onboarding-container {
+    text-align: center;
+    padding: 1rem 2rem;
+  }
+  
+  
+  header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  header p {
+    font-size: 1.5rem;
+    color: #777;
+  }
+  
+
+  .get-started-btn {
+    background-color: #FA9413;
+    color: #000;
+    font-weight: 500;
+    padding: 1rem 4rem;
+    font-size: 1.2rem;
+    margin-top: 4rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .get-started-btn:hover {
+    background-color: rgb(250, 150, 20, 90%);
+  }
+  
