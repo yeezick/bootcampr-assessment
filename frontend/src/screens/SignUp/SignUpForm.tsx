@@ -10,14 +10,43 @@ import {
   InputLabel,
   FormControlLabel,
   Checkbox,
+  FormHelperText,
+  FormControl,
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 
-const SignUpForm: React.FC = () => {
-  const emailNotificationAgreement =
-    'I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!'
+type formDataType = {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  confirmPassword: string
+}
 
-  const [formData, setFormData] = useState({
+type formErrorsType = {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  confirmPassword: string
+}
+
+type passwordStateType = {
+  showPassword: boolean
+  hasTyped: boolean
+}
+
+type confirmPasswordStateType = {
+  showConfirmPassword: boolean
+}
+
+const emailNotificationAgreement =
+  'I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!'
+
+const baseUrl = 'http://localhost:8001'
+
+const SignUpForm: React.FC = () => {
+  const [formData, setFormData] = useState<formDataType>({
     firstName: '',
     lastName: '',
     email: '',
@@ -25,18 +54,25 @@ const SignUpForm: React.FC = () => {
     confirmPassword: '',
   })
 
-  const [passwordState, setPasswordState] = useState({
+  const [formErrors, setFormErrors] = useState<formErrorsType>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
+
+  const [passwordState, setPasswordState] = useState<passwordStateType>({
     showPassword: false,
     hasTyped: false,
   })
 
-  const [confirmPasswordState, setConfirmPasswordState] = useState({
-    showConfirmPassword: false,
-  })
+  const [confirmPasswordState, setConfirmPasswordState] =
+    useState<confirmPasswordStateType>({
+      showConfirmPassword: false,
+    })
 
-  const [emailState, setEmailState] = useState({
-    emailError: '',
-  })
+  const [isChecked, setIsChecked] = useState(false)
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -45,6 +81,8 @@ const SignUpForm: React.FC = () => {
 
   const handleInputChange = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value })
+
+    setFormErrors(prevErrors => ({ ...prevErrors, [field]: '' }))
 
     if (field === 'password') {
       setPasswordState({ ...passwordState, hasTyped: true })
@@ -65,6 +103,10 @@ const SignUpForm: React.FC = () => {
     })
   }
 
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event.target.checked)
+  }
+
   //validation
   const isLengthValid = formData.password.length >= 8
   const hasUpperCase = /[A-Z]/.test(formData.password)
@@ -75,55 +117,139 @@ const SignUpForm: React.FC = () => {
 
   const handleEmailValidation = () => {
     if (!/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/.test(formData.email)) {
-      setEmailState({ ...emailState, emailError: 'Invalid email address' })
+      setFormErrors(prevErrors => ({
+        ...prevErrors,
+        email: 'Invalid email address',
+      }))
     } else {
-      setEmailState({ ...emailState, emailError: '' })
+      setFormErrors(prevErrors => ({ ...prevErrors, email: '' }))
     }
   }
 
+  const handleEmptyInput = (field: string, fieldName: string) => {
+    const value = formData[field].trim()
+    if (value === '') {
+      setFormErrors(prevErrors => ({
+        ...prevErrors,
+        [field]: `${fieldName} cannot be empty.`,
+      }))
+    } else {
+      setFormErrors(prevErrors => ({
+        ...prevErrors,
+        [field]: '',
+      }))
+    }
+  }
+
+  const isPasswordValid = () => {
+    return isLengthValid && hasUpperCase && hasLowerCase && hasSymbol
+  }
+
+  const isPasswordMatch = () => {
+    const { password, confirmPassword } = formData
+    const match =
+      password === confirmPassword && password !== '' && confirmPassword !== ''
+
+    if (match) {
+      return true
+    } else {
+      setFormErrors(prevErrors => ({
+        ...prevErrors,
+        confirmPassword: 'The Password entered does not match.',
+      }))
+      return false
+    }
+  }
+
+  const isNotEmpty = () => {
+    return (
+      formData.firstName !== '' &&
+      formData.lastName !== '' &&
+      formData.email !== '' &&
+      formData.password !== '' &&
+      formData.confirmPassword !== ''
+    )
+  }
+
+  const isValid = () => {
+    return isNotEmpty() && isChecked && isPasswordValid() && isPasswordMatch()
+  }
+
   return (
-    <Box component='form' onSubmit={handleSubmit} className='form'>
+    <Box component='form' onSubmit={handleSubmit} className='form' noValidate>
       <InputLabel htmlFor='firstName'>First name</InputLabel>
-      <TextField required id='firstName' name='firstName' autoFocus />
+      <FormControl>
+        <TextField
+          required
+          id='firstName'
+          name='firstName'
+          autoFocus
+          onChange={e => handleInputChange('firstName', e.target.value)}
+          onBlur={() => handleEmptyInput('firstName', 'First name')}
+          error={Boolean(formErrors.firstName)}
+        />
+        <FormHelperText>{formErrors.firstName}</FormHelperText>
+      </FormControl>
       <InputLabel htmlFor='lastName'>Last name</InputLabel>
-      <TextField required id='lastName' name='lastName' />
+      <FormControl>
+        <TextField
+          required
+          id='lastName'
+          name='lastName'
+          onChange={e => handleInputChange('lastName', e.target.value)}
+          onBlur={() => handleEmptyInput('lastName', 'Last name')}
+          error={Boolean(formErrors.lastName)}
+        />
+        <FormHelperText>{formErrors.lastName}</FormHelperText>
+      </FormControl>
       <InputLabel htmlFor='email'>
         Email address (ex. jeanine@bootcampr.io)
       </InputLabel>
-      <TextField
-        required
-        id='email'
-        name='email'
-        type='email'
-        autoComplete='email'
-        onChange={e => handleInputChange('email', e.target.value)}
-        onBlur={handleEmailValidation}
-        helperText={emailState.emailError}
-        error={Boolean(emailState.emailError)}
-      />
+      <FormControl>
+        <TextField
+          required
+          id='email'
+          name='email'
+          type='email'
+          autoComplete='email'
+          onChange={e => handleInputChange('email', e.target.value)}
+          onBlur={handleEmailValidation}
+          error={Boolean(formErrors.email)}
+        />
+        <FormHelperText>{formErrors.email}</FormHelperText>
+      </FormControl>
       <InputLabel htmlFor='password'>
         Password (Minimum 8 characters, 1 uppercase, 1 lowercase, 1 symbol)
       </InputLabel>
-      <OutlinedInput
-        required
-        name='password'
-        id='password'
-        autoComplete='current-password'
-        type={passwordState.showPassword ? 'text' : 'password'}
-        value={formData.password}
-        onChange={e => handleInputChange('password', e.target.value)}
-        endAdornment={
-          <InputAdornment position='end'>
-            <IconButton
-              aria-label='toggle password visibility'
-              onClick={handleTogglePasswordVisibility}
-              edge='end'
-            >
-              {passwordState.showPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
+      <FormControl>
+        <OutlinedInput
+          required
+          name='password'
+          id='password'
+          autoComplete='current-password'
+          type={passwordState.showPassword ? 'text' : 'password'}
+          value={formData.password}
+          onChange={e => handleInputChange('password', e.target.value)}
+          onBlur={() => handleEmptyInput('password', 'Password')}
+          error={Boolean(formErrors.password)}
+          endAdornment={
+            <InputAdornment position='end'>
+              <IconButton
+                aria-label='toggle password visibility'
+                onClick={handleTogglePasswordVisibility}
+                edge='end'
+              >
+                {passwordState.showPassword ? (
+                  <VisibilityOff />
+                ) : (
+                  <Visibility />
+                )}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+        <FormHelperText>{formErrors.password}</FormHelperText>
+      </FormControl>
       {showCriteria && (
         <Box>
           <ul className='criteria'>
@@ -137,36 +263,48 @@ const SignUpForm: React.FC = () => {
         </Box>
       )}
       <InputLabel htmlFor='confirmPassword'>Re-enter password</InputLabel>
-      <OutlinedInput
-        required
-        name='confirmPassword'
-        id='confirmPassword'
-        autoComplete='current-password'
-        type={confirmPasswordState.showConfirmPassword ? 'text' : 'password'}
-        value={formData.confirmPassword}
-        onChange={e => handleInputChange('confirmPassword', e.target.value)}
-        endAdornment={
-          <InputAdornment position='end'>
-            <IconButton
-              aria-label='toggle password visibility'
-              onClick={handleToggleConfirmPasswordVisibility}
-              edge='end'
-            >
-              {confirmPasswordState.showConfirmPassword ? (
-                <VisibilityOff />
-              ) : (
-                <Visibility />
-              )}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
+      <FormControl>
+        <OutlinedInput
+          required
+          name='confirmPassword'
+          id='confirmPassword'
+          autoComplete='current-password'
+          type={confirmPasswordState.showConfirmPassword ? 'text' : 'password'}
+          value={formData.confirmPassword}
+          onChange={e => handleInputChange('confirmPassword', e.target.value)}
+          onBlur={() => {
+            handleEmptyInput('confirmPassword', 'Confirm Password')
+            isPasswordMatch()
+          }}
+          error={Boolean(formErrors.confirmPassword)}
+          endAdornment={
+            <InputAdornment position='end'>
+              <IconButton
+                aria-label='toggle password visibility'
+                onClick={handleToggleConfirmPasswordVisibility}
+                edge='end'
+              >
+                {confirmPasswordState.showConfirmPassword ? (
+                  <VisibilityOff />
+                ) : (
+                  <Visibility />
+                )}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+        <FormHelperText>{formErrors.confirmPassword}</FormHelperText>
+      </FormControl>
       <FormControlLabel
         className='email-agreement checkbox-email-agreement'
-        control={<Checkbox value='remember' />}
+        control={<Checkbox value='remember' onChange={handleCheckboxChange} />}
         label={emailNotificationAgreement}
       />
-      <Button type='submit' className='submit-button'>
+      <Button
+        type='submit'
+        className={isValid() ? 'submit-button-enabled' : ''}
+        disabled={!isValid()}
+      >
         Sign up
       </Button>
     </Box>
