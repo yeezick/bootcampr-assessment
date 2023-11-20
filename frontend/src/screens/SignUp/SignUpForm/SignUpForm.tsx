@@ -24,6 +24,7 @@ import { useNavigate } from 'react-router-dom'
 import { createUser } from 'utils/userController'
 import { validationSchema } from './validationSchema'
 import SubmitButton from './SubmitButton'
+import CheckBox from './ConsentCheckbox'
 
 type Values = {
   firstName: string
@@ -47,13 +48,6 @@ export default function SignUpForm() {
   const [showPasswordHints, setShowPasswordHints] = useState(true)
 
   const navigate = useNavigate()
-
-  const handleCheck = (isValid: boolean) => {
-    setAgree(!agree)
-    if (isValid) {
-      setShowPasswordHints(!showPasswordHints)
-    }
-  }
 
   return (
     <VStack>
@@ -290,18 +284,17 @@ export default function SignUpForm() {
               )}
             </Field>
 
-            <HStack alignItems='flex-start' mb={5}>
-              <Checkbox
-                isChecked={agree}
-                pt={1}
-                onChange={() => handleCheck(isValid)}
-              />
-              <Text ml={4} mr={8} fontSize='14px'>
-                I agree to receive email notification(s). We will only send
-                emails with important information, like project start dates. We
-                will not sell your information!
-              </Text>
-            </HStack>
+            <CheckBox
+              agree={agree}
+              setAgree={setAgree}
+              showPasswordHints={showPasswordHints}
+              setShowPasswordHints={setShowPasswordHints}
+              isValid={isValid}
+            >
+              I agree to receive email notification(s). We will only send emails
+              with important information, like project start dates. We will not
+              sell your information!
+            </CheckBox>
 
             <SubmitButton
               isSubmitting={isSubmitting}
