@@ -25,8 +25,7 @@ export default function SimpleInput({ inputName, children }) {
               if (field.name === 'email') {
                 return savedUsers.some(user => user.email === e.target.value)
                   ? form.setFieldError('email', 'Email already in use')
-                  : // ? console.log('oops')
-                    null
+                  : null
               }
               field.onBlur(e)
             }}
