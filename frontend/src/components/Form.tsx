@@ -4,6 +4,7 @@ import PasswordValidation from "./PasswordValidation";
 import { verifyEmail } from "utils/emailController";
 import { postData } from "utils/signupController";
 import { useNavigate } from "react-router-dom";
+import SignupButton from "./SignupButton";
 
 
 type FormState = {
@@ -292,15 +293,7 @@ const Form = () => {
                 will not sell your information!
               </span>
             </div>
-            <button type="submit"
-             style={{ pointerEvents: isCompleted ? 'auto' : 'none',
-                     backgroundColor: isCompleted ?   '#FA9413' : '',
-                     cursor:isCompleted ?'pointer':'auto',
-                    transition:"all ease-in-out 300ms"
-                     }}>
-                      {signUpLoader ? ( <div className="loader-two"></div>):"Sign up"}
-            </button>
-
+             <SignupButton isCompleted={isCompleted} signUpLoader={signUpLoader}/>
           </form>
        </>
   )
