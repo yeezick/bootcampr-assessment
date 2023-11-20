@@ -6,7 +6,8 @@ interface FormInputProps {
   name: string;
   type: string;
   value: string;
-  changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  endAdornment?: React.ReactNode;
 }
 
 export const FormField: React.FC<FormInputProps> = (props) => {
