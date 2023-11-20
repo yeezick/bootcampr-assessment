@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './SignUp.scss'
-import { SignUpForm } from "../../components/SignUpForm"
+import { SignUpForm } from '../components/SignUpForm'
 
 export const SignUp: React.FC = () => {
 
