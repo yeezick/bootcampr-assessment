@@ -7,11 +7,11 @@ const router = Router();
 // Hello World!
 router.get("/hello-world", getHelloWorld);
 
-router.get("api/user", userController.getUser, (req, res) => {
+router.get("/api/user", userController.getUser, (req, res) => {
   return res.status(200).json(res.locals.user);
 });
 
-router.post("api/user", userController.addUser, (req, res) => {
+router.post("/api/user", userController.addUser, (req, res) => {
   return res.status(200).json("user created");
 });
 

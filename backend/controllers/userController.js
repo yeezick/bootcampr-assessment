@@ -6,8 +6,6 @@ const userController = {};
 userController.getUser = async (req, res, next) => {
   console.log("in getUser");
   try {
-    console.log(req.query.email.toLowerCase());
-
     const response = await Users.find(
       req.query.email ? { email: req.query.email.toLowerCase() } : {}
     );
