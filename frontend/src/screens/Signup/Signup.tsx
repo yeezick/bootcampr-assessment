@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import heroImage from '../../assets/SignUpHeroImage.jpg'
 import {
   FormEmailInput,
@@ -47,6 +48,8 @@ interface IPWValidationsData {
 }
 
 const SignUpForm: React.FC = () => {
+  const navigate = useNavigate()
+
   const [formData, setFormData] = useState<IFormData>({
     signUpFirstName: '',
     signUpLastName: '',
@@ -56,7 +59,7 @@ const SignUpForm: React.FC = () => {
     signUpCheckNotifications: false,
   })
 
-  const [emailValid, setEmailValid] = useState<boolean>(false)
+  const [emailValid, setEmailValid] = useState<boolean>(true)
 
   const [pwValidations, setPWValidations] = useState<IPWValidationsData>({
     isMinLength: false,
@@ -127,7 +130,7 @@ const SignUpForm: React.FC = () => {
     if ((response as AxiosResponse).statusText === 'OK') {
       // TODO: update to store JWT and load next page
       window.alert('Success!')
-      window.location.reload()
+      navigate('/home')
     }
   }
 

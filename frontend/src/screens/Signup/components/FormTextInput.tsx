@@ -79,7 +79,10 @@ const FormEmailInput: React.FC<IFormEmailInputProps> = (
   }
 
   const handleBlur = async () => {
-    if (value.includes('@')) {
+    const validEmailRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+
+    if (validEmailRegex.test(value)) {
       const response = await getUser(value)
       if (!response) {
         setEmailValid(true)
