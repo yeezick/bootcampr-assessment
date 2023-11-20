@@ -153,3 +153,25 @@ label .email{
       transform: rotate(360deg);
     }
   }
+
+  // SignUp Loader
+  .loader-two {
+    display: flex;
+    margin: 0 auto;
+    border: 4px solid rgba(0, 0, 0, .8);
+    border-left-color: transparent;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    animation: signUpLoader 1s linear infinite;
+  }
+  
+  @keyframes signUpLoader {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }

@@ -1,7 +1,9 @@
-import { useState,ChangeEvent, useRef, useEffect } from "react";
+import React, { useState,ChangeEvent, useRef, useEffect } from "react";
 import eyeLock from 'assets/eye_icon.png'
 import PasswordValidation from "./PasswordValidation";
 import { verifyEmail } from "utils/emailController";
+import { postData } from "utils/signupController";
+import { useNavigate } from "react-router-dom";
 
 
 type FormState = {
@@ -14,21 +16,23 @@ type FormState = {
   }
 
 const Form = () => {
+     const navigate = useNavigate()
     const toggleRef = useRef<HTMLInputElement>(null);
     const toggleRef2 = useRef<HTMLInputElement>(null);
-    const [ log,setLog ] = useState(false)
-    const [ regexLog,setRegexLog ] = useState(false)
-    const [ message,setMessage]= useState('')
-    const [ errorColor,setErrorColor] = useState(false)
-    const [ emailLoader,setEmailLoader ]= useState(false)
-    const [ emailLog,setEmailLog]= useState(false)
-    const [ emailColor,setEmailColor]= useState(false)
-    const [ apiResponse,setApiResponse]= useState(false)
-    const [ lowerValidated,setLowerValidated]=useState(false)
-    const [ upperValidated,setUpperValidated]=useState(false)
-    const [ numberValidated,setNumberValidated]= useState(false)
-    const [ lengthValidated,setLengthValidated]= useState(false)
-    const [ passwordColor,setPasswordColor]= useState(false)
+    const [ log,setLog ] = useState(false);
+    const [ regexLog,setRegexLog ] = useState(false);
+    const [ message,setMessage]= useState('');
+    const [ signUpLoader,setSignUpLoader] = useState(false);
+    const [ errorColor,setErrorColor] = useState(false);
+    const [ emailLoader,setEmailLoader ]= useState(false);
+    const [ emailLog,setEmailLog]= useState(false);
+    const [ emailColor,setEmailColor]= useState(false);
+    const [ apiResponse,setApiResponse]= useState(false);
+    const [ lowerValidated,setLowerValidated]=useState(false);
+    const [ upperValidated,setUpperValidated]=useState(false);
+    const [ numberValidated,setNumberValidated]= useState(false);
+    const [ lengthValidated,setLengthValidated]= useState(false);
+    const [ passwordColor,setPasswordColor]= useState(false);
 
 
     const [formState, setFormState] = useState<FormState>({
@@ -159,9 +163,21 @@ const Form = () => {
         }else{
           checked.type='password';
         }
-      
     }
 
+    // Handle submission for form
+     const handleSubmit=async(e:React.FormEvent)=>{
+      e.preventDefault()
+      setSignUpLoader(true)
+      const formData = {  firstName:formState.firstName,
+                          lastName:formState.lastName,
+                          email:formState.email,
+                          password:formState.password}
+      
+       const apiResponse =  await postData(formData)
+       console.log(apiResponse)
+       navigate('/congrats-screen')
+     }
 
     // Check if all Form Input have been filled
     const isCompleted =  apiResponse && isMatched && formState.firstName && formState.lastName &&
@@ -173,7 +189,8 @@ const Form = () => {
     
   return (
        <>
-         <form action="">
+              
+         <form autoComplete="off"  onSubmit={handleSubmit}>
             <label htmlFor="firstName">First name</label>
             <br />
             <input
@@ -182,6 +199,7 @@ const Form = () => {
               onChange={handleInputChange}
               name="firstName"
               id="firstName"
+              required
             />
             <br />
 
@@ -193,6 +211,7 @@ const Form = () => {
               onChange={handleInputChange}
               name="lastName"
               id="lastName"
+              required
             />
             <br />
 
@@ -204,12 +223,14 @@ const Form = () => {
               <div className="email-wrapper">
             <input
               type="email"
+              autoComplete="new-password"
               className={ emailColor ? 'input-invalid':''}
               value={formState.email}
               onChange={handleInputChange}
               onBlur={handleVerifyEmail}
               name="email"
               id="email"
+              required
             />
            { emailLoader && <div className="loader"></div>}
            {emailLog && <small className="not-validated">Email already exists!</small> }
@@ -227,6 +248,7 @@ const Form = () => {
               onKeyUp={handleRegexCheck}
               name="password"
               id="password"
+              required
             />
               <img  onClick={togglePassword} className='eyeLock' src={eyeLock} alt="eye" />
               {regexLog &&(
@@ -247,6 +269,7 @@ const Form = () => {
               onKeyUp={handlePasswordCheck}
               name="confirmPassword"
               id="confirmPassword"
+              required
             />
               <img onClick={togglePassword2} className='eyeLock' src={eyeLock} alt="eye" />
            { log && <small style={{color:errorColor?'red' :' #23A6A1'}}>{message}</small>}
@@ -261,6 +284,7 @@ const Form = () => {
                 name="checkbox"
                 className="checkbox"
                 id="checkbox"
+                required
               />
               <span className="checkbox-text">
                 I agree to receive email notification(s). We will only send
@@ -274,7 +298,7 @@ const Form = () => {
                      cursor:isCompleted ?'pointer':'auto',
                     transition:"all ease-in-out 300ms"
                      }}>
-                       Sign up
+                      {signUpLoader ? ( <div className="loader-two"></div>):"Sign up"}
             </button>
 
           </form>
