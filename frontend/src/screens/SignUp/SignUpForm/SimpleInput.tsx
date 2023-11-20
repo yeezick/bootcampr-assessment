@@ -1,7 +1,7 @@
 import { FormControl, FormLabel, Input, Text } from '@chakra-ui/react'
 import { ErrorMessage, Field, FieldProps } from 'formik'
 
-export default function SimpleInput({ inputName }) {
+export default function SimpleInput({ inputName, children }) {
   return (
     <Field name={inputName}>
       {({ field, form }: FieldProps) => (
@@ -10,7 +10,7 @@ export default function SimpleInput({ inputName }) {
           isInvalid={!!(form.errors.inputName && form.touched.inputName)}
         >
           <FormLabel htmlFor={inputName} fontWeight={'normal'} m={0}>
-            Last name
+            {children}
           </FormLabel>
           <Input
             {...field}

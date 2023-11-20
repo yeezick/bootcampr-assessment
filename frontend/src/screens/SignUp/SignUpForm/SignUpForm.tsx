@@ -77,11 +77,13 @@ export default function SignUpForm() {
       >
         {({ isValid, isSubmitting }) => (
           <Form>
-            <SimpleInput inputName={'firstName'} />
+            <SimpleInput inputName={'firstName'}>First name</SimpleInput>
 
-            <SimpleInput inputName={'lastName'} />
+            <SimpleInput inputName={'lastName'}>Last name</SimpleInput>
 
-            <SimpleInput inputName={'email'} />
+            <SimpleInput inputName={'email'}>
+              Email address (ex. jeanine@bootcampr.io)
+            </SimpleInput>
 
             <PasswordInput
               inputName={'password'}
