@@ -52,6 +52,7 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
   const handleMouseDownPassword = () => setShowPassword(!showPassword)
 
   return (
+    <div className='form-input-container'>
     <form onSubmit={handleSubmit}>
       <FormControl>
         <FormField
@@ -102,5 +103,6 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
         <Button type='submit'>Sign up</Button>
       </FormControl>
     </form>
+    </div>
   )
 }
