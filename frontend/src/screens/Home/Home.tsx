@@ -27,7 +27,7 @@ export const Home = () => {
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <div>
+        <div className='home-users-table-container'>
           <table className='home-users-table'>
             <tr className='home-users-table-headers'>
               <td>First Name</td>

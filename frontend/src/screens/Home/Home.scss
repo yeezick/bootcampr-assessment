@@ -5,9 +5,15 @@
   margin: auto;
   font-family: Inter;
   width: 100%;
+  padding: 10px;
 
   h2 {
     text-align: left;
+  }
+
+  .home-users-table-container {
+    width: calc(100% - 20px);
+    overflow-x: scroll;
   }
 
   .home-users-table {
@@ -24,4 +30,12 @@
     }
 
   }
+}
+
+@media screen and (min-width: 1024px) {
+  .home-container {
+    padding: 0;
+  }
+
+
 }
