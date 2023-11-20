@@ -1,19 +1,20 @@
 import { Form, Formik, FormikHelpers } from 'formik'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { createUser } from 'utils/userController'
+// import { createUser } from 'utils/userController'
 import { validationSchema } from './validationSchema'
 import SubmitButton from './SubmitButton'
 import ConsentCheckbox from './ConsentCheckbox'
 import SimpleInput from './SimpleInput'
 import PasswordInput from './PasswordInput'
+import { useUsers } from 'hooks/useUser'
 
-type Values = {
+export type User = {
   firstName: string
   lastName: string
   email: string
   password: string
-  confirmPassword: string
+  confirmPassword?: string
 }
 
 const initialValues = {
@@ -28,8 +29,23 @@ export default function SignUpForm() {
   const [agree, setAgree] = useState(false)
   const [show, setShow] = useState(false)
   const [showPasswordHints, setShowPasswordHints] = useState(true)
-
+  const [savedUsers, setSavedUsers] = useUsers()
   const navigate = useNavigate()
+
+  const onSubmit = async (user: User, actions: FormikHelpers<User>) => {
+    try {
+      const { confirmPassword, ...restUser } = user
+      setSavedUsers((prevState = []) => [...prevState, restUser])
+      // await createUser(restValues)
+      setTimeout(() => {
+        navigate('/congrats')
+      }, 1000)
+      actions.resetForm()
+      actions.setSubmitting(false)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <Formik
@@ -37,22 +53,7 @@ export default function SignUpForm() {
       validationSchema={validationSchema}
       validateOnChange={true}
       initialErrors={{ firstName: '' }} // Just to set isValid to false initially
-      onSubmit={async (values: Values, actions: FormikHelpers<Values>) => {
-        const { confirmPassword, ...restValues } = values
-        try {
-          actions.setSubmitting(true)
-          await createUser(restValues)
-          navigate('/congrats')
-          console.log(values)
-          actions.resetForm()
-          actions.setSubmitting(false)
-        } catch (error) {
-          console.error(error)
-        }
-        // setTimeout(() => {
-        //   // alert(JSON.stringify(restValues, null, 2))
-        // }, 500)
-      }}
+      onSubmit={onSubmit}
     >
       {({ isValid, isSubmitting }) => (
         <Form>
