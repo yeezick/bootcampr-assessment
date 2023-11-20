@@ -120,4 +120,10 @@ label .email{
 .not-validated{
     color: red;
 }
+.input-valid{
+    border: 1px solid #23A6A1;
+}
+.input-invalid{
+    border:1px solid red !important ;
+}
 

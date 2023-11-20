@@ -1,4 +1,4 @@
-import { useState,ChangeEvent, useRef } from "react";
+import { useState,ChangeEvent, useRef, useEffect } from "react";
 import eyeLock from 'assets/eye_icon.png'
 import PasswordValidation from "./PasswordValidation";
 
@@ -23,6 +23,7 @@ const Form = () => {
     const [ upperValidated,setUpperValidated]=useState(false)
     const [ numberValidated,setNumberValidated]= useState(false)
     const [ lengthValidated,setLengthValidated]= useState(false)
+    const [ passwordColor,setPasswordColor]= useState(false)
 
 
     const [formState, setFormState] = useState<FormState>({
@@ -45,6 +46,7 @@ const Form = () => {
       };
     
       const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setLog(false)
         setFormState({
           ...formState,
           checkbox: e.target.checked,
@@ -52,8 +54,9 @@ const Form = () => {
       };
 
       const handlePasswordCheck=()=>{
+          setRegexLog(false)
           setLog(true);
-           if(formState.password !== formState.confirmPassword){
+           if(!validatePassword){
             setErrorColor(true)
             setMessage('Passwords mismatch!')
            }else{
@@ -61,6 +64,25 @@ const Form = () => {
             setMessage('Passwords match!')
            }
       }
+
+      // check if Password Matches
+      const validatePassword = formState.password === formState.confirmPassword;
+
+       // Check if the password passes the regex matches
+    const isMatched = lowerValidated && upperValidated && 
+                       numberValidated && lengthValidated;
+
+    // update confirm password input state based on password regex passes
+    useEffect(()=>{
+       if(!formState.password){
+        return;
+       }
+       if(isMatched){
+        setPasswordColor(false)
+     }else{
+       setPasswordColor(true)
+     }
+    },[isMatched,formState.password])
 
       const handleRegexCheck=()=>{
         setRegexLog(true);
@@ -118,8 +140,9 @@ const Form = () => {
       
     }
 
+
     // Check if all Form Input have been filled
-    const isCompleted = formState.firstName && formState.lastName &&
+    const isCompleted = isMatched && formState.firstName && formState.lastName &&
                         formState.email && formState.password && 
                         formState.confirmPassword && formState.checkbox;
       console.log(formState);
@@ -188,6 +211,8 @@ const Form = () => {
             <br />
             <div className="password-wrapper">
             <input
+               disabled={!isMatched}
+               className={passwordColor ? 'input-invalid':''}
               type="password"
               ref={toggleRef2}
               value={formState.confirmPassword}
@@ -202,6 +227,7 @@ const Form = () => {
 
             <div className="checkbox-group">
               <input
+                disabled={!validatePassword}
                 type="checkbox"
                 checked={formState.checkbox}
                 onChange={handleCheckboxChange}
@@ -221,7 +247,7 @@ const Form = () => {
                      cursor:isCompleted ?'pointer':'auto',
                     transition:"all ease-in-out 300ms"
                      }}>
-            Sign up
+                       Sign up
             </button>
 
           </form>
@@ -229,4 +255,4 @@ const Form = () => {
   )
 }
 
-export default Form
+export default Form ;
