@@ -30,7 +30,7 @@
   margin-top: 0px;
   input {
     
-    appearance: none;
+    
     font: inherit;
   color: currentColor;
   min-width: 24px;
@@ -53,10 +53,14 @@
 .password-validations {
   display: flex;
   flex-direction: column;
+  margin-top: 5px;
 
   p{
     padding: 0px;
     margin: 0px;
+    color: #23A6A1;
+    font-size: 12px;
+    font-weight: 400px;
   }
 }
 
