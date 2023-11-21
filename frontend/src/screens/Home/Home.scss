@@ -1,0 +1,41 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1024px;
+  margin: auto;
+  font-family: Inter;
+  width: 100%;
+  padding: 10px;
+
+  h2 {
+    text-align: left;
+  }
+
+  .home-users-table-container {
+    width: calc(100% - 20px);
+    overflow-x: auto;
+  }
+
+  .home-users-table {
+    border-collapse: collapse;
+
+    td {
+      margin: 0;
+      padding: 20px;
+      border: 1px solid black;
+    }
+
+    .home-users-table-headers {
+      font-weight: 900;
+    }
+
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .home-container {
+    padding: 0;
+  }
+
+
+}
