@@ -1,4 +1,4 @@
-import db from "./db/connection.js";
+import connectDB from './db/connection.js';
 import express from "express";
 import logger from "morgan";
 import cors from "cors";
@@ -6,6 +6,8 @@ import routes from "./routes/router.js";
 
 const app = express();
 const PORT = 8001;
+
+connectDB();
 
 app.use(cors());
 app.use(express.json());
