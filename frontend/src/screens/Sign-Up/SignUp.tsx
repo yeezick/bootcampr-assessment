@@ -174,22 +174,22 @@ const SignUpForm: React.FC = () => {
               ></img>
             </button>
             {signupDetails.password.length ? <div className='validation-container'>
-              {passwordValidation.hasUpperCase ? <p className='minchar-valid'>
+              {passwordValidation.hasUpperCase ? <p className='hasuppercase-valid'>
                 <img className="icon" alt='checkbox' src={Icon}></img> 1 upper
               </p> :
-                <p className='minchar-invalid'>
+                <p className='hasuppercase-invalid'>
                   1 upper
                 </p>}
-              {passwordValidation.hasLowerCase ? <p className='minchar-valid'>
+              {passwordValidation.hasLowerCase ? <p className='haslowercase-valid'>
                 <img className="icon" alt="checkbox" src={Icon}></img> 1 lower
               </p> :
-                <p className='minchar-invalid'>
+                <p className='haslowercase-invalid'>
                   1 lower
                 </p>}
-              {passwordValidation.hasSpecialChar ? <p className='minchar-valid'>
+              {passwordValidation.hasSpecialChar ? <p className='hasspecialchar-valid'>
                 <img className="icon" alt="checkbox" src={Icon}></img> 1 symbol
               </p> :
-                <p className='minchar-invalid'>
+                <p className='hasspecialchar-invalid'>
                   1 symbol
                 </p>}
               {passwordValidation.minLength ? <p className='minchar-valid'>
@@ -198,7 +198,7 @@ const SignUpForm: React.FC = () => {
                 <p className='minchar-invalid'>
                   Minimum 8 characters
                 </p>}
-            </div> : ""}
+            </div> : <div className='validation-placeholder'></div>}
           </FormField>
           <FormField
             label="Re-enter password"
@@ -257,10 +257,10 @@ interface FormFieldProps {
 
 const FormField: React.FC<FormFieldProps> = ({ label, children, type, name, onChange, onBlur, value }) => {
   return (
-    <div className={`input-common input-${name}`}>
+    <div className={`input-common`}>
       <h3 className='mini-header'>{label}</h3>
       <input
-        className='input'
+        className={`input input-${name}`}
         type={type}
         name={name}
         onChange={onChange}
