@@ -4,9 +4,15 @@ const express = require('express');
 
 const router = express.Router();
 
-// Route to handle user Signup
+/**
+ * Route to handle user Signup
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
+// Handle POST request to '/signup'
 router.post('/signup', async (req, res) => {
     try {
+        // Destructure request body
         const {
             firstName,
             lastName,
@@ -16,12 +22,15 @@ router.post('/signup', async (req, res) => {
             isChecked,
         } = req.body;
 
+        // Check if passwords match
         if (password !== passwordConfirm) {
             return res.status(400).json({ message: 'Passwords do not match' });
         }
 
+        // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Create a new User object
         const newUser = new User({
             firstName,
             lastName,
@@ -31,11 +40,20 @@ router.post('/signup', async (req, res) => {
             isChecked,
         });
 
-        await newUser.save();
-        res.status(200).json({ message: 'User created successfully' });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+       // Save the user to the database
+       await newUser.save();
+
+       res.status(200).json({ message: 'User created successfully' });
+   } catch (error) {
+       console.error('Signup Error:', error); // Log the error for debugging
+
+       // Handle different types of errors
+       if (error.code === 11000) {
+           return res.status(400).json({ message: 'Email already exists' });
+       }
+
+       res.status(500).json({ message: 'Internal server error' });
+   }
 });
 
 module.exports = router;
