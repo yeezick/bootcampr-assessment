@@ -1,4 +1,4 @@
-import { render, screen } from '__tests__/customRender'
+import { render, screen } from './customRender'
 import { Landing } from 'screens/Landing/Landing'
 
 test('renders learn react link', () => {
