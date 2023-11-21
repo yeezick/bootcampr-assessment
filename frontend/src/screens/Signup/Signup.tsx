@@ -7,7 +7,9 @@ import {
   FormTextInput,
 } from './components/FormTextInput'
 import { FormCheckBoxInput } from './components/FormCheckBoxInput'
-import { Button } from '@mui/material'
+import Button, { ButtonProps } from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
+import { orange } from '@mui/material/colors'
 import { getUser, addUser } from 'utils/userController'
 import './Signup.scss'
 import { AxiosResponse } from 'axios'
@@ -151,6 +153,14 @@ const SignUpForm: React.FC = () => {
     }
   }
 
+  const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
+    color: theme.palette.getContrastText(orange[500]),
+    backgroundColor: orange[500],
+    '&:hover': {
+      backgroundColor: orange[600],
+    },
+  }))
+
   return (
     <form onSubmit={handleSubmit} className='signup-form-container'>
       <FormTextInput
@@ -230,7 +240,7 @@ We will not sell your information!'
         value={formData.signUpCheckNotifications}
         handleInputChange={handleInputChange}
       />
-      <Button
+      <ColorButton
         className='signup-form-submit'
         type='submit'
         variant='contained'
@@ -240,7 +250,7 @@ We will not sell your information!'
         fullWidth
       >
         Sign up
-      </Button>
+      </ColorButton>
     </form>
   )
 }
