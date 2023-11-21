@@ -20,7 +20,7 @@ describe('SignUpForm', () => {
     expect(screen.getByText(/sign up/i)).toBeInTheDocument()
   })
 
-    test('handles input change for each form field', () => {
+  test('handles input change for each form field', () => {
     render(<SignUp />)
 
     testInputChange(/first name/i, 'Tao')
@@ -29,9 +29,26 @@ describe('SignUpForm', () => {
     testInputChange(/^password \(/i, 'TNi-_-!954')
     testInputChange(/re-enter password/i, 'TNi-_-!954')
   })
+
+  test('toggles password visibility', () => {
+    render(<SignUp />)
+
+    const passwordInput = screen.getByLabelText(/^password \(/i)
+    const toggleIcon = screen.getByLabelText(/toggle password visibility/i)
+
+    expect(passwordInput).toHaveAttribute('type', 'password')
+
+    fireEvent.click(toggleIcon)
+
+    expect(passwordInput).toHaveAttribute('type', 'text')
+
+    fireEvent.click(toggleIcon)
+
+    expect(passwordInput).toHaveAttribute('type', 'password')
+  })
 })
 
-  // helpers
+// helpers
 const testInputChange = (label: RegExp, value: string) => {
   const input = screen.getByLabelText(label) as HTMLInputElement
   fireEvent.change(input, { target: { value } })

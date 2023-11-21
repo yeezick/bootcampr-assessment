@@ -348,7 +348,7 @@ const SignUpForm: React.FC = () => {
           endAdornment={
             <InputAdornment position='end'>
               <IconButton
-                aria-label='toggle password visibility'
+                aria-label='toggle confirm password visibility'
                 onClick={handleToggleConfirmPasswordVisibility}
                 edge='end'
               >
