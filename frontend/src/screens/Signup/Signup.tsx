@@ -83,12 +83,12 @@ const handleSubmit = async (event) => {
 
     try {
         // Send a PUT request to the backend API for signup
-        const response = await fetch('YOUR_BACKEND_URL/signup', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
+        const response = await fetch('/signup', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
         });
 
         if (response.ok) {
