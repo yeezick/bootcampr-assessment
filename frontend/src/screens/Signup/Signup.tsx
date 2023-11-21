@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Signup.scss'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 import signup from 'assets/signup-image.png'
@@ -11,8 +11,9 @@ export const Signup: React.FC = () => {
     const [isPasswordConfirmationHidden, setIsPasswordConfirmationHidden] = useState(true);
     const [isPasswordFocus, setIsPasswordFocus] = useState(false);
     const [isPasswordConfirmationFocus, setIsPasswordConfirmationFocus] = useState(false);
+    // const [errors, setErrors] = useState([]);
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const helpText = {
         email: '(ex. jeanine@bootcampr.io)',
@@ -67,29 +68,33 @@ export const Signup: React.FC = () => {
             passwordConfirmation: "",
             checkbox: false,
         };
-    const onSubmit = (values: any) => {
-        console.log(values);
-            // try {
-            //     setErrors([]);
 
+        const onSubmit = (values: any) => {
+            navigate('/confirmation');
+            // try {
+            //   (async () => {
             //     const response = await fetch('', {
-            //         method: "POST",
-            //         headers: {
-            //             "Content-Type": "application/json",
-            //         },
-            //         body: JSON.stringify(values),
+            //       method: 'POST',
+            //       headers: {
+            //         'Content-Type': 'application/json',
+            //       },
+            //       body: JSON.stringify(values),
             //     });
+        
             //     if (response.ok) {
-            //         navigate("/confirmation")
+            //       navigate('/confirmation');
             //     } else {
-            //         const errorData = await response.json();
-            //         setErrors(errorData);
+            //       const errorData = await response.json();
+            //       setErrors(errorData);
             //     }
+            //     setSubmitting(false);
+            //   })();
             // } catch (error) {
-            //     console.error("Error occured during signup.", error);
-            //     setErrors([{message: "Error occured during signup."}]);
+            //   console.error('Error occurred during signup.', error);
+            //   setErrors([{ message: 'Error occurred during signup.' }]);
+            //   setSubmitting(false);
             // }
-        };
+          };
 
   return (
     <div className='signup-container'>
