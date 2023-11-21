@@ -10,3 +10,13 @@ export const sayHello = async () => {
   }
 }
 
+export const signUp = async (userData) => {
+  try {
+    const res = await api.post('sign-up', userData);
+    return res.data
+  } catch (error) {
+    console.error(error)
+    return false;
+  }
+}
+

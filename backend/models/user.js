@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 6;
 
 const userSchema = new Schema({
@@ -32,4 +32,10 @@ userSchema.pre('save', async function (next) {
     return next();
 });
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+mongoose.connection.on('connected', () => {
+    console.log(`Connected to MongoDB at ${mongoose.connection.host}:${mongoose.connection.port}, database: ${mongoose.connection.name}`);
+});
+
+export default User;

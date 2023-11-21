@@ -13,6 +13,7 @@ export const SignUpForm: React.FC = () => {
         agreeCheck: false,
     });
     const [type, setType] = useState('password');
+    const [hello, setHello] = useState('');
     const [passwordMsgs, setPasswordMsgs] = useState([]);
     const [confirmMsg, setConfirmMsg] = useState('');
     const isFormValid =
@@ -79,6 +80,8 @@ export const SignUpForm: React.FC = () => {
         try {
             const { firstName, lastName, email, password } = newUser
             const formData = { firstName, lastName, email, password };
+            const user = await api.signUp(formData);
+            setHello(user.firstName);
         } catch (err) {
             console.log(err)
         }
@@ -118,6 +121,7 @@ export const SignUpForm: React.FC = () => {
                 </label>
             </div>
             <SignUpBtn isDisabled={!isFormValid} />
+            <h1>{hello}</h1>
         </form>
     );
 };
