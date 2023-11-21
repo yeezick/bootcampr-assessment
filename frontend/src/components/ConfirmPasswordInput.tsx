@@ -29,6 +29,9 @@ const ConfirmPasswordInput: React.FC<ConfirmPasswordInputProps> = ({
 }) => {
   return (
       <>
+       <label htmlFor="confirmPassword">Re-enter password</label>
+         <br />
+    <div className="password-wrapper">
       <input
         disabled={disabled}
         className={passwordColor ? 'input-invalid' : ''}
@@ -49,6 +52,7 @@ const ConfirmPasswordInput: React.FC<ConfirmPasswordInputProps> = ({
       {log && (
         <small style={{ color: errorColor ? 'red' : '#23A6A1' }}>{message}</small>
       )}
+      </div>
       </>
   );
 };

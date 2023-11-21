@@ -1,6 +1,4 @@
 import React, { useState,ChangeEvent, useEffect } from "react";
-import eyeLock from 'assets/eye_icon.png';
-import PasswordValidation from "./PasswordValidation";
 import { verifyEmail } from "utils/emailController";
 import { postData } from "utils/signupController";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +8,7 @@ import ConfirmPasswordInput from "./ConfirmPasswordInput";
 import Checkbox from "./Checkbox";
 import FirstNameInput from "./FirstNameInput";
 import LastNameInput from "./LastNameInput";
+import EmailInput from "./EmailInput";
 
 
 type FormState = {
@@ -183,58 +182,32 @@ const Form = () => {
                         formState.email && formState.password && 
                         formState.confirmPassword && formState.checkbox;
 
-      console.log(formState);
-      console.log("isCompleted:", isCompleted)
-
     
   return (
        <>
-              
          <form autoComplete="off"  onSubmit={handleSubmit}>
           <FirstNameInput value={formState.firstName} onChange={handleInputChange} />
           <LastNameInput value={formState.lastName} onChange={handleInputChange} />
-            <label htmlFor="email">
-              Email address{' '}
-              <span className="email">(ex. jeanine@bootcampr.io)</span>
-            </label>
-            <br />
-              <div className="email-wrapper">
-            <input
-              type="email"
-              autoComplete="new-password"
-              className={ emailColor ? 'input-invalid':''}
-              value={formState.email}
-              onChange={handleInputChange}
-              onBlur={handleVerifyEmail}
-              name="email"
-              id="email"
-              required
-            />
-           { emailLoader && <div className="loader"></div>}
-           {emailLog && <small className="not-validated">Email already exists!</small> }
-              </div>
-
-            <label htmlFor="password">
-               Password </label>
-            <br />
-            <div className="password-wrapper">
+            <EmailInput
+            value={formState.email}
+            onChange={handleInputChange}
+            onBlur={handleVerifyEmail}
+            emailLoader={emailLoader}
+            emailLog={emailLog}
+            emailColor={emailColor}
+          />
             <PasswordInput
-                value={formState.password}
-                onChange={handleInputChange}
-                onKeyUp={handleRegexCheck}
-                passwordVisibilty={passwordVisibilty}
-                togglePassword={togglePassword}
-              />
-              {regexLog &&(
-                <PasswordValidation upperValidated={upperValidated} lowerValidated={lowerValidated}
-                                   numberValidated={numberValidated} lengthValidated={lengthValidated}
-                                   />
-            )}
-            </div>
-
-            <label htmlFor="confirmPassword">Re-enter password</label>
-            <br />
-            <div className="password-wrapper">
+            value={formState.password}
+            onChange={handleInputChange}
+            onKeyUp={handleRegexCheck}
+            passwordVisibilty={passwordVisibilty}
+            togglePassword={togglePassword}
+            upperValidated={upperValidated}
+            lowerValidated={lowerValidated}
+            numberValidated={numberValidated}
+            lengthValidated={lengthValidated}
+            regexLog={regexLog}
+          />
             <ConfirmPasswordInput
               value={formState.confirmPassword}
               onChange={handleInputChange}
@@ -247,7 +220,6 @@ const Form = () => {
               message={message}
               disabled={!isMatched} 
             />
-            </div>
             <Checkbox
               disabled={!validatePassword}
               checked={formState.checkbox}
