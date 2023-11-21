@@ -95,3 +95,28 @@ For example:
 #### Bonus
 
 - Create controller to verify existing emails
+
+
+## <span style="color: yellow">Anthony's Notes</span>
+
+### Notes and assumptions:
+
+- Had to make some changes to the form validations that are slightly different from the prototype, to include validation messages for emails already in the system. The way I have it currently set up:
+   1. Email must first be valid, otherwise email validation message shows up
+   2. If email is valid, then password must be valid otherwise password validation messages show up
+   3. If email and password is valid, then password reEnter must match
+   4. Checkbox must be selected, in order for submit
+
+### Requirements complete:
+
+#### Front End:
+- Develop the sign up flow
+   - Sign up screen
+   - User submits sign up info and is routed to a "congrats" screen (i've placed a home screen with the list of users)
+- Match [Figma] provided
+- Verify email against db on blur, to ensure that email doesn't exist in db already
+
+### Back End:
+- Created user model
+- Create controller to create new user
+- Create controller to check and validate user emails
