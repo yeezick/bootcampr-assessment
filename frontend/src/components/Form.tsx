@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import SignupButton from "./SignupButton";
 import PasswordInput from "./PasswordInput";
 import ConfirmPasswordInput from "./ConfirmPasswordInput";
+import Checkbox from "./Checkbox";
 
 
 type FormState = {
@@ -268,23 +269,11 @@ const Form = () => {
             />
             </div>
 
-            <div className="checkbox-group">
-              <input
-                disabled={!validatePassword}
-                type="checkbox"
-                checked={formState.checkbox}
-                onChange={handleCheckboxChange}
-                name="checkbox"
-                className="checkbox"
-                id="checkbox"
-                required
-              />
-              <span className="checkbox-text">
-                I agree to receive email notification(s). We will only send
-                emails with important information, like project start dates. We
-                will not sell your information!
-              </span>
-            </div>
+            <Checkbox
+              disabled={!validatePassword}
+              checked={formState.checkbox}
+              onChange={handleCheckboxChange}
+            />
              <SignupButton isCompleted={isCompleted} signUpLoader={signUpLoader}/>
           </form>
        </>
