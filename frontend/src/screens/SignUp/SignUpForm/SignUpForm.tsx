@@ -35,7 +35,7 @@ export default function SignUpForm() {
   const onSubmit = async (user: User, actions: FormikHelpers<User>) => {
     try {
       const { confirmPassword, ...restUser } = user
-      setSavedUsers((prevState = []) => [...prevState, restUser])
+      setSavedUsers([...savedUsers, restUser])
       // await createUser(restUser)
       setTimeout(() => {
         navigate('/congrats')
@@ -56,7 +56,7 @@ export default function SignUpForm() {
       onSubmit={onSubmit}
     >
       {({ isValid, isSubmitting }) => (
-        <Form>
+        <Form role='form' aria-label='Signup Form'>
           <SimpleInput inputName={'firstName'}>First name</SimpleInput>
 
           <SimpleInput inputName={'lastName'}>Last name</SimpleInput>
