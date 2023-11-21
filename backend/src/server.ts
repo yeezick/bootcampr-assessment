@@ -1,20 +1,20 @@
-import connect from "./db/connection.js";
-import express from "express";
+import express from 'express';
+import cors from 'cors';
 import logger from 'morgan';
-import cors from "cors";
-import routes from "./routes/router.js";
+import router from './router/router';
+import connect from './db/connection';
 
 const app = express();
-const { PORT } = process.env;
+const PORT = 8001;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
-app.use(logger("dev"));
-app.use(routes);
+app.use(logger('dev'))
+
+app.use('/', router());
 
 app.listen(PORT, async () => {
-    console.log(`Now listening on PORT: ${PORT}`);
+    console.log("listening on 8001");
 
     await connect();
 })
