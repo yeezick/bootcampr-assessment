@@ -68,24 +68,12 @@ describe('SignUpForm', () => {
 
   test('returns message errors when no input is typed for each form field', () => {
     render(<SignUp />)
-    
-    const firstNameInput = screen.getByLabelText(/first name/i)
-    const lastNameInput = screen.getByLabelText(/last name/i)
-    const emailInput = screen.getByLabelText(/email address/i)
-    const passwordInput = screen.getByLabelText(/^password \(/i)
-    const confirmPasswordInput = screen.getByLabelText(/re-enter password/i)
 
-    fireEvent.blur(firstNameInput)
-    fireEvent.blur(lastNameInput)
-    fireEvent.blur(emailInput)
-    fireEvent.blur(passwordInput)
-    fireEvent.blur(confirmPasswordInput)
-
-    expect(screen.getByText(/First name cannot be empty./))
-    expect(screen.getByText(/Last name cannot be empty./))
-    expect(screen.getByText(/Invalid email address/))
-    expect(screen.getByText(/Password cannot be empty./))
-    expect(screen.getByText(/The Password entered does not match./))
+    testEmptyFormField(/first name/i, 'First name cannot be empty.')
+    testEmptyFormField(/last name/i, 'Last name cannot be empty.')
+    testEmptyFormField(/email address/i, 'Invalid email address')
+    testEmptyFormField(/^password \(/i, 'Password cannot be empty.')
+    testEmptyFormField(/re-enter password/i, 'The Password entered does not match.')
   })
 })
 
@@ -94,4 +82,10 @@ const testInputChange = (label: RegExp, value: string) => {
   const input = screen.getByLabelText(label) as HTMLInputElement
   fireEvent.change(input, { target: { value } })
   expect(input.value).toBe(value)
+}
+
+const testEmptyFormField = (label: RegExp, messageError: string) => {
+  const input = screen.getByLabelText(label) as HTMLInputElement
+  fireEvent.blur(input)
+  expect(screen.getByText(messageError)).toBeInTheDocument()
 }
