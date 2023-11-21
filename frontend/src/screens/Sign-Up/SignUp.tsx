@@ -32,7 +32,7 @@ export const SignUp: React.FC = () => {
 
 const SignUpForm: React.FC = () => {
   const navigate = useNavigate();
-  
+
   const [signupDetails, setSignupDetails] = useState({
     firstName: '',
     lastName: '',
@@ -135,101 +135,96 @@ const SignUpForm: React.FC = () => {
       <div className='form'>
         <form>
           <FormField
-  label="First name"
-  type="text"
-  name="firstName"
-  onChange={handleChange}
-  value={signupDetails.firstName}
-></FormField>
-          <div className='input-common input-lastname'>
-            <h3 className='mini-header'>Last name</h3>
-            <input
-              className='input'
-              type='text'
-              name='lastName'
-              onChange={handleChange}
-            />
-          </div>
-          <div className='input-common input-email'>
-            <h3 className='mini-header'>{'Email address [ex. jeanine@bootcampr.io]'}</h3>
-            <input
-              className='input'
-              type='email'
-              name='email'
-              onChange={handleChange}
-              onBlur={handleEmail}
-            />
+            label="First name"
+            type="text"
+            name="firstName"
+            onChange={handleChange}
+            value={signupDetails.firstName}
+          ></FormField>
+          <FormField
+            label="Last name"
+            type="text"
+            name="lastName"
+            onChange={handleChange}
+            value={signupDetails.lastName}
+          ></FormField>
+          <FormField
+            label="Email"
+            type="text"
+            name="email"
+            onChange={handleChange}
+            onBlur={handleEmail}
+            value={signupDetails.email}
+          >
             {signupDetails.email.length ? <p className={emailValidation ? 'email-valid' : 'email-invalid'}>Must use unique email</p> : ""}
-          </div>
-          <div className='input-common input-password'>
-            <h3 className='mini-header'>{'Password'}</h3>
-            <input
-              className='input'
-              type= {showPassword ? 'text' : 'password'}
-              name= 'password'
-              onChange={handleChange}
-            />
+          </FormField>
+          <FormField
+            label="Password"
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            onChange={handleChange}
+            value={signupDetails.password}
+          >
             <button className='visibility-button'>
-              <img 
+              <img
                 className='visibility-icon'
                 src={Icon2}
                 alt="visibility-button"
                 onClick={handleVisibility}
               ></img>
             </button>
-          </div>
-          {signupDetails.password.length ? <div className='validation-container'>
-                {passwordValidation.hasUpperCase ? <p className='minchar-valid'>
+            {signupDetails.password.length ? <div className='validation-container'>
+              {passwordValidation.hasUpperCase ? <p className='minchar-valid'>
                 <img className="icon" alt='checkbox' src={Icon}></img> 1 upper
-                </p> : 
+              </p> :
                 <p className='minchar-invalid'>
                   1 upper
                 </p>}
-                {passwordValidation.hasLowerCase ? <p className='minchar-valid'>
-              <img className="icon" alt = "checkbox" src={Icon}></img> 1 lower
-                </p> : 
+              {passwordValidation.hasLowerCase ? <p className='minchar-valid'>
+                <img className="icon" alt="checkbox" src={Icon}></img> 1 lower
+              </p> :
                 <p className='minchar-invalid'>
                   1 lower
                 </p>}
-                {passwordValidation.hasSpecialChar ? <p className='minchar-valid'>
-                <img className="icon" alt = "checkbox" src={Icon}></img> 1 symbol
-                </p> : 
+              {passwordValidation.hasSpecialChar ? <p className='minchar-valid'>
+                <img className="icon" alt="checkbox" src={Icon}></img> 1 symbol
+              </p> :
                 <p className='minchar-invalid'>
                   1 symbol
                 </p>}
-                {passwordValidation.minLength ? <p className='minchar-valid'>
-              <img className="icon" alt = "checkbox" src={Icon}></img> Min 8 characters
-                </p> : 
+              {passwordValidation.minLength ? <p className='minchar-valid'>
+                <img className="icon" alt="checkbox" src={Icon}></img> Min 8 characters
+              </p> :
                 <p className='minchar-invalid'>
                   Minimum 8 characters
                 </p>}
-          </div> : ""}
-          <div className='input-common input-passwordre'>
-            <h3 className='mini-header'>Re-enter password</h3>
-            <input
-              className='input input-passwordre'
-              type= {showPasswordRe ? 'text' : 'password'}
-              name='passwordRe'
-              onChange={handleChange}
-            />
+            </div> : ""}
+          </FormField>
+          <FormField
+            label="Re-enter password"
+            type={showPasswordRe ? 'text' : 'password'}
+            name="passwordRe"
+            onChange={handleChange}
+            value={signupDetails.passwordRe}
+          >
             <button className='visibility-button'>
-              <img 
+              <img
                 className='visibility-icon'
                 src={Icon2}
                 alt="visibility-button"
                 onClick={handleVisibilityRe}
               ></img>
             </button>
-            {signupDetails.passwordRe.length ? <p className={passwordMatch ? 'passwordmatch-valid' : 'passwordmatch-invalid'}>Passwords match</p>: ""}
-          </div>
+            {signupDetails.passwordRe.length ? <p className={passwordMatch ? 'passwordmatch-valid' : 'passwordmatch-invalid'}>Passwords match</p> : ""}
+          </FormField>
           <div className='notification-container'>
             <input
-              className='notification-checkbox' 
+              className='notification-checkbox'
               type='checkbox'
               onChange={handleCheck}
             ></input>
             <p className='notification-text'>
-              I agree to receive email notification(s). We will only send 
+              I agree to receive email notification(s). We will only send
               emails with important information, like project start dates.
               We will not sell your information!
             </p>
@@ -250,17 +245,29 @@ const SignUpForm: React.FC = () => {
   )
 }
 
-const FormField = ({ label, type, name, onChange, value}) => {
+interface FormFieldProps {
+  label: string;
+  children?: React.ReactNode;
+  type: string;
+  name: string;
+  onChange: (event: any) => void;
+  onBlur?: (event: any) => void;
+  value: string;
+}
+
+const FormField: React.FC<FormFieldProps> = ({ label, children, type, name, onChange, onBlur, value }) => {
   return (
-      <div className='input-common'>
-        <h3 className='mini-header'>{label}</h3>
-        <input
-          className='input'
-          type={type}
-          name={name}
-          onChange={onChange}
-          value={value}
-        />
-      </div>
-    );
+    <div className={`input-common input-${name}`}>
+      <h3 className='mini-header'>{label}</h3>
+      <input
+        className='input'
+        type={type}
+        name={name}
+        onChange={onChange}
+        {...(onBlur && { onBlur })}
+        value={value}
+      />
+      {children}
+    </div>
+  );
 }
