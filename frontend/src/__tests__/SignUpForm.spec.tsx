@@ -1,5 +1,5 @@
 import { SignUp } from 'screens/SignUp/SignUp'
-import { render, screen } from './customRender'
+import { render, screen, fireEvent } from './customRender'
 
 describe('SignUpForm', () => {
   test('renders form fields and the button submit', () => {
@@ -19,4 +19,21 @@ describe('SignUpForm', () => {
     ).toBeInTheDocument()
     expect(screen.getByText(/sign up/i)).toBeInTheDocument()
   })
+
+    test('handles input change for each form field', () => {
+    render(<SignUp />)
+
+    testInputChange(/first name/i, 'Tao')
+    testInputChange(/last name/i, 'Noblesse')
+    testInputChange(/email address/i, 'tao.noblesse@test.io')
+    testInputChange(/^password \(/i, 'TNi-_-!954')
+    testInputChange(/re-enter password/i, 'TNi-_-!954')
+  })
 })
+
+  // helpers
+const testInputChange = (label: RegExp, value: string) => {
+  const input = screen.getByLabelText(label) as HTMLInputElement
+  fireEvent.change(input, { target: { value } })
+  expect(input.value).toBe(value)
+}
