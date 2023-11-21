@@ -8,11 +8,24 @@ import PasswordCriteriaMet from './PasswordCriteriaMet'
 
 export const Signup: React.FC = () => {
     const [errors, setErrors] = useState(null);
+    const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+    const [isPasswordConfirmationHidden, setIsPasswordConfirmationHidden] = useState(true);
 
     const navigate = useNavigate();
 
     const helpText = {
         email: '(ex. jeanine@bootcampr.io)',
+    }
+
+    console.log(isPasswordHidden)
+
+    function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+        const id = event.target['id'] 
+        if (id === 'password-span') {
+        setIsPasswordHidden(isPasswordHidden => !isPasswordHidden);
+        } else {
+            setIsPasswordConfirmationHidden(isPasswordConfirmationHidden => !isPasswordConfirmationHidden)
+        }
     }
 
     const formSchema = yup.object().shape({
@@ -125,12 +138,12 @@ export const Signup: React.FC = () => {
                     className='label'>Password</label>
                     <input 
                     className='input' 
-                    type='password' 
+                    type={isPasswordHidden ? 'password' : 'text'} 
                     id='password' 
                     name='password' 
                     value={formik.values.password} 
                     onChange={formik.handleChange} />
-                    <span id='password-span'></span>
+                    <span id='password-span' className={isPasswordHidden ? '' : 'hide-password'} onClick={handleClick}></span>
                     {formik.touched.password && formik.errors.password ? (
                 <div className='errors'>{formik.errors.password}</div>
                 ) : (
@@ -148,12 +161,12 @@ export const Signup: React.FC = () => {
                     className='label'>Re-enter password</label>
                     <input 
                     className='input' 
-                    type='password' 
+                    type={isPasswordConfirmationHidden ? 'password' : 'text'}
                     id='passwordConfirmation' 
                     name='passwordConfirmation' 
                     value={formik.values.passwordConfirmation} 
                     onChange={formik.handleChange} />
-                    <span id='passwordConfirmation-span'></span>
+                    <span id='passwordConfirmation-span' className={isPasswordConfirmationHidden ? '' : 'hide-password'} onClick={handleClick}></span>
                     {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation &&
                         <div className='errors'>{formik.errors.passwordConfirmation}</div>}
                 </div>
