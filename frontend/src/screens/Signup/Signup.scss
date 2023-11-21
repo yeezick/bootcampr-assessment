@@ -50,6 +50,12 @@
             .confirm {
                 color: #23A6A1;
             }
+
+            .submit-form {
+                &.valid {
+                background-color: #FA9413;
+            }
+        }
         }
 
         .form-item {
