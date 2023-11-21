@@ -7,23 +7,21 @@
   margin: 1rem auto;
   .signup-content {
     display: flex;
-    align-items: center;
+    column-gap: 2rem;
     justify-content: center;
-    column-gap: 3rem;
-    img {
-      max-width: 200px;
-      height: auto;
-      width: auto;
+    .image-container {
+      width: 40%;
+      text-align: left;
+      img {
+        max-width: 300px;
+        margin-top: 2rem;
+        // i had to flip the image to match the figma style
+        transform: scaleX(-1);
+      }
     }
   }
-
-  .signup-form {
+  .form-container {
+    width: 40%;
     display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 400px;
-  }
-  .inputField {
-    background-color: #ecebeb;
   }
 }
