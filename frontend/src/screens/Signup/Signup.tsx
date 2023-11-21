@@ -4,14 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 import signup from 'assets/signup-image.png'
-// import PasswordCriteriaMet from './PasswordCriteriaMet'
+import PasswordCriteriaMet from './PasswordCriteriaMet'
 
 export const Signup: React.FC = () => {
-    // const [errors, setErrors] = useState(null);
-    // const [isPasswordHidden, setIsPasswordHidden] = useState(true);
-    // const [isPasswordConfirmationHidden, setIsPasswordConfirmationHidden] = useState(true);
-    // const [isPasswordFocus, setIsPasswordFocus] = useState(false);
-    // const [isPasswordConfirmationFocus, setIsPasswordConfirmationFocus] = useState(false);
+    const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+    const [isPasswordConfirmationHidden, setIsPasswordConfirmationHidden] = useState(true);
+    const [isPasswordFocus, setIsPasswordFocus] = useState(false);
+    const [isPasswordConfirmationFocus, setIsPasswordConfirmationFocus] = useState(false);
 
     const navigate = useNavigate();
 
@@ -19,22 +18,22 @@ export const Signup: React.FC = () => {
         email: '(ex. jeanine@bootcampr.io)',
     }
 
-    // function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-    //     const id = event.target['id'] 
-    //     if (id === 'password-span') {
-    //     setIsPasswordHidden(isPasswordHidden => !isPasswordHidden);
-    //     } else {
-    //         setIsPasswordConfirmationHidden(isPasswordConfirmationHidden => !isPasswordConfirmationHidden)
-    //     }
-    // }
+    function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+        const id = event.target['id'] 
+        if (id === 'password-span') {
+        setIsPasswordHidden(isPasswordHidden => !isPasswordHidden);
+        } else {
+            setIsPasswordConfirmationHidden(isPasswordConfirmationHidden => !isPasswordConfirmationHidden)
+        }
+    }
 
-    // const handlePasswordFocus = (): void => {
-    //     setIsPasswordFocus(true)
-    // }
+    const handlePasswordFocus = (): void => {
+        setIsPasswordFocus(true)
+    }
 
-    // const handlePasswordConfirmationFocus = (): void => {
-    //     setIsPasswordConfirmationFocus(true)
-    // }
+    const handlePasswordConfirmationFocus = (): void => {
+        setIsPasswordConfirmationFocus(true)
+    }
 
     const validationSchema = yup.object().shape({
         firstName: yup.string().required('First name is required.'),
@@ -98,8 +97,7 @@ export const Signup: React.FC = () => {
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-    {/* <div className='form-container'> */}
-    {({ isValid, dirty }) => (
+    {({ isValid, dirty, values, errors }) => (
       <Form>
         <div className='form-wrapper'>
           <div className='form-item'>
@@ -141,25 +139,40 @@ export const Signup: React.FC = () => {
           <div className='form-item'>
             <label htmlFor='password' className='label'>Password</label>
             <Field
-              type='text'
+              type={isPasswordHidden ? 'password' : 'text'}
               id='password'
               autoComplete='off'
               name='password'
               className='input'
+              onFocus={handlePasswordFocus}
             />
-            <ErrorMessage name='password' component='div' className='errors' />
+            <span id='password-span' className={isPasswordHidden ? '' : 'hide-password'} onClick={handleClick}></span>
+            {errors.password ? <ErrorMessage name='password' component='div' className='errors' /> :
+            isPasswordFocus ? (
+            <PasswordCriteriaMet 
+            isLengthMet={values.password.length >= 8}
+            isUppercaseMet={/[A-Z]/.test(values.password)}
+            isLowercaseMet={/[a-z]/.test(values.password)}
+            isSpecialCharMet={/[!@#$%^&*(),.?":{}|<>]/.test(values.password)}
+            />
+          ) : null}
           </div>
 
           <div className='form-item'>
             <label htmlFor='passwordConfirmation' className='label'>Re-enter password</label>
             <Field
-              type='text'
+              type={isPasswordConfirmationHidden ? 'password' : 'text'}
               id='passwordConfirmation'
               autoComplete='off'
               name='passwordConfirmation'
               className='input'
+              onFocus={handlePasswordConfirmationFocus}
             />
-            <ErrorMessage name='passwordConfirmation' component='div' className='errors' />
+            <span id='passwordConfirmation-span' className={isPasswordConfirmationHidden ? '' : 'hide-password'} onClick={handleClick}></span>
+            {errors.passwordConfirmation ? <ErrorMessage name='passwordConfirmation' component='div' className='errors' /> :
+            isPasswordConfirmationFocus && values.password.length > 0 ? (
+            <div><p className='confirm'>Passwords match!</p></div>
+          ) : null}
           </div>
 
           <div className='form-item-checkbox'>
@@ -183,139 +196,8 @@ export const Signup: React.FC = () => {
         </div>
       </Form>
     )}
-      {/* </div> */}
     </Formik>
     </div>
-{/* 
-
-      <div className='header-container'>
-        <h2>Join Bootcampr today.</h2>
-        <h4>Get the experience. Get the job.</h4>
-      </div>
-      <div className='body-container'>
-      <div className='image-container'>
-        <div className='image-wrapper'>
-        <img src={signup} alt='Hand drawing diagram with black pen'></img>
-        </div>
-      </div>
-      <div className='form-container'>
-        <form onSubmit={formik.handleSubmit}>
-            <div className='form-wrapper'>
-                <div className='form-item'>
-                    <label 
-                    htmlFor='firstName' 
-                    className='label'>First name</label>
-                    <input 
-                    className='input' 
-                    type='text' 
-                    id='firstName' 
-                    autoComplete='off' 
-                    name='firstName' 
-                    value={formik.values.firstName} 
-                    onChange={formik.handleChange} />
-                    {formik.errors.firstName && formik.touched.firstName &&
-                        <div className='errors'>{formik.errors.firstName}</div>}
-                </div>
-                <div className='form-item'>
-                    <label 
-                    htmlFor='lastName' 
-                    className='label'>Last name</label>
-                    <input 
-                    className='input' 
-                    type='text' 
-                    id='lastName' 
-                    autoComplete='off' 
-                    name='lastName' 
-                    value={formik.values.lastName} 
-                    onChange={formik.handleChange} />
-                    {formik.errors.lastName && formik.touched.lastName &&
-                        <div className='errors'>{formik.errors.lastName}</div>}
-                </div>
-                <div className='form-item'>
-                    <label 
-                    htmlFor='email' 
-                    className='label'>Email address {helpText.email}</label>
-                    <input 
-                    className='input' 
-                    type='text' 
-                    id='email' 
-                    autoComplete='off' 
-                    name='email' 
-                    value={formik.values.email} 
-                    onChange={formik.handleChange} />
-                    {formik.errors.email && formik.touched.email &&
-                        <div className='errors'>{formik.errors.email}</div>}
-                </div>
-                <div className='form-item'>
-                    <label 
-                    htmlFor='password' 
-                    className='label'>Password</label>
-                    <input 
-                    className='input' 
-                    type={isPasswordHidden ? 'password' : 'text'} 
-                    id='password' 
-                    name='password' 
-                    value={formik.values.password} 
-                    onChange={formik.handleChange}
-                    onFocus={handlePasswordFocus} />
-                    <span id='password-span' className={isPasswordHidden ? '' : 'hide-password'} onClick={handleClick}></span>
-                    {formik.touched.password && formik.errors.password ? (
-                <div className='errors'>{formik.errors.password}</div>
-                ) : isPasswordFocus && (
-                    <PasswordCriteriaMet
-                    isLengthMet={formik.values.password.length >= 8}
-                    isUppercaseMet={/[A-Z]/.test(formik.values.password)}
-                    isLowercaseMet={/[a-z]/.test(formik.values.password)}
-                    isSpecialCharMet={/[!@#$%^&*(),.?":{}|<>]/.test(formik.values.password)}
-                    />
-                )}
-                </div>
-                <div className='form-item'>
-                    <label 
-                    htmlFor='passwordConfirmation' 
-                    className='label'>Re-enter password</label>
-                    <input 
-                    className='input' 
-                    type={isPasswordConfirmationHidden ? 'password' : 'text'}
-                    id='passwordConfirmation' 
-                    name='passwordConfirmation' 
-                    value={formik.values.passwordConfirmation} 
-                    onChange={formik.handleChange}
-                    onFocus={handlePasswordConfirmationFocus} />
-                    <span id='passwordConfirmation-span' className={isPasswordConfirmationHidden ? '' : 'hide-password'} onClick={handleClick}></span>
-                    {formik.errors.passwordConfirmation && isPasswordConfirmationFocus ?
-                        <div className='errors'>{formik.errors.passwordConfirmation}</div> :
-                        !formik.errors.passwordConfirmation && (formik.values.passwordConfirmation.length > 0) ? 
-                            <div><p className='confirm'>Passwords Match!</p></div> : null
-                        }
-                </div>
-                <div className='form-item-checkbox'>
-                    <div className='checkbox-container'>
-                        <input
-                        className='input-checkbox'
-                        type='checkbox'
-                        id='checkbox'
-                        name='checkbox'
-                        checked={formik.values.checkbox}
-                        onChange={formik.handleChange}
-                        />
-                        <span className='checkmark'></span>
-                    </div>
-                    <label htmlFor='checkbox' className='label'>
-                        I agree to receive email notification(s). We will only send emails with important information,
-                        like project start dates. We will not sell your information!
-                    </label>
-                    {formik.errors.checkbox && formik.touched.checkbox && (
-                        <div className='errors'>{formik.errors.checkbox}</div>
-                    )}
-                    </div>
-                <div className='error'>
-                {errors}</div>
-                <button type='submit' className='submit-form' children="Sign up" />
-            </div>
-        </form>
-      </div>
-      </div> */}
     </div>
   )
 }
