@@ -8,7 +8,7 @@ import {
 } from './components/FormTextInput'
 import { FormCheckBoxInput } from './components/FormCheckBoxInput'
 import { Button } from '@mui/material'
-import { addUser } from 'utils/userController'
+import { getUser, addUser } from 'utils/userController'
 import './Signup.scss'
 import { AxiosResponse } from 'axios'
 
@@ -100,7 +100,6 @@ const SignUpForm: React.FC = () => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, id, value, type, checked } = event.target
 
-    // validate password
     const lengthRegex = /^(?=.{8,})/
     const lowerCaseRegex = /^(?=.*[a-z])/
     const upperCaseRegex = /^(?=.*[A-Z])/
@@ -118,6 +117,22 @@ const SignUpForm: React.FC = () => {
     // update form state
     const inputValue = type === 'checkbox' ? checked : value
     setFormData({ ...formData, [name]: inputValue })
+  }
+
+  const handleBlur = async (event: React.FocusEvent<HTMLInputElement>) => {
+    const { value } = event.target
+
+    const validEmailRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+
+    if (validEmailRegex.test(value)) {
+      const response = await getUser(value)
+      if (!response) {
+        setEmailValid(true)
+        return
+      }
+    }
+    setEmailValid(false)
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -155,7 +170,7 @@ const SignUpForm: React.FC = () => {
         type='email'
         label='Email address (ex. jeanine@bootcampr.io)'
         value={formData.signUpEmail}
-        setEmailValid={setEmailValid}
+        handleBlur={handleBlur}
         handleInputChange={handleInputChange}
       />
       {formData.signUpEmail.length > 0 && !emailValid && (

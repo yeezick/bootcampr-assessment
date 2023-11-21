@@ -1,19 +1,62 @@
 import { useState } from 'react'
-import { getUser } from 'utils/userController'
 import { TextField, InputAdornment, IconButton } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
-interface IFormPWInputProps {
+interface IFormTextInputProps {
   name: string
+  type?: string
   label: string
   value: string
+  inputProps?: { [key: string]: any }
+  handleBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
   handleInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const FormPWInput: React.FC<IFormPWInputProps> = (props: IFormPWInputProps) => {
-  const { name, label, value, handleInputChange } = props
+const FormTextInput: React.FC<IFormTextInputProps> = (
+  props: IFormTextInputProps
+) => {
+  const {
+    name,
+    type,
+    label,
+    value,
+    inputProps,
+    handleBlur,
+    handleInputChange,
+  } = props
 
+  const defaultInputProps = {
+    disableUnderline: true,
+    sx: { borderRadius: 1 },
+  }
+
+  return (
+    <div className='signup-form-text-input'>
+      <label htmlFor={name}>{label}</label>
+      <TextField
+        type={type ? type : 'text'}
+        value={value}
+        onBlur={handleBlur && handleBlur}
+        onChange={handleInputChange && handleInputChange}
+        hiddenLabel
+        name={name}
+        id={name}
+        variant='filled'
+        size='small'
+        InputProps={
+          inputProps
+            ? { ...defaultInputProps, ...inputProps }
+            : defaultInputProps
+        }
+      />
+    </div>
+  )
+}
+
+const FormPWInput: React.FC<IFormTextInputProps> = (
+  props: IFormTextInputProps
+) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = () => setShowPassword(show => !show)
@@ -42,109 +85,18 @@ const FormPWInput: React.FC<IFormPWInputProps> = (props: IFormPWInputProps) => {
   }
 
   return (
-    <div className='signup-form-text-input'>
-      <label htmlFor={name}>{label}</label>
-      <TextField
-        type={showPassword ? 'text' : 'password'}
-        value={value}
-        onChange={handleInputChange}
-        hiddenLabel
-        name={name}
-        id={name}
-        variant='filled'
-        size='small'
-        InputProps={inputProps}
-      />
-    </div>
+    <FormTextInput
+      {...props}
+      inputProps={inputProps}
+      type={showPassword ? 'text' : 'password'}
+    />
   )
 }
 
-interface IFormEmailInputProps {
-  name: string
-  type?: string
-  label: string
-  value: string
-  setEmailValid?: (value: boolean) => void
-  handleInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-}
-
-const FormEmailInput: React.FC<IFormEmailInputProps> = (
-  props: IFormEmailInputProps
-) => {
-  const { name, type, label, value, handleInputChange, setEmailValid } = props
-
-  const inputProps = {
-    disableUnderline: true,
-    sx: { borderRadius: 1 },
-  }
-
-  const handleBlur = async () => {
-    const validEmailRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-
-    if (validEmailRegex.test(value)) {
-      const response = await getUser(value)
-      if (!response) {
-        setEmailValid(true)
-        return
-      }
-    }
-    setEmailValid(false)
-  }
-
-  return (
-    <div className='signup-form-text-input'>
-      <label htmlFor={name}>{label}</label>
-      <TextField
-        type={type ? type : 'text'}
-        value={value}
-        onBlur={handleBlur}
-        onChange={handleInputChange}
-        hiddenLabel
-        name={name}
-        id={name}
-        variant='filled'
-        size='small'
-        InputProps={inputProps}
-      />
-    </div>
-  )
-}
-
-interface IFormTextInputProps {
-  name: string
-  type?: string
-  label: string
-  value: string
-  handleInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-}
-
-const FormTextInput: React.FC<IFormTextInputProps> = (
+const FormEmailInput: React.FC<IFormTextInputProps> = (
   props: IFormTextInputProps
 ) => {
-  const { name, type, label, value, handleInputChange } = props
-
-  const inputProps = {
-    disableUnderline: true,
-    sx: { borderRadius: 1 },
-  }
-
-  return (
-    <div className='signup-form-text-input'>
-      <label htmlFor={name}>{label}</label>
-      <TextField
-        type={type ? type : 'text'}
-        value={value}
-        onChange={handleInputChange}
-        hiddenLabel
-        name={name}
-        id={name}
-        variant='filled'
-        size='small'
-        InputProps={inputProps}
-      />
-    </div>
-  )
+  return <FormTextInput {...props} type='email' />
 }
 
 export { FormPWInput, FormTextInput, FormEmailInput }
