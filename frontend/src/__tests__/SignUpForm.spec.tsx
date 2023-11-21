@@ -46,6 +46,23 @@ describe('SignUpForm', () => {
 
     expect(passwordInput).toHaveAttribute('type', 'password')
   })
+
+  test('toggles confirm password visibility', () => {
+    render(<SignUp />)
+
+    const confirmPasswordInput = screen.getByLabelText(/re-enter password/i)
+    const toggleIcon = screen.getByLabelText(/toggle confirm password visibility/i)
+
+    expect(confirmPasswordInput).toHaveAttribute('type', 'password')
+
+    fireEvent.click(toggleIcon)
+
+    expect(confirmPasswordInput).toHaveAttribute('type', 'text')
+
+    fireEvent.click(toggleIcon)
+
+    expect(confirmPasswordInput).toHaveAttribute('type', 'password')
+  })
 })
 
 // helpers
