@@ -8,6 +8,8 @@ import SignupButton from "./SignupButton";
 import PasswordInput from "./PasswordInput";
 import ConfirmPasswordInput from "./ConfirmPasswordInput";
 import Checkbox from "./Checkbox";
+import FirstNameInput from "./FirstNameInput";
+import LastNameInput from "./LastNameInput";
 
 
 type FormState = {
@@ -189,30 +191,8 @@ const Form = () => {
        <>
               
          <form autoComplete="off"  onSubmit={handleSubmit}>
-            <label htmlFor="firstName">First name</label>
-            <br />
-            <input
-              type="text"
-              value={formState.firstName}
-              onChange={handleInputChange}
-              name="firstName"
-              id="firstName"
-              required
-            />
-            <br />
-
-            <label htmlFor="lastName">Last name</label>
-            <br />
-            <input
-              type="text"
-              value={formState.lastName}
-              onChange={handleInputChange}
-              name="lastName"
-              id="lastName"
-              required
-            />
-            <br />
-
+          <FirstNameInput value={formState.firstName} onChange={handleInputChange} />
+          <LastNameInput value={formState.lastName} onChange={handleInputChange} />
             <label htmlFor="email">
               Email address{' '}
               <span className="email">(ex. jeanine@bootcampr.io)</span>
@@ -268,7 +248,6 @@ const Form = () => {
               disabled={!isMatched} 
             />
             </div>
-
             <Checkbox
               disabled={!validatePassword}
               checked={formState.checkbox}
