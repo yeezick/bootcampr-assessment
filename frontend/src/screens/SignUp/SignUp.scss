@@ -1,7 +1,4 @@
 
-.rectangle-image {
-  url: ''
-}
 /* Heading 2 */
 .h2 {
   color: #000;
@@ -23,9 +20,17 @@ line-height: 33.6px;
  } /* 140% */
 
 .text-banner {
-width: 413px;
-height: 101px;
-flex-shrink: 0;
+  align-items: center;
+  width: 413px;
+  height: 101px;
+  flex-shrink: 0;
+  }
+
+.img-container {
+  align-items: left;
+  width: 337.483px;
+  height: 400.168px;
+  flex-shrink: 0;
 }
 
  //Rectangle .png in case I don't want to leave it project folder and would rather instead use a link:

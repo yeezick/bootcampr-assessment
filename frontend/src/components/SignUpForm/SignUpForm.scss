@@ -1,6 +1,51 @@
+
 .form-input-container {
+  .MuiFormControl-root {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
+  margin: 12px;
+  padding: 14px;
+  margin: 2px 0; // Space out each form field
+
+    .MuiInputLabel-root {
+      color: #666; // Label color
+      position: static; // Override the default floating behavior
+      transform: none; // Remove the transformation
+      margin-bottom: 5px; // Space between label and input field
+    }
+
+    .MuiInputBase-root {
+      input {
+        border: 1px solid #ccc; // Custom border for input
+        border-radius: 10px; // Border radius
+        padding: 8px; // Padding inside input
+      }
+    }
+
+    .MuiInput-underline:before,
+    .MuiInput-underline:hover:not(.Mui-disabled):before,
+    .MuiInput-underline:after {
+      display: none; // Remove underline effect
+    }
+  }
+
+  .form-button {
+    margin-top: 20px; // Space above the button
+  }
+}
+
+.form-button {
+color: Charcoal (#313335);
+background-color: #ECEBEB;
+border-radius: 4px;
+text-align: center;
+display: flex;
+margin: 12px;
+width: 448px;
+padding: 10px 16px;
+justify-content: center;
+align-items: center;
+gap: 8px;
 }

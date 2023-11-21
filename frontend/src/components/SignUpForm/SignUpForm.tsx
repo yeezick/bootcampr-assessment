@@ -53,36 +53,36 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
 
   return (
     <div className='form-input-container'>
-    <form onSubmit={handleSubmit}>
-      <FormControl>
-        <FormField
-          changeHandler={handleChange}
-          label={'First name'}
-          name={'firstName'}
-          value={input.firstName}
-          type={'text'}
-        />
-        <FormField
-          changeHandler={handleChange}
-          label={'Last name'}
-          name={''}
-          value={input.lastName}
-          type={'text'}
-        />
-        <FormField
-          changeHandler={handleChange}
-          label={'Email address (ex. jeanine@bootcampr.io)'}
-          name={'email'}
-          value={input.email}
-          type={'text'}
-        />
-        <FormField
-          changeHandler={handleChange}
-          label={'Password'}
-          name={'password'}
-          value={input.password}
-          type={showPassword ? 'text' : 'password'}
-          endAdornment={
+      <form onSubmit={handleSubmit}>
+        <FormControl>
+          <FormField
+            changeHandler={handleChange}
+            label={'First name'}
+            name={'firstName'}
+            value={input.firstName}
+            type={'text'}
+          />
+          <FormField
+            changeHandler={handleChange}
+            label={'Last name'}
+            name={''}
+            value={input.lastName}
+            type={'text'}
+          />
+          <FormField
+            changeHandler={handleChange}
+            label={'Email address (ex. jeanine@bootcampr.io)'}
+            name={'email'}
+            value={input.email}
+            type={'text'}
+          />
+          <FormField
+            changeHandler={handleChange}
+            label={'Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)'}
+            name={'password'}
+            value={input.password}
+            type={showPassword ? 'text' : 'password'}
+            endIcon={
               <InputAdornment position='end'>
                 <IconButton
                   aria-label='toggle password visibility'
@@ -93,16 +93,36 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
                 </IconButton>
               </InputAdornment>
             }
-        />
-        <Checkbox />
-        <FormHelperText id='my-helper-text'>
-          I agree to receive email notification(s). We will only send emails
-          with important information, like project start dates. We will not sell
-          your information!
-        </FormHelperText>
-        <Button type='submit'>Sign up</Button>
-      </FormControl>
-    </form>
+          />
+          <FormField
+            changeHandler={handleChange}
+            label={'Re-enter password'}
+            name={'password'}
+            value={input.password}
+            type={showPassword ? 'text' : 'password'}
+            endIcon={
+              <InputAdornment position='end'>
+                <IconButton
+                  aria-label='toggle password visibility'
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+          <Checkbox />
+          <FormHelperText id='my-helper-text'>
+            I agree to receive email notification(s). We will only send emails
+            with important information, like project start dates. We will not
+            sell your information!
+          </FormHelperText>
+          <div className='form-button'>
+            <Button type='submit'>Sign up</Button>
+          </div>
+        </FormControl>
+      </form>
     </div>
   )
 }
