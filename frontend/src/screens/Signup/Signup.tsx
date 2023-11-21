@@ -10,14 +10,14 @@ export const Signup: React.FC = () => {
     const [errors, setErrors] = useState(null);
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
     const [isPasswordConfirmationHidden, setIsPasswordConfirmationHidden] = useState(true);
+    const [isPasswordFocus, setIsPasswordFocus] = useState(false);
+    const [isPasswordConfirmationFocus, setIsPasswordConfirmationFocus] = useState(false);
 
     const navigate = useNavigate();
 
     const helpText = {
         email: '(ex. jeanine@bootcampr.io)',
     }
-
-    console.log(isPasswordHidden)
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
         const id = event.target['id'] 
@@ -28,14 +28,24 @@ export const Signup: React.FC = () => {
         }
     }
 
+    const handlePasswordFocus = (): void => {
+        setIsPasswordFocus(true)
+    }
+
+    const handlePasswordConfirmationFocus = (): void => {
+        setIsPasswordConfirmationFocus(true)
+    }
+
     const formSchema = yup.object().shape({
         firstName: yup.string().required('First name is required.'),
         lastName: yup.string().required('Last name is required.'),
-        email: yup.string().required('Email address is required.').email('Please enter a valid email address.'),
-        password: yup
-        .string()
+        email: yup.string().required('Email address is required.')
+        .email('Please enter a valid email address.'),
+        password: yup.string()
         .required('Password is required.'),
-        passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match.').required('Please re-enter password.'),
+        passwordConfirmation: yup.string()
+        .oneOf([yup.ref('password'), null], 'Passwords must match.')
+        .required('Please re-enter password.'),
     });
 
     const formik = useFormik({
@@ -71,6 +81,8 @@ export const Signup: React.FC = () => {
             }
         }
     });
+
+    console.log(formik.touched.passwordConfirmation)
 
   return (
     <div className='signup-container'>
@@ -142,11 +154,12 @@ export const Signup: React.FC = () => {
                     id='password' 
                     name='password' 
                     value={formik.values.password} 
-                    onChange={formik.handleChange} />
+                    onChange={formik.handleChange}
+                    onFocus={handlePasswordFocus} />
                     <span id='password-span' className={isPasswordHidden ? '' : 'hide-password'} onClick={handleClick}></span>
                     {formik.touched.password && formik.errors.password ? (
                 <div className='errors'>{formik.errors.password}</div>
-                ) : (
+                ) : isPasswordFocus && (
                     <PasswordCriteriaMet
                     isLengthMet={formik.values.password.length >= 8}
                     isUppercaseMet={/[A-Z]/.test(formik.values.password)}
@@ -165,10 +178,14 @@ export const Signup: React.FC = () => {
                     id='passwordConfirmation' 
                     name='passwordConfirmation' 
                     value={formik.values.passwordConfirmation} 
-                    onChange={formik.handleChange} />
+                    onChange={formik.handleChange}
+                    onFocus={handlePasswordConfirmationFocus} />
                     <span id='passwordConfirmation-span' className={isPasswordConfirmationHidden ? '' : 'hide-password'} onClick={handleClick}></span>
-                    {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation &&
-                        <div className='errors'>{formik.errors.passwordConfirmation}</div>}
+                    {formik.errors.passwordConfirmation && isPasswordConfirmationFocus ?
+                        <div className='errors'>{formik.errors.passwordConfirmation}</div> :
+                        !formik.errors.passwordConfirmation && (formik.values.passwordConfirmation.length > 0) ? 
+                            <div><p className='confirm'>Passwords Match!</p></div> : null
+                        }
                 </div>
                 <div className='form-item-checkbox'>
                     <div className='checkbox-container'>
