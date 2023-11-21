@@ -5,28 +5,26 @@ export const Register: React.FC = () => {
     return (
         <div id="wrap">
             <div id="content">
-            <h1>Join Bootcampr today.</h1>
-            <h3>Get the experience. Get the job.</h3>
+                <h1>Join Bootcampr today.</h1>
+                <h3>Get the experience. Get the job.</h3>
             </div>
             <div id="container-form">
                 <form>
-                        <label>
-                            <div id="unify-textbox">
-                            <div id="form-text"><p>First name</p></div>
-                            <input type="firstName" />
-                        </div>
-                        </label>
+                    <label>
+                        <div id="form-text"><p>First name</p></div>
+                        <input type="text" />
+                    </label>
                 </form>
                 <div>
                     <label>
                         <div id="form-text"><p>Last name</p></div>
-                        <input type="lastName" />
+                        <input type="text" />
                     </label>
                 </div>
                 <div>
                     <label>
                         <div id="form-text"><p>Email address (ex. jeanine@bootcampr.io)</p></div>
-                        <input type="email" />
+                        <input type="text" />
                     </label>
                 </div>
                 <div>
@@ -38,15 +36,17 @@ export const Register: React.FC = () => {
                 <div>
                     <label>
                         <div id="form-text"><p>Re-enter password</p></div>
-                        <input type="passwordConfiration" />
+                        <input type="password" />
                     </label>
                 </div>
-                
-                <div id="checkbox-text"><p><input type="checkbox" /> I agree to receive email notification(s). We will only
-                    send emails with important information, like project start
-                    dates. We will not sell your information!
-                </p>
+                    <div id="checkbox-and-disclaimer">
+                    <div id="checkbox-text"><div id="input-box"><input type="checkbox" /></div>
+                        I agree to receive email notification(s). We will only
+                        send emails with important information, like project start
+                        dates. We will not sell your information!
+                    </div>
                 </div>
+                <button>Sign Up</button>
             </div>
         </div>
 
