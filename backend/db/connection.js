@@ -1,6 +1,7 @@
 // Import the required modules
 import mongoose from "mongoose";
 import "dotenv/config.js";
+require('dotenv').config({ path: './backend/db/.env' });
 
 // Define your connection URI here
 const MONGODB_URI = process.env.MONGODB_URI;
