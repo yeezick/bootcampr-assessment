@@ -1,0 +1,199 @@
+.signup-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-inline: 16px;
+
+    .header-container {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        margin-block: 29px;
+    }
+
+    .body-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        align-items: center;
+
+        .image-wrapper {
+            margin-block: 0 29px;
+
+            img {
+                height: 400px;
+                width: 337px;
+            }
+    }
+
+        .form-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 456px;
+            margin-bottom: 109px;
+
+            button {
+                width: 100%;
+                border: 1px solid transparent;
+                border-radius: 5px;
+                padding: 10px 16px;
+                font-size: 16px;
+            }
+
+            .errors {
+                color: #D90000;
+            }
+
+            .confirm {
+                color: #23A6A1;
+            }
+
+            .submit-form {
+                &.valid {
+                background-color: #FA9413;
+            }
+        }
+        }
+
+        .form-item {
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: stretch;
+            gap: 5px;
+            font-size: 16px;
+            position: relative;
+
+            .input {
+                border: none;
+                border-radius: 4px;
+                background: #ecebeb;
+                padding: 10px 15px;
+                position: relative;
+            }
+
+            #password-span, #passwordConfirmation-span {
+                width: 100%;
+                &.hide-password::after {
+                    content: url('../../assets/hide-password.svg');
+                }
+                &::after {
+                    content: url('../../assets/show-password.svg');
+                    display: inline-block;
+                    height: 24px;
+                    width: 24px;
+                    position: absolute;
+                    margin-top: -31px;
+                    right: 1rem;
+                    z-index: 1;
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+
+            .password-criteria-container {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+                
+                p {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 3px;
+                }
+            }
+        }
+
+        .form-item-checkbox {
+            display: flex;
+            flex-direction: column;
+
+            .errors {
+                margin-left: 37px;
+                margin-top: 10px;
+              }
+
+            input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 20px;
+                width: 20px;
+                z-index: 1;
+                padding: 1px 2px;
+              }
+
+              
+              .checkbox-container {
+                position: relative;
+
+                input:checked ~ .checkmark {
+                    background-color: #022888;
+                    border: 1px solid transparent;
+                    border-radius: 5px;
+                }
+
+                input:checked ~ .checkmark:after {
+                    display: block;
+                }
+        
+                .checkmark {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 25px;
+                    width: 25px;
+                    background-color: #fff;
+                    border: 1px solid #022888;
+                    border-radius: 5px;
+                }
+
+                .checkmark:after {
+                    content: "";
+                    position: absolute;
+                    display: none;
+                  }
+
+                .checkmark:after {
+                    left: 9px;
+                    top: 2px;
+                    width: 5px;
+                    height: 15px;
+                    border: solid white;
+                    border-width: 0 2px 2px 0;
+                    -webkit-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                  }
+            }
+
+            .checkbox-content {
+                display: flex;
+                flex-direction: row;
+                gap: 37px;
+            }
+        }
+    }
+
+    @media (min-width: 900px) {
+        .body-container {
+        flex-direction: row;  
+        align-items: flex-start;
+        gap: 138px;
+        margin-bottom: 0;
+        
+        .image-wrapper {
+            margin-block: 32px 0;
+        }
+    }
+
+    }
+
+    
+}
