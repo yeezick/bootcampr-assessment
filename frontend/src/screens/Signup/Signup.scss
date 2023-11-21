@@ -112,8 +112,12 @@
 
         .form-item-checkbox {
             display: flex;
-            flex-direction: row;
-            gap: 37px;
+            flex-direction: column;
+
+            .errors {
+                margin-left: 37px;
+                margin-top: 10px;
+              }
 
             input {
                 position: absolute;
@@ -124,6 +128,7 @@
                 z-index: 1;
                 padding: 1px 2px;
               }
+
               
               .checkbox-container {
                 position: relative;
@@ -166,6 +171,12 @@
                     -ms-transform: rotate(45deg);
                     transform: rotate(45deg);
                   }
+            }
+
+            .checkbox-content {
+                display: flex;
+                flex-direction: row;
+                gap: 37px;
             }
         }
     }

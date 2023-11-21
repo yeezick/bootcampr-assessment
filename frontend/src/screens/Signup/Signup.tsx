@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Signup.scss'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 import signup from 'assets/signup-image.png'
@@ -12,7 +12,7 @@ export const Signup: React.FC = () => {
     const [isPasswordFocus, setIsPasswordFocus] = useState(false);
     const [isPasswordConfirmationFocus, setIsPasswordConfirmationFocus] = useState(false);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const helpText = {
         email: '(ex. jeanine@bootcampr.io)',
@@ -41,7 +41,18 @@ export const Signup: React.FC = () => {
         email: yup.string().required('Email address is required.')
         .email('Please enter a valid email address.'),
         password: yup.string()
-        .required('Password is required.'),
+        .required('Password is required.')
+        .test(
+            'password-criteria',
+            'Password must meet the criteria.',
+            (value) => {
+              const isLengthMet = value.length >= 8;
+              const isUppercaseMet = /[A-Z]/.test(value);
+              const isLowercaseMet = /[a-z]/.test(value);
+              const isSpecialCharMet = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+              return isLengthMet && isUppercaseMet && isLowercaseMet && isSpecialCharMet;
+            }
+          ),
         passwordConfirmation: yup.string()
         .oneOf([yup.ref('password'), null], 'Passwords must match.')
         .required('Please re-enter password.'),
@@ -125,7 +136,7 @@ export const Signup: React.FC = () => {
           </div>
 
           <div className='form-item'>
-            <label htmlFor='email' className='label'>Email address</label>
+            <label htmlFor='email' className='label'>Email address {helpText.email}</label>
             <Field
               type='text'
               id='email'
@@ -147,15 +158,15 @@ export const Signup: React.FC = () => {
               onFocus={handlePasswordFocus}
             />
             <span id='password-span' className={isPasswordHidden ? '' : 'hide-password'} onClick={handleClick}></span>
-            {errors.password ? <ErrorMessage name='password' component='div' className='errors' /> :
-            isPasswordFocus ? (
+            {/* {errors.password ? <ErrorMessage name='password' component='div' className='errors' /> : */}
+            {isPasswordFocus && (
             <PasswordCriteriaMet 
             isLengthMet={values.password.length >= 8}
             isUppercaseMet={/[A-Z]/.test(values.password)}
             isLowercaseMet={/[a-z]/.test(values.password)}
             isSpecialCharMet={/[!@#$%^&*(),.?":{}|<>]/.test(values.password)}
             />
-          ) : null}
+          )}
           </div>
 
           <div className='form-item'>
@@ -176,6 +187,7 @@ export const Signup: React.FC = () => {
           </div>
 
           <div className='form-item-checkbox'>
+            <div className='checkbox-content'>
             <div className='checkbox-container'>
               <Field
                 type='checkbox'
@@ -189,6 +201,7 @@ export const Signup: React.FC = () => {
               I agree to receive email notification(s). We will only send emails with important information,
               like project start dates. We will not sell your information!
             </label>
+            </div>
             <ErrorMessage name='checkbox' component='div' className='errors' />
           </div>
 
