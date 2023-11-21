@@ -1,29 +1,36 @@
-import { useState, FC } from 'react'
-import { TextField, InputAdornment, IconButton } from '@mui/material'
+import { useState, FC, ChangeEvent, FocusEvent } from 'react'
+import { InputAdornment, IconButton } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import './InputField.scss'
 import { TextInput } from './TextInput'
 
 interface PasswordInputProps {
-  // value:
-  // name:
-  helperText?: string
-  type: string
+  helperTexts?: {
+    error: boolean
+    message: string
+  }[]
+  value: string
+  name: string
   label?: string
   text?: string
   onClick?: () => void
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void
 }
 
 export const PasswordInput: FC<PasswordInputProps> = ({
   label,
-  type,
-  helperText,
+  name,
+  onChange,
+  onBlur,
+  value,
+  helperTexts,
 }) => {
   const [showPassword, setShowPassword] = useState(false)
   function handleTogglePasswordVisibility() {
     setShowPassword(!showPassword)
   }
-  console.log(showPassword)
+
   const iconEnd = {
     endAdornment: (
       <InputAdornment position='end'>
@@ -32,7 +39,7 @@ export const PasswordInput: FC<PasswordInputProps> = ({
           onClick={handleTogglePasswordVisibility}
           edge='end'
         >
-          {showPassword ? <VisibilityOff /> : <Visibility />}
+          {showPassword ? <Visibility /> : <VisibilityOff />}
         </IconButton>
       </InputAdornment>
     ),
@@ -40,8 +47,14 @@ export const PasswordInput: FC<PasswordInputProps> = ({
   return (
     <TextInput
       type={showPassword ? 'text' : 'password'}
+      value={value}
+      name={name}
       label={label}
       InputProps={iconEnd}
+      helperText={helperTexts}
+      onChange={onChange}
+      onBlur={onBlur}
+      required
     />
   )
 }
