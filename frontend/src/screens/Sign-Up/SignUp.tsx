@@ -21,7 +21,7 @@ export const SignUp: React.FC = () => {
             Get the experience. Get the job.
           </h3>
         </div>
-        <img className='signup-image' src={Image}></img>
+        <img className='signup-image' alt='sign-up' src={Image}></img>
         <div className='form-container'>
           <SignUpForm />
         </div>
@@ -134,15 +134,13 @@ const SignUpForm: React.FC = () => {
     <div>
       <div className='form'>
         <form>
-          <div className='input-common input-firstname'>
-            <h3 className='mini-header'>First name</h3>
-            <input
-              className='input'
-              type='text'
-              name='firstName'
-              onChange={handleChange}
-            />
-          </div>
+          <FormField
+  label="First name"
+  type="text"
+  name="firstName"
+  onChange={handleChange}
+  value={signupDetails.firstName}
+></FormField>
           <div className='input-common input-lastname'>
             <h3 className='mini-header'>Last name</h3>
             <input
@@ -182,25 +180,25 @@ const SignUpForm: React.FC = () => {
           </div>
           {signupDetails.password.length ? <div className='validation-container'>
                 {passwordValidation.hasUpperCase ? <p className='minchar-valid'>
-                <img className="icon" src={Icon}></img> 1 upper
+                <img className="icon" alt='checkbox' src={Icon}></img> 1 upper
                 </p> : 
                 <p className='minchar-invalid'>
                   1 upper
                 </p>}
                 {passwordValidation.hasLowerCase ? <p className='minchar-valid'>
-              <img className="icon" src={Icon}></img> 1 lower
+              <img className="icon" alt = "checkbox" src={Icon}></img> 1 lower
                 </p> : 
                 <p className='minchar-invalid'>
                   1 lower
                 </p>}
                 {passwordValidation.hasSpecialChar ? <p className='minchar-valid'>
-                <img className="icon" src={Icon}></img> 1 symbol
+                <img className="icon" alt = "checkbox" src={Icon}></img> 1 symbol
                 </p> : 
                 <p className='minchar-invalid'>
                   1 symbol
                 </p>}
                 {passwordValidation.minLength ? <p className='minchar-valid'>
-              <img className="icon" src={Icon}></img> Min 8 characters
+              <img className="icon" alt = "checkbox" src={Icon}></img> Min 8 characters
                 </p> : 
                 <p className='minchar-invalid'>
                   Minimum 8 characters
@@ -209,7 +207,7 @@ const SignUpForm: React.FC = () => {
           <div className='input-common input-passwordre'>
             <h3 className='mini-header'>Re-enter password</h3>
             <input
-              className='input'
+              className='input input-passwordre'
               type= {showPasswordRe ? 'text' : 'password'}
               name='passwordRe'
               onChange={handleChange}
@@ -250,4 +248,19 @@ const SignUpForm: React.FC = () => {
       </div>
     </div>
   )
+}
+
+const FormField = ({ label, type, name, onChange, value}) => {
+  return (
+      <div className='input-common'>
+        <h3 className='mini-header'>{label}</h3>
+        <input
+          className='input'
+          type={type}
+          name={name}
+          onChange={onChange}
+          value={value}
+        />
+      </div>
+    );
 }
