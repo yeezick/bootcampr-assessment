@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './SignupForm.scss'
 
 export const SignupForm = (props:any) => {
@@ -7,73 +7,66 @@ export const SignupForm = (props:any) => {
     lastname: "",
     email: "",
     password:"",
-    checked: true
+    passwordTwo:"",
+    checked: false
   })
-  const [ isChecked, setIsChecked ] = useState(false)
-  const [ passwordMatch, setPasswordMatch ] = useState(false)
+
+  //password requirement checklist 
   const [showValidation, setShowValidation] = useState(false)
   const [ upperCase, setUpperCase] = useState(false)
   const [ lowerCase, setLowerCase] = useState(false)
   const [ specialChar, setSpecialChar] = useState(false)
   const [ requiredLength, setRequiredLength] = useState(false)
   const [ validPassword, setValidPassword ] = useState(false)
+  //first password and second password validation 
+  const [ passwordMatch, setPasswordMatch ] = useState(false)
+  //all form requirements are completed
+  const [ formInvalid, setFormInvalid ] = useState(true)
 
   function handleFormChange(event) {
-    console.log(event)
-    setFormData({...formData, [event.target.name]: event.target.value})
-
+    //checkbox or all other inputs
+    if(event.target.name !== "checked"){
+      setFormData({...formData, [event.target.name]: event.target.value})
+    } else {
+      setFormData({...formData, [event.target.name]: event.target.checked})
+    }
+    //password validations - uppercase, lowercase, special char, and length > 8
     if(event.target.name === 'password'){
       let pass = event.target.value
 
-      if(pass.toLowerCase() !== pass){
-        setUpperCase(true)
-      } else {
-        setUpperCase(false)
-      }
-
-      if(pass.toUpperCase() !== pass){
-        setLowerCase(true)
-      } else {
-        setLowerCase(false)
-      }
+      pass.toLowerCase() !== pass ? setUpperCase(true) : setUpperCase(false)
+      pass.toUpperCase() !== pass ? setLowerCase(true) : setLowerCase(false)
+      pass.length >= 8 ? setRequiredLength(true) : setRequiredLength(false)
 
       if(/[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(pass)){
         setSpecialChar(true)
       } else{
         setSpecialChar(false)
       }
-
-      if(pass.length >= 8){
-        setRequiredLength(true)
-      } else {
-        setRequiredLength(false)
-      }
     }
+    
+    upperCase && lowerCase && specialChar && requiredLength ? setValidPassword(true) : setValidPassword(false)  
+  }
 
-    if(upperCase && lowerCase && specialChar && requiredLength){
-      setValidPassword(true)
+  useEffect(() => {
+    validPassword && formData.passwordTwo === formData.password ? setPasswordMatch(true) : setPasswordMatch(false)
+    
+    if(passwordMatch && 
+      formData.firstname.length > 0 && 
+      formData.lastname.length > 0 && 
+      formData.email.length > 0 && 
+      formData.checked)
+    {
+      setFormInvalid(false)
     } else {
-      setValidPassword(false)
+      setFormInvalid(true)
     }
-   
-  }
-
-  function passwordMatchCheck(event){
-    if(event.target.value === formData.password){
-      setPasswordMatch(true)
-    } else {
-      setPasswordMatch(false)
-    }
-  }
-
-  function handleCheckbox(event){
-    setFormData({...formData, [event.target.name]: event.target.checked})
-  }
-  
+  }, [passwordMatch, formData]) 
+ 
 
   return (
     <div className="signup-form-container">
-      <form className="signup-form" onClick={() => setPasswordMatch(false)}>
+      <form className="signup-form" >
         <div className="input-divs">
           <label>First name</label>
           <input type="text" name="firstname" value={formData.firstname} onChange={handleFormChange} />
@@ -101,7 +94,7 @@ export const SignupForm = (props:any) => {
         </div>
         <div className="input-divs" style={{marginBottom: '0px'}}>
           <label>Re-enter password</label>
-          <input type="password" name="password2" onChange={passwordMatchCheck} onSelect={() => setShowValidation(false)}/>
+          <input type="password" name="passwordTwo" onChange={handleFormChange} onSelect={() => setShowValidation(false)}/>
           {passwordMatch ?
           <div className="password-validations">
             <p>Passwords match!</p>
@@ -111,10 +104,10 @@ export const SignupForm = (props:any) => {
           }
         </div>
         <div className='checkbox-div'>
-          <input type="checkbox" name="checked" checked={formData.checked} onChange={handleCheckbox}/>
+          <input type="checkbox" name="checked" checked={formData.checked} onChange={handleFormChange}/>
           <p>I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!</p>
         </div>
-        <input type="submit" value="Sign up" className='submit-button'/>
+        <input type="submit" value="Sign up" disabled={formInvalid} className='submit-button'/>
       </form>
     </div>
   )

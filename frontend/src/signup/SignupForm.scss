@@ -64,11 +64,23 @@
   }
 }
 
-.submit-button {
+.submit-button:disabled{
   height: 40px;
   border-radius: 4px;
   border-width: 0px;
   background-color: #ECEBEB;
   font-size: 16px;
+  color: black;
 }
+
+.submit-button:enabled{
+  height: 40px;
+  border-radius: 4px;
+  border-width: 0px;
+  background-color: #FA9413;
+  font-size: 16px;
+  color: black;
+}
+
+
 
