@@ -1,29 +1,11 @@
 {
     "compilerOptions": {
-        // Base Options:
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "target": "ES2021",
-        "allowJs": true,
-        "resolveJsonModule": true,
-        "moduleDetection": "force",
-        "isolatedModules": true,
-        "sourceMap": true,
-        
-        // Strictness
-        "strict": true,
-        "noUncheckedIndexedAccess": true,
-        
-        // If transpiling with TypeScript
-        "moduleResolution": "NodeNext",
         "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "baseUrl": "src",
         "outDir": "dist",
-        
-        // If your code runs in the DOM
-        "lib": ["ES2022", "DOM", "DOM.Iterable"]
-        
+        "sourceMap": true,
+        "noImplicitAny": true
     },
-    "ts-node": {
-        "esm": true
-    }
+    "include": ["src/**/*"]
 }
