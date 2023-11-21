@@ -1,5 +1,5 @@
-import React, { useState,ChangeEvent, useRef, useEffect } from "react";
-import eyeLock from 'assets/eye_icon.png'
+import React, { useState,ChangeEvent, useEffect } from "react";
+import eyeLock from 'assets/eye_icon.png';
 import PasswordValidation from "./PasswordValidation";
 import { verifyEmail } from "utils/emailController";
 import { postData } from "utils/signupController";
@@ -18,8 +18,6 @@ type FormState = {
 
 const Form = () => {
      const navigate = useNavigate()
-    const toggleRef = useRef<HTMLInputElement>(null);
-    const toggleRef2 = useRef<HTMLInputElement>(null);
     const [ log,setLog ] = useState(false);
     const [ regexLog,setRegexLog ] = useState(false);
     const [ message,setMessage]= useState('');
@@ -34,6 +32,9 @@ const Form = () => {
     const [ numberValidated,setNumberValidated]= useState(false);
     const [ lengthValidated,setLengthValidated]= useState(false);
     const [ passwordColor,setPasswordColor]= useState(false);
+    const [ passwordVisibilty,setPasswordVisibilty] = useState(false)
+    const [ confirmPasswordVisibilty,setConfirmPasswordVisibilty] = useState(false)
+
 
 
     const [formState, setFormState] = useState<FormState>({
@@ -149,21 +150,13 @@ const Form = () => {
       }
 
       const togglePassword=()=>{
-          const checked =  toggleRef.current ;
-          if(checked.type === 'password'){
-            checked.type='text';
-          }else{
-            checked.type='password';
-          }
+          console.log('Password being toggled!')
+          setPasswordVisibilty(!passwordVisibilty)
       }
 
-      const togglePassword2=()=>{
-        const checked =  toggleRef2.current ;
-        if(checked.type === 'password'){
-          checked.type='text';
-        }else{
-          checked.type='password';
-        }
+      const toggleconfirmPassword=()=>{
+        setConfirmPasswordVisibilty(!confirmPasswordVisibilty)
+      
     }
 
     // Handle submission for form
@@ -184,6 +177,7 @@ const Form = () => {
     const isCompleted =  apiResponse && isMatched && formState.firstName && formState.lastName &&
                         formState.email && formState.password && 
                         formState.confirmPassword && formState.checkbox;
+
       console.log(formState);
       console.log("isCompleted:", isCompleted)
 
@@ -242,8 +236,7 @@ const Form = () => {
             <br />
             <div className="password-wrapper">
             <input
-              type="password"
-              ref={toggleRef}
+              type={passwordVisibilty ? 'text' : 'password'}
               value={formState.password}
               onChange={handleInputChange}
               onKeyUp={handleRegexCheck}
@@ -251,9 +244,13 @@ const Form = () => {
               id="password"
               required
             />
-              <img  onClick={togglePassword} className='eyeLock' src={eyeLock} alt="eye" />
+            <span className='eyeLock' >
+              <img  onClick={togglePassword} src={eyeLock} alt="eye" />
+            </span>
               {regexLog &&(
-                <PasswordValidation upperValidated={upperValidated} lowerValidated={lowerValidated} numberValidated={numberValidated} lengthValidated={lengthValidated}/>
+                <PasswordValidation upperValidated={upperValidated} lowerValidated={lowerValidated}
+                                   numberValidated={numberValidated} lengthValidated={lengthValidated}
+                                   />
             )}
             </div>
 
@@ -261,10 +258,9 @@ const Form = () => {
             <br />
             <div className="password-wrapper">
             <input
-               disabled={!isMatched}
-               className={passwordColor ? 'input-invalid':''}
-              type="password"
-              ref={toggleRef2}
+              disabled={!isMatched}
+              className={passwordColor ? 'input-invalid':''}
+              type={confirmPasswordVisibilty ? 'text':'password'}
               value={formState.confirmPassword}
               onChange={handleInputChange}
               onKeyUp={handlePasswordCheck}
@@ -272,7 +268,7 @@ const Form = () => {
               id="confirmPassword"
               required
             />
-              <img onClick={togglePassword2} className='eyeLock' src={eyeLock} alt="eye" />
+            <img onClick={toggleconfirmPassword}  className="eyeLock"  src={eyeLock} alt="eye" />
            { log && <small style={{color:errorColor?'red' :' #23A6A1'}}>{message}</small>}
             </div>
 
