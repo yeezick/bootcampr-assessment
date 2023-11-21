@@ -73,7 +73,25 @@ describe('SignUpForm', () => {
     testEmptyFormField(/last name/i, 'Last name cannot be empty.')
     testEmptyFormField(/email address/i, 'Invalid email address')
     testEmptyFormField(/^password \(/i, 'Password cannot be empty.')
-    testEmptyFormField(/re-enter password/i, 'The Password entered does not match.')
+    testEmptyFormField(
+      /re-enter password/i,
+      'The Password entered does not match.'
+    )
+  })
+
+  test('handles invalid email', () => {
+    render(<SignUp />)
+
+    testInvalidValues(/email address/i, 'invalid_email', 'Invalid email address')
+  })
+
+  test('handles password not matching', () => {
+    render(<SignUp />)
+
+    const passwordInput = screen.getByLabelText(/^password \(/i)
+    fireEvent.change(passwordInput, {target: {value: 'TNi-_-!954'}})
+
+    testInvalidValues(/re-enter password/i, 'A_different_password', 'The Password entered does not match.')
   })
 })
 
@@ -86,6 +104,17 @@ const testInputChange = (label: RegExp, value: string) => {
 
 const testEmptyFormField = (label: RegExp, messageError: string) => {
   const input = screen.getByLabelText(label) as HTMLInputElement
+  fireEvent.blur(input)
+  expect(screen.getByText(messageError)).toBeInTheDocument()
+}
+
+const testInvalidValues = (
+  label: RegExp,
+  value: string,
+  messageError: string
+) => {
+  const input = screen.getByLabelText(label) as HTMLInputElement
+  fireEvent.change(input, { target: { value } })
   fireEvent.blur(input)
   expect(screen.getByText(messageError)).toBeInTheDocument()
 }
