@@ -10,5 +10,10 @@ const PORT = 8001;
 app.use(cors());
 app.use(express.json());
 app.use(logger("dev"));
+
+app.get('/', (req, res) => {
+    res.send('Server is running!');
+  });
+
 app.use(routes);
 app.listen(PORT, console.log(`Now listening on PORT: ${PORT}`));
