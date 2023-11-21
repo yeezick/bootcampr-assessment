@@ -51,7 +51,9 @@ describe('SignUpForm', () => {
     render(<SignUp />)
 
     const confirmPasswordInput = screen.getByLabelText(/re-enter password/i)
-    const toggleIcon = screen.getByLabelText(/toggle confirm password visibility/i)
+    const toggleIcon = screen.getByLabelText(
+      /toggle confirm password visibility/i
+    )
 
     expect(confirmPasswordInput).toHaveAttribute('type', 'password')
 
@@ -62,6 +64,28 @@ describe('SignUpForm', () => {
     fireEvent.click(toggleIcon)
 
     expect(confirmPasswordInput).toHaveAttribute('type', 'password')
+  })
+
+  test('returns message errors when no input is typed for each form field', () => {
+    render(<SignUp />)
+    
+    const firstNameInput = screen.getByLabelText(/first name/i)
+    const lastNameInput = screen.getByLabelText(/last name/i)
+    const emailInput = screen.getByLabelText(/email address/i)
+    const passwordInput = screen.getByLabelText(/^password \(/i)
+    const confirmPasswordInput = screen.getByLabelText(/re-enter password/i)
+
+    fireEvent.blur(firstNameInput)
+    fireEvent.blur(lastNameInput)
+    fireEvent.blur(emailInput)
+    fireEvent.blur(passwordInput)
+    fireEvent.blur(confirmPasswordInput)
+
+    expect(screen.getByText(/First name cannot be empty./))
+    expect(screen.getByText(/Last name cannot be empty./))
+    expect(screen.getByText(/Invalid email address/))
+    expect(screen.getByText(/Password cannot be empty./))
+    expect(screen.getByText(/The Password entered does not match./))
   })
 })
 
