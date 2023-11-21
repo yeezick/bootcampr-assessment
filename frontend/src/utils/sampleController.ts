@@ -5,7 +5,9 @@ export const sayHello = async () => {
     const res = await api.get('hello-world')
     return res.data
   } catch (error) {
-    console.error(error)
-    return false
+    if (error instanceof Error) {
+      console.error(error)
+      return false
+    }
   }
 }
