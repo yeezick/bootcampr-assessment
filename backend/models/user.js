@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const userSchema = Schema({
@@ -26,10 +26,12 @@ const userSchema = Schema({
     }, 
 
     receiveNotifications: {
-        type: boolean, 
+        type: Boolean, 
         default: false
     }
 
 })
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+export default User;

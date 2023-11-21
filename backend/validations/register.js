@@ -1,5 +1,5 @@
-const { check } = require("express-validator");
-const handleValidationErrors = require('./handleValidationErrors');
+import { check } from "express-validator";
+import handleValidationErrors from './handleValidationErrors.js';
 
 const validateRegisterInput = [
   check('firstName')
@@ -30,4 +30,4 @@ const validateRegisterInput = [
   handleValidationErrors
 ];
 
-module.exports = validateRegisterInput;
+export default validateRegisterInput;
