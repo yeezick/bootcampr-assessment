@@ -6,6 +6,7 @@ import { postData } from "utils/signupController";
 import { useNavigate } from "react-router-dom";
 import SignupButton from "./SignupButton";
 import PasswordInput from "./PasswordInput";
+import ConfirmPasswordInput from "./ConfirmPasswordInput";
 
 
 type FormState = {
@@ -253,19 +254,18 @@ const Form = () => {
             <label htmlFor="confirmPassword">Re-enter password</label>
             <br />
             <div className="password-wrapper">
-            <input
-              disabled={!isMatched}
-              className={passwordColor ? 'input-invalid':''}
-              type={confirmPasswordVisibilty ? 'text':'password'}
+            <ConfirmPasswordInput
               value={formState.confirmPassword}
               onChange={handleInputChange}
               onKeyUp={handlePasswordCheck}
-              name="confirmPassword"
-              id="confirmPassword"
-              required
+              passwordColor={passwordColor}
+              confirmPasswordVisibilty={confirmPasswordVisibilty}
+              toggleconfirmPassword={toggleconfirmPassword}
+              log={log}
+              errorColor={errorColor}
+              message={message}
+              disabled={!isMatched} 
             />
-            <img onClick={toggleconfirmPassword}  className="eyeLock"  src={eyeLock} alt="eye" />
-           { log && <small style={{color:errorColor?'red' :' #23A6A1'}}>{message}</small>}
             </div>
 
             <div className="checkbox-group">
