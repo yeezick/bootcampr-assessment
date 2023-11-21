@@ -150,34 +150,13 @@ export const useForm = () => {
     formState.confirmPassword &&
     formState.checkbox;
 
-  return {
-    formState,
-    handleInputChange,
-    handleCheckboxChange,
-    handlePasswordCheck,
-    handleVerifyEmail,
-    handleRegexCheck,
-    togglePassword,
-    toggleconfirmPassword,
-    handleSubmit,
-    isCompleted,
-    log,
-    isMatched,
-    regexLog,
-    message,
-    signUpLoader,
-    errorColor,
-    emailLoader,
-    emailLog,
-    emailColor,
-    apiResponse,
-    lowerValidated,
-    upperValidated,
-    numberValidated,
-    lengthValidated,
-    passwordColor,
-    passwordVisibilty,
-    confirmPasswordVisibilty,
-    passwordMatch,
-  };
+    return {
+        formState, handleInputChange, handleCheckboxChange, handlePasswordCheck,
+        handleVerifyEmail, handleRegexCheck, togglePassword, toggleconfirmPassword,
+        handleSubmit, isCompleted, log, isMatched, regexLog, message, signUpLoader,
+        errorColor, emailLoader, emailLog, emailColor, apiResponse, lowerValidated,
+        upperValidated, numberValidated, lengthValidated, passwordColor,
+        passwordVisibilty, confirmPasswordVisibilty, passwordMatch,
+      };
+      
 };
