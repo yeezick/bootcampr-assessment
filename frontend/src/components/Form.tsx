@@ -5,6 +5,7 @@ import { verifyEmail } from "utils/emailController";
 import { postData } from "utils/signupController";
 import { useNavigate } from "react-router-dom";
 import SignupButton from "./SignupButton";
+import PasswordInput from "./PasswordInput";
 
 
 type FormState = {
@@ -235,18 +236,13 @@ const Form = () => {
                Password </label>
             <br />
             <div className="password-wrapper">
-            <input
-              type={passwordVisibilty ? 'text' : 'password'}
-              value={formState.password}
-              onChange={handleInputChange}
-              onKeyUp={handleRegexCheck}
-              name="password"
-              id="password"
-              required
-            />
-            <span className='eyeLock' >
-              <img  onClick={togglePassword} src={eyeLock} alt="eye" />
-            </span>
+            <PasswordInput
+                value={formState.password}
+                onChange={handleInputChange}
+                onKeyUp={handleRegexCheck}
+                passwordVisibilty={passwordVisibilty}
+                togglePassword={togglePassword}
+              />
               {regexLog &&(
                 <PasswordValidation upperValidated={upperValidated} lowerValidated={lowerValidated}
                                    numberValidated={numberValidated} lengthValidated={lengthValidated}
