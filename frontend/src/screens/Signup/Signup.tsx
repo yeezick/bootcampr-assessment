@@ -1,6 +1,6 @@
 import React, { ReactComponentElement } from 'react'
 import { useState } from 'react'
-import "./SIgnup.scss"
+import "./Signup.scss"
 import SignupImage from "../../assets/Signup-image.svg"
 
 /**
@@ -38,9 +38,76 @@ export const Signup = () => {
  * @return {JSX.Element} The rendered signup form component.
  */
 export const SignupForm = () => {
+
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        agreedToTerms: false
+    });
+
+/**
+ * Handles the input change event and updates the form data state.
+ * @param {Object} event - The input change event object.
+ */
+const handleInputChange = (event) => {
+    // Destructure the name and value properties from the event target
+    const { name, value } = event.target;
+    
+    // Update the form data state by merging the current state with the new property value
+    setFormData({ ...formData, [name]: value });
+};
+
+/**
+ * Updates the form data when the checkbox value changes.
+ * @param {Object} event - The event object containing information about the checkbox change.
+ */
+const handleCheckboxChange = (event) => {
+    // Get the checked value from the event target
+    const { checked } = event.target;
+
+    // Update the form data by merging the existing formData object with the new agreedToTerms value
+    setFormData({ ...formData, agreedToTerms: checked });
+};
+
+/**
+ * Handles the form submission for signing up a user.
+ * 
+ * @param {Event} event - The form submission event.
+ */
+const handleSubmit = async (event) => {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
+    try {
+        // Send a PUT request to the backend API for signup
+        const response = await fetch('YOUR_BACKEND_URL/signup', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+            // Handle successful signup
+            console.log('User signed up successfully!');
+        } else {
+            // Handle unsuccessful signup
+            console.error('Signup failed:', response.statusText);
+        }
+    } catch (error) {
+        // Handle error during signup
+        console.error('Error during signup:', error.message);
+    }
+};
+
+
     return (
         <div className='signup-form-container'>
-            <form className='signup-form'>
+            <form className='signup-form' onSubmit={handleSubmit}>
                 <section className='form-label-container'>
                     <label className='form-label'>First Name</label>
                     <input className='form-input'             type="text" 
@@ -80,7 +147,7 @@ export const SignupForm = () => {
                 </section>
 
                 <section>
-                    <CheckboxForm />
+                    <CheckboxForm handleCheckboxChange={handleCheckboxChange}/>
                 </section>
 
                 <section>
@@ -97,10 +164,10 @@ export const SignupForm = () => {
  *
  * @return {JSX.Element} The checkbox form component.
  */
-const CheckboxForm = () => {
+const CheckboxForm = (handleCheckboxChange) => {
     const [isChecked, setIsChecked] = useState(false);
   
-    const handleCheckboxChange = () => {
+    const handleCheck= () => {
       setIsChecked(!isChecked);
     };
   
@@ -109,7 +176,7 @@ const CheckboxForm = () => {
         <input
             type="checkbox"
             checked={isChecked}
-            onChange={handleCheckboxChange}
+            onChange={handleCheck}
             className="checkbox"
           />
         <label className="checkbox-label">
