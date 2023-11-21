@@ -48,6 +48,11 @@ export const SignUp: React.FC = () => {
               label={'Password'}
               identifier={'password'}
             />
+            <PasswordField
+              type={'password'}
+              label={'Re-enter Password'}
+              identifier={'confirm-password'}
+            />
 
             {/* <label htmlFor='confirm-password'>
               <p>Re-enter Password</p>

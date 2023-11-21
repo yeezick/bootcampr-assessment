@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import IconButton from '@mui/material/IconButton'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import './PasswordField.scss'
+import styles from './PasswordField.module.scss'
 
 interface InputProps {
   label: string
@@ -10,36 +10,39 @@ interface InputProps {
   identifier: string
 }
 
+const PASSWORD_LENGTH_REGEX = /^.*(?=.{8,})/
+const PASSWORD_UPPERCASE_REGEX = /[A-Z]/
+const PASSWORD_LOWERCASE_REGEX = /[a-z]/
+const PASSWORD_SYMBOL_REGEX = /[!#$%&?@ "]/
+
 const PasswordField: React.FC<InputProps> = props => {
-  // const [errorMessage, setErrorMessage] = useState<string>('false')
-  // const [inputValid, setInputValid] = useState<boolean>(true)
-  // const [validityState, setValidityState] = useState<boolean>(true)
+  const [isValidLength, setIsValidLength] = useState(null)
+  const [isValidUppercaseCount, setIsValidUppercaseCount] = useState(null)
+  const [isValidLowercaseCount, setIsValidLowercaseCount] = useState(null)
+  const [isValidSymbolCount, setIsValidSymbolCount] = useState(null)
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false)
 
   const handlePasswordVisibility = () => {
     setPasswordVisible(passwordVisible => !passwordVisible)
   }
 
-  // useEffect(() => {
-  //   // Custom Validity Logic
-  //   if (validityState) {
-  //     setErrorMessage(`'${props.label}' is required.`)
-  //   }
-  // }, [validityState])
+  const handleValidity = e => {
+    const passwordEntry = e.target.value
 
-  // const handleValidity = e => {
-  //   setValidityState(e.target.validity.valueMissing)
-  //   setInputValid(e.target.checkValidity())
-  // }
+    setIsValidLength(PASSWORD_LENGTH_REGEX.test(passwordEntry))
+    setIsValidUppercaseCount(PASSWORD_UPPERCASE_REGEX.test(passwordEntry))
+    setIsValidLowercaseCount(PASSWORD_LOWERCASE_REGEX.test(passwordEntry))
+    setIsValidSymbolCount(PASSWORD_SYMBOL_REGEX.test(passwordEntry))
+  }
 
   return (
-    <label htmlFor={props.identifier}>
+    <label htmlFor={props.identifier} className={styles['password-field']}>
       <p>{props.label}</p>
-      <div className='password-field'>
+      <div className={styles['password-input-field']}>
         <input
           id={props.identifier}
           type={passwordVisible ? 'text' : 'password'}
-          pattern='^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$'
+          onBlur={handleValidity}
           required
         />
         <IconButton
@@ -50,15 +53,39 @@ const PasswordField: React.FC<InputProps> = props => {
           {passwordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
         </IconButton>
       </div>
-      <p className='password-error-message error-message'>
-        <span className='password-length-validity'>Minimum 8 Characters</span>
-        <span className='password-uppercase-validity'>
+      <p className={styles['validation']}>
+        <span
+          className={
+            isValidLength !== null &&
+            (isValidLength ? styles['valid'] : styles['invalid'])
+          }
+        >
+          Minimum 8 Characters
+        </span>
+        <span
+          className={
+            isValidUppercaseCount !== null &&
+            (isValidUppercaseCount ? styles['valid'] : styles['invalid'])
+          }
+        >
           1 Uppercase Character
         </span>
-        <span className='password-lowercase-validity'>
+        <span
+          className={
+            isValidLowercaseCount !== null &&
+            (isValidLowercaseCount ? styles['valid'] : styles['invalid'])
+          }
+        >
           1 Lowercase Character
         </span>
-        <span className='password-symbol-validity'>1 Symbol</span>
+        <span
+          className={
+            isValidSymbolCount !== null &&
+            (isValidSymbolCount ? styles['valid'] : styles['invalid'])
+          }
+        >
+          1 Symbol
+        </span>
       </p>
     </label>
   )

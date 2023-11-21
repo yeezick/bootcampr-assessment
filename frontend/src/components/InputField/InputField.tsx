@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './InputField.scss'
+import styles from './InputField.module.scss'
 
 interface InputProps {
   label: string
@@ -11,7 +11,7 @@ interface InputProps {
 const InputField: React.FC<InputProps> = props => {
   const [errorMessage, setErrorMessage] = useState<string>('false')
   const [inputValid, setInputValid] = useState<boolean>(true)
-  const [validityState, setValidityState] = useState<boolean>(true)
+  const [validityState, setValidityState] = useState<boolean>(false)
 
   useEffect(() => {
     // Custom Validity Logic
@@ -27,7 +27,9 @@ const InputField: React.FC<InputProps> = props => {
 
   return (
     <label
-      className={inputValid ? 'valid' : 'invalid'}
+      className={`${styles['input-field']} ${
+        inputValid ? styles['valid'] : styles['invalid']
+      }`}
       htmlFor={props.identifier}
     >
       <p>{props.label}</p>
@@ -38,7 +40,7 @@ const InputField: React.FC<InputProps> = props => {
         placeholder={props.placeholder}
         onBlur={handleValidity}
       />
-      <p className='error-message'>{errorMessage}</p>
+      <p className={styles['validation']}>{errorMessage}</p>
     </label>
   )
 }

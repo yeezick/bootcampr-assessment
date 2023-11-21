@@ -1,0 +1,59 @@
+// Text labels
+label.input-field {
+  display: block;
+  margin: 0.5rem 0;
+
+  & > input[type='text'],
+  & > input[type='email'] {
+    width: 100%;
+    height: 3rem;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    background-color: #f1f3f5;
+    border: 1px solid transparent;
+
+    &::placeholder {
+      color: #868e96;
+    }
+  }
+
+  & > p {
+    margin: 0 0 0.25rem 0;
+
+    &.validation {
+      min-height: 1rem;
+      font-size: 0.85rem;
+    }
+  }
+
+  &.valid {
+    & > input[type='text'],
+    & > input[type='email'] {
+      border-color: transparent;
+    }
+
+    & > p {
+      &.validation {
+        visibility: hidden;
+        color: #40c057;
+      }
+    }
+  }
+
+  &.invalid {
+    & > input[type='text'],
+    & > input[type='email'] {
+      border-color: #fa5252;
+    }
+
+    & > p {
+      &.validation {
+        visibility: visible;
+        color: #fa5252;
+      }
+    }
+  }
+}
