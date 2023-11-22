@@ -5,7 +5,7 @@ import router from './router/router';
 import connect from './db/connection';
 
 const app = express();
-const PORT = 8001;
+const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
