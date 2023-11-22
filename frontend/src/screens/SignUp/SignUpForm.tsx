@@ -16,6 +16,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import axios, { AxiosResponse } from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { signUp, checkEmail } from 'utils/signUpController'
 
 type formDataType = {
   firstName: string
@@ -92,31 +93,24 @@ const SignUpForm: React.FC = () => {
     event.preventDefault()
 
     const { firstName, lastName, email, password } = formData
-    const isEmailExisting = await isEmailExist()
-    let response: AxiosResponse<any, any>
+    try {
+      const isEmailExisting = await isEmailExist()
 
-    if (!isEmailExisting) {
-      try {
-        response = await axios.post(`${baseUrl}/sign-up`, {
-          firstName,
-          lastName,
-          email,
-          password,
-        })
-
+      if (!isEmailExisting) {
+        await signUp({ firstName, lastName, email, password })
         resetForm()
         navigate('/congrats')
-      } catch (error) {
-        console.error(error)
-        console.error('Server Response:', response)
+      } else {
+        setFormErrors(prevErrors => ({
+          ...prevErrors,
+          email: 'Email already exists',
+        }))
       }
-    } else {
-      setFormErrors(prevErrors => ({
-        ...prevErrors,
-        email: 'Email already exists',
-      }))
+    } catch (error) {
+      console.error('Error signing up:', error)
     }
   }
+
   const handleInputChange = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value })
 
@@ -220,14 +214,9 @@ const SignUpForm: React.FC = () => {
   }, [formData.password, formData.confirmPassword, formErrors.confirmPassword])
 
   const isEmailExist = async () => {
-    let response: AxiosResponse<any, any>
-
     try {
-      response = await axios.get(
-        `${baseUrl}/check-email?email=${formData.email}`
-      )
-      const data = response.data.exists
-      return data
+      const emailExists = await checkEmail(formData.email)
+      return emailExists
     } catch (error) {
       if (error.response && error.response.status === 200) {
         setFormErrors(prevErrors => ({
