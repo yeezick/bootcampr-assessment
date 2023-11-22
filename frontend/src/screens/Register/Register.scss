@@ -1,0 +1,21 @@
+.register-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+
+    h1 {
+        font-size: 52px;
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 34px;
+    }
+
+
+    & p {
+        font-size: 22px;
+        margin-block-end: 0.2em;
+    }
+}
