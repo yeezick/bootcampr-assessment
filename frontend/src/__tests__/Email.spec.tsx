@@ -1,6 +1,4 @@
-// EmailInput.test.tsx
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent} from '@testing-library/react';
 import EmailInput from '../components/EmailInput';
 
 describe('EmailInput Component', () => {
@@ -41,7 +39,7 @@ describe('EmailInput Component', () => {
       />
     );
 
-    // Use fireEvent to simulate a user typing in the input
+    // Used fireEvent to simulate a user typing in the input
     fireEvent.change(screen.getByRole('textbox', { name: /Email address/ }), {
       target: { value: 'test@example.com' },
     });
@@ -62,7 +60,7 @@ describe('EmailInput Component', () => {
       />
     );
 
-    // Use fireEvent to simulate a blur event on the input
+    // Used fireEvent to simulate a blur event on the input
     fireEvent.blur(screen.getByRole('textbox', { name: /Email address/ }));
 
     // Check if the onBlur function is called

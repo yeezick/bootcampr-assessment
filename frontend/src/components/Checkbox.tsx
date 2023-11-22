@@ -1,7 +1,6 @@
-// Checkbox.tsx
 import React from 'react';
 
-interface CheckboxProps {
+type CheckboxProps =  {
   disabled: boolean;
   checked: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

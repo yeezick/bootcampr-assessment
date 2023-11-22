@@ -1,5 +1,3 @@
-// ConfirmPasswordInput.test.tsx
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ConfirmPasswordInput from '../components/ConfirmPasswordInput';
 
@@ -52,22 +50,6 @@ describe('ConfirmPasswordInput Component', () => {
       />
     );
 
-    // Use fireEvent to simulate a user typing in the input
-    // fireEvent.change(screen.getByRole('textbox', { name: /Re-enter password/ }), {
-    //   target: { value: 'newPassword' },
-    // });
-
-    // // Check if the onChange function is called
-    // expect(mockOnChange).toHaveBeenCalledTimes(1);
-   
-    // // Use fireEvent to simulate a key up event on the input
-    // fireEvent.keyUp(screen.getByRole('textbox', { name: /Re-enter password/ }), {
-    //   key: 'Enter',
-    //   code: 'Enter',
-    // });
-
-    // // Check if the onKeyUp function is called
-    // expect(mockOnKeyUp).toHaveBeenCalledTimes(1);
   });
 
   test('toggles password visibility on eyeLock icon click', () => {
@@ -86,7 +68,7 @@ describe('ConfirmPasswordInput Component', () => {
       />
     );
 
-    // Use fireEvent to simulate a user clicking the eyeLock icon
+    // Used fireEvent to simulate a user clicking the eyeLock icon
     fireEvent.click(screen.getByAltText('eye'));
 
     // Check if the toggleconfirmPassword function is called

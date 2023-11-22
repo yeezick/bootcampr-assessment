@@ -36,15 +36,12 @@ describe('SignupButton Component', () => {
     const buttonElement = screen.getByRole('button');
     expect(buttonElement).toBeInTheDocument();
 
-    // Use userEvent to simulate a user clicking the button
+    // Used userEvent to simulate a user clicking the button
     userEvent.click(buttonElement);
 
     // Check if the onClick handler is not called
     expect(mockClickHandler).not.toHaveBeenCalled();
   });
 
-  // You can add more tests here based on your requirements
-
-  // ...
 });
 

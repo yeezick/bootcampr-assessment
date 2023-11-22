@@ -35,6 +35,7 @@ export const useForm = () => {
   const [confirmPasswordVisibilty, setConfirmPasswordVisibilty] = useState(false);
 
 
+// handling and updating input values
 
   const [formState, setFormState] = useState<FormState>({
     firstName: '',
@@ -45,6 +46,7 @@ export const useForm = () => {
     checkbox: false,
   });
 
+  // handles Input changes
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState({
       ...formState,
@@ -52,6 +54,7 @@ export const useForm = () => {
     });
   };
 
+  // handles checkbox state
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLog(false);
     setFormState({
@@ -60,6 +63,7 @@ export const useForm = () => {
     });
   };
 
+  // checks if password values matches confirmPassword
   const handlePasswordCheck = () => {
     setRegexLog(false);
     setLog(true);
@@ -72,6 +76,7 @@ export const useForm = () => {
     }
   };
 
+  // verify email onblur of input
   const handleVerifyEmail = async () => {
     setEmailLoader(true);
     const apiResponse = await verifyEmail(formState.email);
@@ -88,6 +93,7 @@ export const useForm = () => {
     setEmailLoader(false);
   };
 
+  // checks if the password value matches the confirmPassword
   const isMatched = validatePassword(formState.password, formState.confirmPassword);
 
     // Check if the password passes the regex matches
@@ -105,7 +111,7 @@ export const useForm = () => {
      }
     },[formState.password,passwordMatch])
 
-
+// performs regex validation
   const handleRegexCheck = () => {
     setRegexLog(true);
     const passwordStrength: PasswordStrength = checkPasswordStrength(formState.password);
@@ -116,15 +122,18 @@ export const useForm = () => {
     setLengthValidated(passwordStrength.length);
   };
 
+  // toggles password visibility for password input
   const togglePassword = () => {
     console.log('Password being toggled!');
     setPasswordVisibilty(!passwordVisibilty);
   };
 
+  // toggles password visibility for confirmPassword input
   const toggleconfirmPassword = () => {
     setConfirmPasswordVisibilty(!confirmPasswordVisibilty);
   };
 
+  // handles form submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSignUpLoader(true);

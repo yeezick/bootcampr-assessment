@@ -1,4 +1,3 @@
-// LastNameInput.test.tsx
 import { render, screen,fireEvent } from '@testing-library/react';
 import LastNameInput from '../components/LastNameInput';
 
@@ -19,7 +18,7 @@ describe('LastNameInput Component', () => {
   test('handles input change', () => {
     render(<LastNameInput value="" onChange={mockOnChange} />);
 
-    // Use fireEvent to simulate a user typing in the input
+    // Used fireEvent to simulate a user typing in the input
     fireEvent.change(screen.getByRole('textbox', { name: /Last name/ }), {
       target: { value: 'Doe' },
     });

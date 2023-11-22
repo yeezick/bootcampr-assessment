@@ -1,4 +1,3 @@
-// PasswordInput.tsx
 import React from 'react';
 import eyeLock from 'assets/eye_icon.png';
 import PasswordValidation from './PasswordValidation';

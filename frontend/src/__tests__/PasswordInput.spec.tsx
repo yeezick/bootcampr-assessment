@@ -48,7 +48,7 @@ describe('PasswordInput Component', () => {
       />
     );
 
-    // Use fireEvent to simulate a user typing in the input
+    // Used fireEvent to simulate a user typing in the input
     fireEvent.change(screen.getByLabelText(/Password/), {
       target: { value: 'newPassword' },
     });
@@ -82,7 +82,7 @@ describe('PasswordInput Component', () => {
       />
     );
 
-    // Use fireEvent to simulate a user clicking the eyeLock icon
+    // Used fireEvent to simulate a user clicking the eyeLock icon
     fireEvent.click(screen.getByAltText('eye'));
 
     // Check if the togglePassword function is called

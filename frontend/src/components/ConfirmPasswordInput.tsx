@@ -1,4 +1,3 @@
-// ConfirmPasswordInput.tsx
 import React from 'react';
 import eyeLock from 'assets/eye_icon.png';
 

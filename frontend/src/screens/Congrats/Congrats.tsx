@@ -1,23 +1,9 @@
-// OnboardingPage.jsx
-
 import React from 'react';
 import './Congrats.scss';
 import Icon from 'assets/welcome.gif';
 import Confetti from 'react-confetti';
 
 const Congrats:React.FC = () => {
-    // const confettiConfig: ConfettiConfig = {
-    //     angle: 90,
-    //     spread: 360,
-    //     startVelocity: 40,
-    //     elementCount: 50,
-    //     dragFriction: 0.12,
-    //     duration: 3000,
-    //     stagger: 0,
-    //     width: '10px',
-    //     height: '10px',
-    //     colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
-    //   };
   return (
     <div className="onboarding-container">
         <Confetti
