@@ -1,11 +1,11 @@
 import { SignUp } from 'screens/SignUp/SignUp'
-import { render, screen, fireEvent } from './customRender'
+import { render, screen, fireEvent, waitFor } from './customRender'
 import * as signUpController from '../utils/signUpController'
 
 jest.mock('../utils/signUpController', () => ({
   ...jest.requireActual('../utils/signUpController'),
   checkEmail: jest.fn(),
-  SignUp: jest.fn(),
+  signUp: jest.fn(),
 }))
 
 describe('SignUpForm', () => {
@@ -196,6 +196,25 @@ describe('SignUpForm', () => {
     fireEvent.click(screen.getByText(/sign up/i))
 
     expect(await screen.findByText(/email already exists/i)).toBeInTheDocument()
+  })
+
+  test('submits form with valid data', async () => {
+    ;(signUpController.checkEmail as jest.Mock).mockResolvedValue(false)
+
+    render(<SignUp />)
+
+    handleFillFormWithValidData()
+
+    fireEvent.submit(screen.getByTestId('signUpForm'))
+
+    await waitFor(() => {
+      expect(signUpController.signUp).toHaveBeenCalledWith({
+        firstName: 'Tao',
+        lastName: 'Noblesse',
+        email: 'tao.noblesse@test.io',
+        password: 'TNi-_-!954',
+      })
+    })
   })
 })
 
