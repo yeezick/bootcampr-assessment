@@ -159,6 +159,42 @@ describe('SignUpForm', () => {
 
     expect(checkbox).not.toBeChecked
   })
+
+  test('checks if the submit button is initially disabled', () => {
+    render(<SignUp />)
+
+    const submitButton = screen.getByText(/sign up/i)
+
+    expect(submitButton).toBeDisabled()
+  })
+
+  test('checks if the submit button is enabled when the form is valid', () => {
+    render(<SignUp />)
+
+    const submitButton = screen.getByText(/sign up/i)
+
+    fireEvent.change(screen.getByLabelText(/first name/i), {
+      target: { value: 'Tao' },
+    })
+    fireEvent.change(screen.getByLabelText(/last name/i), {
+      target: { value: 'Noblesse' },
+    })
+    fireEvent.change(screen.getByLabelText(/email address/i), {
+      target: { value: 'tao.noblesse@test.io' },
+    })
+    fireEvent.change(screen.getByLabelText(/^password \(/i), {
+      target: { value: 'TNi-_-!954' },
+    })
+    fireEvent.change(screen.getByLabelText(/re-enter password/i), {
+      target: { value: 'TNi-_-!954' },
+    })
+    fireEvent.click(
+      screen.getByLabelText(/I agree to receive email notification/i)
+    )
+
+    expect(submitButton).not.toBeDisabled
+    expect(submitButton).toHaveClass('submit-button-enabled')
+  })
 })
 
 // helpers
