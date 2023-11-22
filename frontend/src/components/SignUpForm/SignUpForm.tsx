@@ -38,21 +38,22 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
     email: '',
     firstPassword: '',
     secondPassword: '',
-  })
-  const [showPassword, setShowPassword] = useState(false)
+  });
+  const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState({
     firstPassword: '',
     secondPassword: '',
-  })
-  const [validLength, setValidLength] = useState(false)
-  const [hasNumber, setHasNumber] = useState(false)
-  const [upperCase, setUpperCase] = useState(false)
-  const [lowerCase, setLowerCase] = useState(false)
-  const [specialChar, setSpecialChar] = useState(false)
-  const [match, setMatch] = useState(false)
-  const [requiredLength, setRequiredLength] = useState(8)
+  });
+  const [validLength, setValidLength] = useState(false);
+  const [hasNumber, setHasNumber] = useState(false);
+  const [upperCase, setUpperCase] = useState(false);
+  const [lowerCase, setLowerCase] = useState(false);
+  const [specialChar, setSpecialChar] = useState(false);
+  const [match, setMatch] = useState(false);
+  const [requiredLength, setRequiredLength] = useState(8);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [event.target.name]: event.target.value })
@@ -60,10 +61,15 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log(input)
-      navigate('/congrats');
+
+    if (!validateSignUpForm()) {
+      console.error("Validation Failed");
+      return;
     }
-  
+
+    console.log("Congrats, submitted", input)
+    navigate('/congrats')
+  }
 
   useEffect(() => {
     setValidLength(
@@ -88,6 +94,28 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
   const handleClickShowPassword = () => setShowPassword(!showPassword)
   const handleMouseDownPassword = () => setShowPassword(!showPassword)
 
+  const validateSignUpForm = () => {
+    let formError: { [key: string]: string } = {};
+
+    if (!input.firstName) {
+      formError.firstName = "First name is required.";
+    }
+    else if (!input.lastName) {
+      formError.lastName = "Last name is required.";
+    }
+    else if (!input.email) {
+      formError.email = "Email is required.";
+    }
+    else if (!input.firstPassword) {
+      formError.firstPassword = "Password is required";
+    }
+    else if (!input.secondPassword) {
+      formError.secondPassword = "Password is required.";
+    }
+    setErrors(formError);
+    return Object.keys(formError).length === 0;
+  }
+
   return (
     <div className='form-input-container'>
       <form onSubmit={handleSubmit}>
@@ -99,6 +127,7 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
             value={input.firstName}
             type={'text'}
           />
+          {errors.firstName && <div className="error">{errors.firstName}</div>}
           <FormField
             changeHandler={handleChange}
             label={'Last name'}
@@ -106,6 +135,7 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
             value={input.lastName}
             type={'text'}
           />
+          {errors.lastName && <div className="error">{errors.lastName}</div>}
           <FormField
             changeHandler={handleChange}
             label={'Email address (ex. jeanine@bootcampr.io)'}
@@ -113,6 +143,7 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
             value={input.email}
             type={'text'}
           />
+          {errors.email && <div className="error">{errors.email}</div>}
           <FormField
             changeHandler={handleChange}
             label={'Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)'}
@@ -134,6 +165,7 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
               ),
             }}
           />
+          {errors.firstPassword && <div className="error">{errors.firstPassword}</div>}
           <FormField
             changeHandler={handleChange}
             label={'Re-enter password'}
@@ -151,10 +183,11 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
                   >
                     {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
-                  </InputAdornment>
+                </InputAdornment>
               ),
             }}
           />
+          {errors.secondPassword && <div className="error">{errors.secondPassword}</div>}
           <div className='agreement-container'>
             <div className='sign-up-agreement'>
               <FormControlLabel
@@ -167,7 +200,9 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
             </div>
           </div>
           <div className='form-button'>
-            <Button type='submit'>Sign up</Button>
+            <Button type='submit'>
+              Sign up
+            </Button>
           </div>
         </FormControl>
       </form>
