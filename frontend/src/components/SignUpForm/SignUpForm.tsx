@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent } from 'react'
+import { useState, FC, ChangeEvent, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { checkRule } from 'utils/validationHelpers'
 
@@ -60,7 +60,6 @@ export const SignUpForm: FC = () => {
       value => value.error === false
     )
     const isEmailUnique = emailValidation.every(value => value.error === false)
-    console.log(isEmailUnique)
     return (
       isPasswordValid && isPasswordMatch && areFieldsFilled && isEmailUnique
     )
@@ -99,7 +98,8 @@ export const SignUpForm: FC = () => {
     }
   }
 
-  const handleFormSubmitButton = () => {
+  const handleFormSubmitButton = (event: FormEvent) => {
+    event.preventDefault()
     createUser(user).then(user => {
       navigate('/welcome')
     })

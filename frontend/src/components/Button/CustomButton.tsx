@@ -1,18 +1,18 @@
-import { FC } from 'react'
+import { FC, MouseEvent } from 'react'
 import { Button } from '@mui/material'
 import './CustomButton.scss' // Import your SCSS file for styles
 
 interface CustomButtonProps {
   text: string
   disabled?: boolean
-  onClick: () => void
-  type?: 'contained' | 'text' | 'outlined'
+  onClick: (event: MouseEvent<HTMLButtonElement>) => void
+  variant?: 'contained' | 'text' | 'outlined'
 }
 
 export const CustomButton: FC<CustomButtonProps> = ({
   text,
   disabled,
-  type = 'contained',
+  variant = 'contained',
   onClick,
 }) => {
   return (
@@ -32,7 +32,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
         },
       }}
       onClick={onClick}
-      variant={type}
+      variant={variant}
       disabled={disabled}
     >
       {text}
