@@ -1,16 +1,9 @@
-
 .form-input-container {
   .MuiFormControl-root {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  margin: 12px;
-  padding: 14px;
   margin: 2px 0; // Space out each form field
 
     .MuiInputLabel-root {
-      color: #666; // Label color
+      color: #666; 
       position: static; // Override the default floating behavior
       transform: none; // Remove the transformation
       margin-bottom: 5px; // Space between label and input field
@@ -32,20 +25,14 @@
   }
 
   .form-button {
-    margin-top: 20px; // Space above the button
-  }
-}
-
-.form-button {
-color: Charcoal (#313335);
-background-color: #ECEBEB;
-border-radius: 4px;
-text-align: center;
-display: flex;
-margin: 12px;
-width: 448px;
-padding: 10px 16px;
-justify-content: center;
-align-items: center;
-gap: 8px;
+    color: Charcoal (#313335);
+    background-color: #ECEBEB;
+    margin-top: 20px;
+    border-radius: 4px;
+    display: flex;
+    margin: 12px;
+    padding: 10px 16px;
+    justify-content: center;
+    gap: 8px;
+    }
 }

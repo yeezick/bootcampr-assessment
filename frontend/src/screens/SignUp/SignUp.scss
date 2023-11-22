@@ -20,17 +20,41 @@ line-height: 33.6px;
  } /* 140% */
 
 .text-banner {
+  display: flex;
   align-items: center;
   width: 413px;
   height: 101px;
   flex-shrink: 0;
-  }
+  margin-top: 0;
+  padding: 240px 0 100px 0;
+  box-sizing: border-box; 
+}
 
 .img-container {
+  display: flex;
+  padding-left: 440px;
   align-items: left;
   width: 337.483px;
   height: 400.168px;
   flex-shrink: 0;
+  margin-right: 141px;
+}
+
+.sign-up-container {
+  flex-direction: column;
+  display: flex;
+  gap: 15px;
+  margin: 10px;
+  padding: 8px 0px 4px 8px;
+  // padding: 30px;
+// width: 450px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  grid-auto-rows: 100px;
 }
 
  //Rectangle .png in case I don't want to leave it project folder and would rather instead use a link:
