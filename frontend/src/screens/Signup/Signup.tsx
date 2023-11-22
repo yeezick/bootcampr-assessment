@@ -108,10 +108,10 @@ const handleSubmit = async (event) => {
 
 const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
 
-const [password, setPassword] = useState('');
+const [password, setPassword] = useState('')
 
     const handlePasswordClick = () => {
-        setShowPasswordRequirements(true);
+        setShowPasswordRequirements(true)
     };
 
     const isPasswordValid = () => {
