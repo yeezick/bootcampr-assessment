@@ -9,9 +9,9 @@
     padding: 4px 12px;
   }
   .helper-text-container {
-    height: 10px;
-
+    height: 15px;
     .helper-text {
+      font-size: 10px;
       display: flex;
       align-items: center;
       &.error {
