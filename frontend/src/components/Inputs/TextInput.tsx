@@ -32,7 +32,7 @@ export const TextInput: FC<TextInputProps> = ({
 }) => {
   return (
     <div className='input-box'>
-      <label>{label}</label>
+      <label htmlFor={`${name}`}>{label}</label>
       <TextField
         type={type}
         value={value}
@@ -49,20 +49,23 @@ export const TextInput: FC<TextInputProps> = ({
         className='input-field'
         {...props}
       />
-      {helperText?.map(helperText => {
+      {helperText?.map((helperText, index) => {
         if (!helperText.message.length) {
           return null
         }
-        const error = helperText.error ? 'error' : 'success'
+        const status = helperText.error ? 'error' : 'success'
+
         return (
-          <FormHelperText className={`helper-text ${error}`}>
-            {helperText.error ? (
-              <CloseIcon fontSize='small' />
-            ) : (
-              <CheckIcon fontSize='small' />
-            )}
-            {helperText.message}
-          </FormHelperText>
+          <div className='helper-text-container' key={index}>
+            <FormHelperText className={`helper-text ${status}`}>
+              {helperText.error ? (
+                <CloseIcon fontSize='small' />
+              ) : (
+                <CheckIcon fontSize='small' />
+              )}
+              {helperText.message}
+            </FormHelperText>
+          </div>
         )
       })}
     </div>

@@ -2,21 +2,24 @@
 .input-box {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
   .input-field {
     background-color: #ecebeb; //smoke
     border-radius: 4px;
     margin-block: 4px;
     padding: 4px 12px;
   }
-  .helper-text {
-    display: flex;
-    align-items: center;
-    &.error {
-      color: #d90000; //rubarb
-    }
-    &.success {
-      color: #23a6a1; //sea foam
+  .helper-text-container {
+    height: 10px;
+
+    .helper-text {
+      display: flex;
+      align-items: center;
+      &.error {
+        color: #d90000; //rubarb
+      }
+      &.success {
+        color: #23a6a1; //sea foam
+      }
     }
   }
 }

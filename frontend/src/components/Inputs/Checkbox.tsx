@@ -23,6 +23,7 @@ export const CheckboxControl: FC<CheckboxProps> = ({
       sx={{
         display: 'flex',
         alignItems: 'flex-start',
+        marginTop: '0.5rem',
       }}
       control={
         <Checkbox
