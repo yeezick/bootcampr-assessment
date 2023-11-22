@@ -7,7 +7,10 @@ import { eye } from 'react-icons-kit/feather/eye';
 import { FormField } from './FormField';
 import { VisibilityButton } from './VisibilityButton';
 import { ValidationContainer } from './ValidationContainer';
+import { validatePassword } from './SignUpHelpers';
 
+//Primary state management component of sign-up form
+//Contains sub-components related to FormField, VisibilityButton, ValidationContainer
 export const SignUpForm: React.FC = () => {
     const navigate = useNavigate();
   
@@ -34,17 +37,8 @@ export const SignUpForm: React.FC = () => {
     const [icon, setIcon] = useState(false);
     const [iconRe, setIconRe] = useState(false);
   
-    const validatePassword = (password: string) => {
-      const validations = {
-        minLength: password.length >= 8,
-        hasLowerCase: /[a-z]/.test(password),
-        hasUpperCase: /[A-Z]/.test(password),
-        hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
-      }
-  
-      setPasswordValidation(validations);
-    }
-  
+    //Function attached to onBlur in email input field
+    //Checks whether or not currently inputted email is already present in the database
     const handleEmail = async (event) => {
       try {
         const email = event.target.value;
@@ -55,22 +49,27 @@ export const SignUpForm: React.FC = () => {
       }
     }
   
+    //Simple boolean handler that manages whether or not the notification checkbox is ticked
+    //Necessary to lock submission till checkmark is ticked
     const handleCheck = (event) => {
       setNotification(!notification);
     }
   
+    //Handles visibility of the password input field
     const handleVisibility = (event) => {
       event.preventDefault()
       setIcon(!icon);
       setShowPassword(!showPassword);
     }
   
+    //Handles visibility of the re-enter password input field
     const handleVisibilityRe = (event) => {
       event.preventDefault()
       setIconRe(!iconRe);
       setShowPasswordRe(!showPasswordRe);
     }
   
+    //Universal handler of text input to form fields
     const handleChange = (event) => {
       const { name, value } = event.target;
   
@@ -78,6 +77,7 @@ export const SignUpForm: React.FC = () => {
         return { ...previous, [name]: value }
       })
   
+      //checks if the passwords match and validates the password against 
       if (name === 'password') {
         if (value === signupDetails.passwordRe) {
           setPasswordMatch(true);
@@ -85,9 +85,11 @@ export const SignUpForm: React.FC = () => {
           setPasswordMatch(false);
         }
   
-        validatePassword(value)
+        const validated = validatePassword(value)
+        setPasswordValidation(validated)
       }
-  
+
+      //check if password matches
       if (name === 'passwordRe') {
         if (value === signupDetails.password) {
           setPasswordMatch(true)
@@ -98,6 +100,8 @@ export const SignUpForm: React.FC = () => {
   
     }
   
+    //Handles submission of form, navigating to success page when there is no internal server error occuring
+    //MongoURI is an environmental variable, so this submission may not work in the case that a valid URI is not provided in .env of backend
     const handleSubmit = async (event) => {
       try {
         event.preventDefault();

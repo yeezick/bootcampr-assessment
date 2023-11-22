@@ -1,14 +1,9 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { addUser, validateEmail } from 'utils/sampleController'
+import React from 'react'
 import './SignUp.scss'
 import Image from 'assets/Image.svg';
-import Checkmark from 'assets/Icon.png';
-import { Icon } from 'react-icons-kit';
-import { eyeOff } from 'react-icons-kit/feather/eyeOff';
-import { eye } from 'react-icons-kit/feather/eye';
 import { SignUpForm } from './SignUpForm';
 
+//Render component for sign-up form
 export const SignUp: React.FC = () => {
   return (
     <div>
