@@ -7,11 +7,6 @@ type LayoutProps = {
 };
 
 export const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
-  // const [showSignup, setShowSignup] = useState(true)
-
-  // const updateSignupButton = () => {
-  //   setShowSignup(false)
-  // }
 
   return (
     <>

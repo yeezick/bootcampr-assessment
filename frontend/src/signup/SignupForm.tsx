@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './SignupForm.scss'
+import { useNavigate } from 'react-router-dom'
 
 export const SignupForm = (props:any) => {
   const [formData, setFormData ] = useState({
@@ -22,6 +23,8 @@ export const SignupForm = (props:any) => {
   const [ passwordMatch, setPasswordMatch ] = useState(false)
   //all form requirements are completed
   const [ formInvalid, setFormInvalid ] = useState(true)
+
+  const navigate = useNavigate();
 
   function handleFormChange(event) {
     //checkbox or all other inputs
@@ -62,11 +65,15 @@ export const SignupForm = (props:any) => {
       setFormInvalid(true)
     }
   }, [passwordMatch, formData]) 
- 
+
+  function handleSubmit(event){
+    event.preventDefault()
+    navigate('/login')
+  }
 
   return (
     <div className="signup-form-container">
-      <form className="signup-form" >
+      <form className="signup-form" onSubmit={handleSubmit}>
         <div className="input-divs">
           <label>First name</label>
           <input type="text" name="firstname" value={formData.firstname} onChange={handleFormChange} />
