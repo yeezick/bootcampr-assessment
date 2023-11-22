@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import IconButton from '@mui/material/IconButton'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
@@ -8,6 +8,7 @@ interface InputProps {
   label: string
   type: string
   identifier: string
+  setPasswordValue: Function
 }
 
 const PASSWORD_LENGTH_REGEX = /^.*(?=.{8,})/
@@ -35,14 +36,20 @@ const PasswordField: React.FC<InputProps> = props => {
     setIsValidSymbolCount(PASSWORD_SYMBOL_REGEX.test(passwordEntry))
   }
 
+  const handleInputChange = e => {
+    handleValidity(e)
+
+    props.setPasswordValue(e.target.value)
+  }
+
   return (
     <label htmlFor={props.identifier} className={styles['password-field']}>
-      <p>{props.label}</p>
+      <p className={styles.label}>{props.label}</p>
       <div className={styles['password-input-field']}>
         <input
           id={props.identifier}
           type={passwordVisible ? 'text' : 'password'}
-          onBlur={handleValidity}
+          onChange={handleInputChange}
           required
         />
         <IconButton

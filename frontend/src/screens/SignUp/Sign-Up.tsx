@@ -1,18 +1,23 @@
-import React, { useState } from 'react'
-import IconButton from '@mui/material/IconButton'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import InputField from '../../components/InputField/InputField'
+import React, { useEffect, useState } from 'react'
 import './Sign-Up.scss'
+import InputField from '../../components/InputField/InputField'
 import PasswordField from 'components/PasswordField/PasswordField'
+import PasswordConfirmField from 'components/PasswordConfirmField/PasswordConfirmField'
 
 export const SignUp: React.FC = () => {
-  const handleValidity = e => {
-    if (e.target.checkValidity()) {
-      e.target.className += ''
+  const [passwordMatch, setPasswordMatch] = useState<boolean>(null)
+  const [passwordValue, setPasswordValue] = useState<string>('')
+  const [passwordConfirmValue, setPasswordConfirmValue] = useState<string>('')
+
+  useEffect(() => {
+    if (passwordConfirmValue.length > 0) {
+      if (passwordValue === passwordConfirmValue) {
+        setPasswordMatch(true)
+      } else {
+        setPasswordMatch(false)
+      }
     }
-    console.log(e.target.checkValidity())
-  }
+  }, [passwordValue, passwordConfirmValue])
 
   return (
     <div className='signup-container'>
@@ -35,46 +40,34 @@ export const SignUp: React.FC = () => {
               type='text'
               label='First Name'
               identifier='first-name'
+              validityType='valueMissing'
             />
-            <InputField type='text' label='Last Name' identifier='last-name' />
+            <InputField
+              type='text'
+              label='Last Name'
+              identifier='last-name'
+              validityType='valueMissing'
+            />
             <InputField
               type='email'
               label='Email Address'
               placeholder='ex. jeanine@bootcampr.io'
               identifier='email-address'
+              validityType='typeMismatch'
             />
             <PasswordField
               type={'password'}
               label={'Password'}
               identifier={'password'}
+              setPasswordValue={setPasswordValue}
             />
-            <PasswordField
+            <PasswordConfirmField
               type={'password'}
               label={'Re-enter Password'}
               identifier={'confirm-password'}
+              passwordMatch={passwordMatch}
+              setPasswordValue={setPasswordConfirmValue}
             />
-
-            {/* <label htmlFor='confirm-password'>
-              <p>Re-enter Password</p>
-              <div className='password-field'>
-                <input
-                  id='confirm-password'
-                  type={passwordVisible ? 'text' : 'password'}
-                  required
-                />
-                <IconButton
-                  onClick={handlePasswordVisibility}
-                  aria-label={
-                    passwordVisible ? 'Hide Password' : 'Show Password'
-                  }
-                >
-                  {passwordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                </IconButton>
-              </div>
-              <p className='confirm-password-error-message error-message'>
-                Password Doesn't Match!
-              </p>
-            </label> */}
             <label
               htmlFor='notification-consent-checkbox'
               id='notification-consent'

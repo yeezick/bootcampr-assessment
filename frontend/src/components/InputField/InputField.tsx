@@ -5,6 +5,7 @@ interface InputProps {
   label: string
   type: string
   identifier: string
+  validityType: string
   placeholder?: string
 }
 
@@ -14,14 +15,13 @@ const InputField: React.FC<InputProps> = props => {
   const [validityState, setValidityState] = useState<boolean>(false)
 
   useEffect(() => {
-    // Custom Validity Logic
     if (validityState) {
       setErrorMessage(`'${props.label}' is required.`)
     }
   }, [validityState])
 
   const handleValidity = e => {
-    setValidityState(e.target.validity.valueMissing)
+    setValidityState(e.target.validity[props.validityType])
     setInputValid(e.target.checkValidity())
   }
 
@@ -32,7 +32,7 @@ const InputField: React.FC<InputProps> = props => {
       }`}
       htmlFor={props.identifier}
     >
-      <p>{props.label}</p>
+      <p className={styles.label}>{props.label}</p>
       <input
         id={props.identifier}
         type={props.type}
