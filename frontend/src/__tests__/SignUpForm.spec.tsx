@@ -2,11 +2,7 @@ import { SignUp } from 'screens/SignUp/SignUp'
 import { render, screen, fireEvent, waitFor } from './customRender'
 import * as signUpController from '../utils/signUpController'
 
-jest.mock('../utils/signUpController', () => ({
-  ...jest.requireActual('../utils/signUpController'),
-  checkEmail: jest.fn(),
-  signUp: jest.fn(),
-}))
+jest.mock('../utils/signUpController')
 
 describe('SignUpForm', () => {
   test('renders form fields and the button submit', () => {
