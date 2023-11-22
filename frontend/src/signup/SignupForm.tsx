@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+import { Form, useNavigate } from 'react-router-dom'
 import './SignupForm.scss'
-import { useNavigate } from 'react-router-dom'
+import { ShowPassword } from './ShowPassword'
+
 
 export const SignupForm = (props:any) => {
   const [formData, setFormData ] = useState({
@@ -21,6 +23,9 @@ export const SignupForm = (props:any) => {
   const [ validPassword, setValidPassword ] = useState(false)
   //first password and second password validation 
   const [ passwordMatch, setPasswordMatch ] = useState(false)
+  //show password
+  const [passwordVisible, setPasswordVisible ] = useState(false)
+  const [password2Visible, setPassword2Visible ] = useState(false)
   //all form requirements are completed
   const [ formInvalid, setFormInvalid ] = useState(true)
 
@@ -68,8 +73,11 @@ export const SignupForm = (props:any) => {
 
   function handleSubmit(event){
     event.preventDefault()
-    navigate('/login')
+    navigate('/sign-up-complete')
   }
+
+  const handleShowPassword = () => setPasswordVisible(!passwordVisible)
+  const handleShowPassword2 = () => setPassword2Visible(!password2Visible)
 
   return (
     <div className="signup-form-container">
@@ -88,7 +96,11 @@ export const SignupForm = (props:any) => {
         </div>
         <div className="input-divs">
           <label>Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</label>
-          <input type="password" name="password" value={formData.password} onChange={handleFormChange} onSelect={() => setShowValidation(true)}/>
+          <div className='password-div'>
+            <input type={passwordVisible ? "text" : "password"} name="password" value={formData.password} onChange={handleFormChange} onSelect={() => setShowValidation(true)}/>
+            <ShowPassword passwordVisible={passwordVisible} handleShowPassword={handleShowPassword}/>
+          </div>
+        
           {showValidation?
           <div className='password-validations'>
             <p style={{color: upperCase ? '#23A6A1' : 'red' }}>1 uppercase</p>
@@ -101,7 +113,11 @@ export const SignupForm = (props:any) => {
         </div>
         <div className="input-divs" style={{marginBottom: '0px'}}>
           <label>Re-enter password</label>
-          <input type="password" name="passwordTwo" onChange={handleFormChange} onSelect={() => setShowValidation(false)}/>
+          <div className='password-div'>
+            <input type={password2Visible? "text":"password"} name="passwordTwo" onChange={handleFormChange} onSelect={() => setShowValidation(false)}/>
+            <ShowPassword passwordVisible={password2Visible} handleShowPassword={handleShowPassword2}/>
+          </div>
+          
           {passwordMatch ?
           <div className="password-validations">
             <p>Passwords match!</p>
