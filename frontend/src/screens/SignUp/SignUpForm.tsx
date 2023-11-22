@@ -245,7 +245,7 @@ const SignUpForm: React.FC = () => {
   }
 
   return (
-    <Box component='form' onSubmit={handleSignUp} className='form' noValidate>
+    <Box component='form' onSubmit={handleSignUp} className='form' data-testid='signUpForm' noValidate>
       <InputLabel htmlFor='firstName'>First name</InputLabel>
       <FormControl>
         <TextField
