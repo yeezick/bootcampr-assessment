@@ -49,25 +49,27 @@ export const TextInput: FC<TextInputProps> = ({
         className='input-field'
         {...props}
       />
-      {helperText?.map((helperText, index) => {
-        if (!helperText.message.length) {
-          return null
-        }
-        const status = helperText.error ? 'error' : 'success'
+      {/**Don't show any message if there is no value */}
+      {value.length > 0 &&
+        helperText?.map((helperText, index) => {
+          if (!helperText.message.length) {
+            return null
+          }
+          const status = helperText.error ? 'error' : 'success'
 
-        return (
-          <div className='helper-text-container' key={index}>
-            <FormHelperText className={`helper-text ${status}`}>
-              {helperText.error ? (
-                <CloseIcon fontSize='small' />
-              ) : (
-                <CheckIcon fontSize='small' />
-              )}
-              {helperText.message}
-            </FormHelperText>
-          </div>
-        )
-      })}
+          return (
+            <div className='helper-text-container' key={index}>
+              <FormHelperText className={`helper-text ${status}`}>
+                {helperText.error ? (
+                  <CloseIcon fontSize='small' />
+                ) : (
+                  <CheckIcon fontSize='small' />
+                )}
+                {helperText.message}
+              </FormHelperText>
+            </div>
+          )
+        })}
     </div>
   )
 }
