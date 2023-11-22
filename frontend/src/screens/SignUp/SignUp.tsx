@@ -1,21 +1,20 @@
-import React, { useState } from 'react'
 import Container from '@mui/material/Container'
-import Typograhy from '@mui/material/Typography'
-import './SignUp.scss'
 import hexagon from '../../assets/Hexagon.svg'
+import './SignUp.scss'
+import { Form } from 'components/Form/Form'
 
 export const SignUp: React.FC = () => {
   return (
     <Container>
       <div className='landing-container'>
         <div className='signup-container'>
-          <Typograhy variant='h3' component='h1'>Join Bootcampr today.</Typograhy>
-          <Typograhy variant='h5' component='h2'>Get the experience. Get the Job.</Typograhy>
+          <h1>Join Bootcampr today.</h1>
+          <h2>Get the experience. Get the Job.</h2>
         </div>
         <div className='flex-container'>
           <img src={hexagon} alt='hand writing with pen' />
+          <Form />
         </div>
-        <div className='form-container'></div>
       </div>
     </Container>
   )
