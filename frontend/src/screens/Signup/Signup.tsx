@@ -39,10 +39,11 @@ const formSchema = z.object({
 
         return true;
     }, "Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number"),
-    confirmPassword: z.string().min(8)
-}).refine((data: FormBodyType) => {
-    return data.password === data.confirmPassword;
-}, "Passwords do not match");
+    confirmPassword: z.string().min(8, "Please confirm your password")
+})
+// .refine((data: FormBodyType) => {
+//     return data.password === data.confirmPassword;
+// }, "Passwords do not match");
 
 export const Signup = (props: Props) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -58,16 +59,24 @@ export const Signup = (props: Props) => {
         e.preventDefault();
     }
 
-    const { control, register, handleSubmit, formState: { errors } } = useForm<FormBodyType>({
+    const { register, handleSubmit, formState: { errors } } = useForm<FormBodyType>({
+        mode: "onChange",
         resolver: zodResolver(formSchema)
     })
     const submit = async (data: FormBodyType) => {
-        console.log(data);
-        await signup(data);
+        try {
+            const res = await signup(data);
+            console.log(res);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error);
+            }
+        }
     }
 
-    const handleApiSignup = async () => {
-
+    const validateConfirmPassword = (value: string, { password }: FormBodyType) => {
+        // console.log("Passwords do not match");
+        return value === password || "Passwords do not match";
     }
 
     return (
@@ -83,13 +92,16 @@ export const Signup = (props: Props) => {
                 <div className="signup-form">
                     <form onSubmit={handleSubmit(submit)}>
                         <label>First name
-                            <input type="text" {...register("firstName")} />
+                            <input type="text" {...register("firstName", { required: true })} />
+                            {errors.firstName && <p className='error'>{errors.firstName.message}</p>}
                         </label>
                         <label>Last name
-                            <input type="text" {...register("lastName")} />
+                            <input type="text" {...register("lastName", { required: true })} />
+                            {errors.lastName && <p className='error'>{errors.lastName.message}</p>}
                         </label>
                         <label className='signup-span'>Email address <span>(ex. jeanine@bootcampr.io)</span>
-                            <input type="email" {...register("email")} />
+                            <input type="email" {...register("email", { required: true })} />
+                            {errors.email && <p className='error'>{errors.email.message}</p>}
                         </label>
                         <div className="passwordBox">
                             <FormControl
@@ -97,48 +109,10 @@ export const Signup = (props: Props) => {
                                 variant='filled'
                             >
                                 <label>Password</label>
-                                {/* <InputLabel htmlFor='password'>Password</InputLabel> */}
-                                <Controller
-                                    name='password'
-                                    control={control}
-                                    render={({ field }) => <FilledInput
-                                        id='password'
-                                        type={showPassword ? 'text' : 'password'}
-                                        endAdornment={
-                                            <InputAdornment position='end'>
-                                                <IconButton
-                                                    aria-label='toggle password visibility'
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    sx={{
-                                                        bgcolor: "rgba(236, 235, 235, 1)",
-                                                        borderRadius: "4px",
-                                                        height: "36px",
-                                                    }}
-                                                >
-                                                    {showPassword ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                        size='small'
-                                        disableUnderline={true}
-                                        sx={{
-                                            bgcolor: "rgba(236, 235, 235, 1)",
-                                            borderRadius: "4px",
-                                            height: "36px",
-                                            mt: 0.5,
-                                            mb: 0,
-                                            '& .MuiFilledInput-input': {
-                                                p: "10px",
-                                                fontSize: "12px"
-                                            }
-                                        }}
-                                        {...field}
-                                    />}
-                                />
-                                {/* <FilledInput
+                                <FilledInput
                                     id='password'
                                     type={showPassword ? 'text' : 'password'}
+                                    {...register("password", { required: true })}
                                     endAdornment={
                                         <InputAdornment position='end'>
                                             <IconButton
@@ -168,7 +142,8 @@ export const Signup = (props: Props) => {
                                             fontSize: "12px"
                                         }
                                     }}
-                                /> */}
+                                />
+                                {errors.password && <p className='pError'>{errors.password.message}</p>}
                             </FormControl>
                             <div className='passwordValidation'>
                                 <p>1 uppercase</p>
@@ -182,45 +157,41 @@ export const Signup = (props: Props) => {
                             variant='filled'
                         >
                             <label>Re-enter password</label>
-                            <Controller
-                                name='confirmPassword'
-                                control={control}
-                                render={({ field }) => <FilledInput
-                                    id='confirmPassword'
-                                    type={showConfirmPassword ? 'text' : 'password'}
-                                    endAdornment={
-                                        <InputAdornment position='end'>
-                                            <IconButton
-                                                aria-label='toggle password visibility'
-                                                onClick={handleClickshowConfirmPassword}
-                                                onMouseDown={handleMouseDownConfirmPassword}
-                                                sx={{
-                                                    bgcolor: "rgba(236, 235, 235, 1)",
-                                                    borderRadius: "4px",
-                                                    height: "36px",
-                                                }}
-                                            >
-                                                {showConfirmPassword ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
-                                            </IconButton>
-                                        </InputAdornment>
+                            <FilledInput
+                                id='confirmPassword'
+                                type={showConfirmPassword ? 'text' : 'password'}
+                                {...register("confirmPassword", { validate: validateConfirmPassword })}
+                                endAdornment={
+                                    <InputAdornment position='end'>
+                                        <IconButton
+                                            aria-label='toggle password visibility'
+                                            onClick={handleClickshowConfirmPassword}
+                                            onMouseDown={handleMouseDownConfirmPassword}
+                                            sx={{
+                                                bgcolor: "rgba(236, 235, 235, 1)",
+                                                borderRadius: "4px",
+                                                height: "36px",
+                                            }}
+                                        >
+                                            {showConfirmPassword ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                size='small'
+                                disableUnderline={true}
+                                sx={{
+                                    bgcolor: "rgba(236, 235, 235, 1)",
+                                    borderRadius: "4px",
+                                    height: "36px",
+                                    mt: 0.5,
+                                    mb: 0,
+                                    '& .MuiFilledInput-input': {
+                                        p: "10px",
+                                        fontSize: "12px"
                                     }
-                                    size='small'
-                                    disableUnderline={true}
-                                    sx={{
-                                        bgcolor: "rgba(236, 235, 235, 1)",
-                                        borderRadius: "4px",
-                                        height: "36px",
-                                        mt: 0.5,
-                                        mb: 0,
-                                        '& .MuiFilledInput-input': {
-                                            p: "10px",
-                                            fontSize: "12px"
-                                        }
-                                    }}
-                                    {...field}
-                                />}
+                                }}
                             />
-
+                            {errors.confirmPassword && <p className='pError'>{errors.confirmPassword.message}</p>}
                         </FormControl>
                         <div className='signup-checkbox'>
                             <input type="checkbox" id='notifications' required />
