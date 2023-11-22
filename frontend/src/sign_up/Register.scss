@@ -13,11 +13,13 @@
 #container-form {
   position: absolute;
   left: -5px;
-  margin-top: 120px;
+  margin-top: 100px;
 }
 
 #form-text{
   font-size: 13px;
+  position: relative;
+  bottom: -17px;
 }
 
 #checkbox-text {
@@ -39,12 +41,17 @@
   top: 17px;
 }
 
+#input-box-position {
+  right: 100px;
+}
+
 input[type=text], input[type=password], select {
   width: 105%;
   padding: 6px 10px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 1px solid #ecebeb;
+  border-radius: 2px;
   box-sizing: border-box;
   font-size: 12px;
   background-color: #ecebeb;
