@@ -6,8 +6,11 @@ import './SignUp.scss'
 import { sign } from 'crypto'
 import { isTypeAssertionExpression } from 'typescript'
 import Image from 'assets/Image.svg';
-import Icon from 'assets/Icon.png';
+import Checkmark from 'assets/Icon.png';
 import Icon2 from 'assets/icon2.png';
+import { Icon } from 'react-icons-kit';
+import { eyeOff } from 'react-icons-kit/feather/eyeOff';
+import { eye } from 'react-icons-kit/feather/eye';
 
 export const SignUp: React.FC = () => {
   return (
@@ -51,6 +54,8 @@ const SignUpForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRe, setShowPasswordRe] = useState(false);
   const [notification, setNotification] = useState(false);
+  const [icon, setIcon] = useState(false);
+  const [iconRe, setIconRe] = useState(false);
 
 
   const validatePassword = (password: string) => {
@@ -80,16 +85,18 @@ const SignUpForm: React.FC = () => {
 
   const handleVisibility = (event) => {
     event.preventDefault()
+    setIcon(!icon);
     setShowPassword(!showPassword);
   }
 
   const handleVisibilityRe = (event) => {
     event.preventDefault()
+    setIconRe(!iconRe);
     setShowPasswordRe(!showPasswordRe);
   }
 
   const handleChange = (event) => {
-    console.log(signupDetails)
+    // console.log(signupDetails)
     const { name, value } = event.target;
 
     setSignupDetails((previous) => {
@@ -167,7 +174,7 @@ const SignUpForm: React.FC = () => {
           >
             <VisibilityButton
               onClick={handleVisibility}
-              icon={Icon2}
+              icon={icon ? eye : eyeOff}
             />
             {signupDetails.password.length ? <ValidationContainer passwordValidation={passwordValidation} /> : <div className='validation-placeholder'></div>}
           </FormField>
@@ -180,7 +187,7 @@ const SignUpForm: React.FC = () => {
           >
             <VisibilityButton
               onClick={handleVisibilityRe}
-              icon={Icon2}
+              icon={iconRe ? eye: eyeOff}
             />
             {signupDetails.passwordRe.length ? <p className={passwordMatch ? 'passwordmatch-valid' : 'passwordmatch-invalid'}>Passwords match</p> : ""}
           </FormField>
@@ -247,12 +254,15 @@ interface VisibilityButtonProps {
 const VisibilityButton: React.FC<VisibilityButtonProps> = ({ onClick, icon }) => {
   return (
     <button className='visibility-button'>
-      <img
+      <span className='visiblity-icon' onClick={onClick}>
+        <Icon className='absolute mr-10' icon={icon}/>
+      </span>
+      {/* <img
         className='visibility-icon'
         src={icon}
         alt="visibility-button"
         onClick={onClick}
-      ></img>
+      ></img> */}
     </button>
   )
 }
@@ -270,25 +280,25 @@ const ValidationContainer: React.FC<ValidationContainerProps> = ({ passwordValid
   return (
     <div className='validation-container'>
       {passwordValidation.hasUpperCase ? <p className='hasuppercase-valid'>
-        <img className="icon" alt='checkbox' src={Icon}></img> 1 upper
+        <img className="icon" alt='checkbox' src={Checkmark}></img> 1 upper
       </p> :
         <p className='hasuppercase-invalid'>
           1 upper
         </p>}
       {passwordValidation.hasLowerCase ? <p className='haslowercase-valid'>
-        <img className="icon" alt="checkbox" src={Icon}></img> 1 lower
+        <img className="icon" alt="checkbox" src={Checkmark}></img> 1 lower
       </p> :
         <p className='haslowercase-invalid'>
           1 lower
         </p>}
       {passwordValidation.hasSpecialChar ? <p className='hasspecialchar-valid'>
-        <img className="icon" alt="checkbox" src={Icon}></img> 1 symbol
+        <img className="icon" alt="checkbox" src={Checkmark}></img> 1 symbol
       </p> :
         <p className='hasspecialchar-invalid'>
           1 symbol
         </p>}
       {passwordValidation.minLength ? <p className='minchar-valid'>
-        <img className="icon" alt="checkbox" src={Icon}></img> Min 8 characters
+        <img className="icon" alt="checkbox" src={Checkmark}></img> Min 8 characters
       </p> :
         <p className='minchar-invalid'>
           Minimum 8 characters

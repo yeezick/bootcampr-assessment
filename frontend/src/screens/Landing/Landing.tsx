@@ -29,17 +29,17 @@ const ButtonContainer = ({ setHelloResponse }) => {
     navigate('/sign-up')
   }
 
-  // const handleApiTestButton = async () => {
-  //   const apiResponse = await sayHello()
-  //   setHelloResponse(apiResponse)
-  // }
+  const handleApiTestButton = async () => {
+    const apiResponse = 'HI';
+    setHelloResponse(apiResponse)
+  }
 
   return (
     <div className='button-container'>
       <Button onClick={handleSignUpButton} variant='contained'>
         Start Today!
       </Button>
-      <Button onClick={() => {}} variant='contained'>
+      <Button onClick={handleApiTestButton} variant='contained'>
         Test the API
       </Button>
     </div>
