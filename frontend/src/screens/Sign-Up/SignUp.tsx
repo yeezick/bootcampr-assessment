@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '@mui/material'
 import { addUser, validateEmail } from 'utils/sampleController'
 import './SignUp.scss'
-import { sign } from 'crypto'
-import { isTypeAssertionExpression } from 'typescript'
 import Image from 'assets/Image.svg';
 import Checkmark from 'assets/Icon.png';
-import Icon2 from 'assets/icon2.png';
 import { Icon } from 'react-icons-kit';
 import { eyeOff } from 'react-icons-kit/feather/eyeOff';
 import { eye } from 'react-icons-kit/feather/eye';
