@@ -14,13 +14,6 @@ function App() {
           <Route path='/sign-up-complete' element={<Login />}/>
         </Routes>
       </Layout>
-
-     
-      {/* <Signup>
-        <Routes>
-          
-        </Routes>
-      </Signup> */}
     </>
   )
 }

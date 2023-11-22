@@ -5,6 +5,8 @@ import cors from "cors";
 import bodyParser from 'body-parser';
 import routes from "./routes/router.js";
 
+//import userRouter from './routes/userRouter.js'
+
 const app = express();
 const PORT = 8001;
 
@@ -14,5 +16,5 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(routes);
-app.use('/users', )
+//app.use('/users' )
 app.listen(PORT, console.log(`Now listening on PORT: ${PORT}`));

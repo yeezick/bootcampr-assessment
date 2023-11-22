@@ -7,14 +7,13 @@ export const getUsers = async (req, res) => {
 };
 
 export const newUser = async(req, res) => {
-  console.log(req.body)
-  // const user = new User({
-  //   firstname: req.body.firstname,
-  //   lastname: req.body.lastname,
-  //   email: req.body.email,
-  //   password: req.body.password
-  // })
+  const user = new User({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: req.body.password
+  })
 
-  // await user.save()
-  // return res.send(user)
+  await user.save()
+  return res.send(user)
 }

@@ -73,7 +73,20 @@ export const SignupForm = (props:any) => {
 
   function handleSubmit(event){
     event.preventDefault()
-    navigate('/sign-up-complete')
+    fetch("http://localhost:8001/users", {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json" 
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(res => res.json())
+    .then(user => {
+      console.log(user)
+      navigate('/sign-up-complete')
+    })
+    
   }
 
   const handleShowPassword = () => setPasswordVisible(!passwordVisible)
