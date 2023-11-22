@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FormField } from 'components/FormField/FormField'
 import {
   FormControl,
@@ -51,15 +52,18 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
   const [match, setMatch] = useState(false)
   const [requiredLength, setRequiredLength] = useState(8)
 
+  const navigate = useNavigate();
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [event.target.name]: event.target.value })
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    // onSubmit(formFieldInput);
     console.log(input)
-  }
+      navigate('/congrats');
+    }
+  
 
   useEffect(() => {
     setValidLength(
