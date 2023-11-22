@@ -172,15 +172,16 @@ export const SignUpForm: React.FC = () => {
             </FormField>
             <div className='notification-container'>
               <input
+                id='notificationCheckbox'
                 className='notification-checkbox'
                 type='checkbox'
                 onChange={handleCheck}
               ></input>
-              <p className='notification-text'>
+              <label className='notification-text' htmlFor='notificationCheckbox'>
                 I agree to receive email notification(s). We will only send
                 emails with important information, like project start dates.
                 We will not sell your information!
-              </p>
+              </label>
             </div>
             <div className='button-container'>
               <button

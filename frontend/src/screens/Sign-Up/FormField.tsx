@@ -14,8 +14,10 @@ interface FormFieldProps {
   export const FormField: React.FC<FormFieldProps> = ({ label, children, type, name, onChange, onBlur, value }) => {
     return (
       <div className={`input-common`}>
-        <h3 className='mini-header'>{label}</h3>
+        <label className='mini-header' htmlFor={name}>{label}</label>
         <input
+          id={name}
+          data-testid={name}
           className={`input input-${name}`}
           type={type}
           name={name}
