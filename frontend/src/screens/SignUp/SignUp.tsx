@@ -23,6 +23,8 @@ export const SignUp: React.FC = () => {
             backgroundImage:
               'url(https://source.unsplash.com/random?wallpapers)',
           }}
+          aria-hidden='true'
+          data-testid='featuredImage'
         />
         <Grid item xs={12} sm={8} md={5}>
           <Box
