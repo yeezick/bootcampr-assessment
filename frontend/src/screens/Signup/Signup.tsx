@@ -105,6 +105,20 @@ const handleSubmit = async (event) => {
     }
 };
 
+const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
+
+const [password, setPassword] = useState('');
+
+    const handlePasswordClick = () => {
+        setShowPasswordRequirements(true);
+    };
+
+    const isPasswordValid = () => {
+        // Check if password meets criteria (1 lowercase letter)
+        const lowercaseRegex = /[a-z]/;
+        return lowercaseRegex.test(password);
+    };
+
 
     return (
         <div className='signup-form-container'>
@@ -136,8 +150,43 @@ const handleSubmit = async (event) => {
                 <section className='form-label-container'>
                     <label className='form-label'>Password</label>
                     <input className='form-input'             type="password" 
-                    placeholder='Enter your password'    
+                    placeholder='Enter your password'
+                    onClick={handlePasswordClick}
+                    onBlur={() => setShowPasswordRequirements(false)}    
                     />
+                    {showPasswordRequirements && (
+                    <div className='password-requirements'>
+                        <ul>
+                            <li style={{ color: isPasswordValid() ? 'var(--sea-foam-23-a-6-a-1, #23A6A1)' : 'var(--rubarb-d-90000, #D90000)' }}>
+                                1 uppercase letter
+                            </li>
+                            <li style={{ color: isPasswordValid() ? 'var(--sea-foam-23-a-6-a-1, #23A6A1)' : 'var(--rubarb-d-90000, #D90000)' }}>
+                                1 lowercase letter
+                            </li>
+                            <li style={{ color: isPasswordValid() ? 'var(--sea-foam-23-a-6-a-1, #23A6A1)' : 'var(--rubarb-d-90000, #D90000)' }}>
+                                Minimum of 8 characters
+                            </li>
+                        </ul>
+                        {isPasswordValid() && (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                fill="none"
+                                style={{ width: '16px', height: '16px' }}
+                            >
+                                <path
+                                    d="M13.3337 4L6.00033 11.3333L2.66699 8"
+                                    stroke="#23A6A1"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                        )}
+                    </div>
+                )}
                 </section>
 
                 <section className='form-label-container'>
