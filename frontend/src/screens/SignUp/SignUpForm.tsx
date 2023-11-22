@@ -14,7 +14,6 @@ import {
   FormControl,
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import axios, { AxiosResponse } from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { signUp, checkEmail } from 'utils/signUpController'
 
