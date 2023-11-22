@@ -1,5 +1,4 @@
 import { check } from "express-validator";
-import handleValidationErrors from './handleValidationErrors.js';
 
 const validateRegisterInput = [
   check('firstName')
@@ -27,7 +26,5 @@ const validateRegisterInput = [
     .withMessage('Password must contain at least one uppercase letter')
     .matches(/[@$!%*?&]/)
     .withMessage('Password must contain at least one symbol'),
-  handleValidationErrors
 ];
-
 export default validateRegisterInput;
