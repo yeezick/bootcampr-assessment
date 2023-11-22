@@ -156,7 +156,7 @@ const SignUpForm: React.FC = () => {
             onBlur={handleEmail}
             value={signupDetails.email}
           >
-            {signupDetails.email.length ? <p className={emailValidation ? 'email-valid' : 'email-invalid'}>Must use unique email</p> : ""}
+            {signupDetails.email.length ? <p className={emailValidation ? 'email-valid' : 'email-invalid'}>Must use unique email</p> : <div className='email-placeholder'></div>}
           </FormField>
           <FormField
             label="Password"
@@ -165,40 +165,11 @@ const SignUpForm: React.FC = () => {
             onChange={handleChange}
             value={signupDetails.password}
           >
-            <button className='visibility-button'>
-              <img
-                className='visibility-icon'
-                src={Icon2}
-                alt="visibility-button"
-                onClick={handleVisibility}
-              ></img>
-            </button>
-            {signupDetails.password.length ? <div className='validation-container'>
-              {passwordValidation.hasUpperCase ? <p className='hasuppercase-valid'>
-                <img className="icon" alt='checkbox' src={Icon}></img> 1 upper
-              </p> :
-                <p className='hasuppercase-invalid'>
-                  1 upper
-                </p>}
-              {passwordValidation.hasLowerCase ? <p className='haslowercase-valid'>
-                <img className="icon" alt="checkbox" src={Icon}></img> 1 lower
-              </p> :
-                <p className='haslowercase-invalid'>
-                  1 lower
-                </p>}
-              {passwordValidation.hasSpecialChar ? <p className='hasspecialchar-valid'>
-                <img className="icon" alt="checkbox" src={Icon}></img> 1 symbol
-              </p> :
-                <p className='hasspecialchar-invalid'>
-                  1 symbol
-                </p>}
-              {passwordValidation.minLength ? <p className='minchar-valid'>
-                <img className="icon" alt="checkbox" src={Icon}></img> Min 8 characters
-              </p> :
-                <p className='minchar-invalid'>
-                  Minimum 8 characters
-                </p>}
-            </div> : <div className='validation-placeholder'></div>}
+            <VisibilityButton
+              onClick={handleVisibility}
+              icon={Icon2}
+            />
+            {signupDetails.password.length ? <ValidationContainer passwordValidation={passwordValidation} /> : <div className='validation-placeholder'></div>}
           </FormField>
           <FormField
             label="Re-enter password"
@@ -207,14 +178,10 @@ const SignUpForm: React.FC = () => {
             onChange={handleChange}
             value={signupDetails.passwordRe}
           >
-            <button className='visibility-button'>
-              <img
-                className='visibility-icon'
-                src={Icon2}
-                alt="visibility-button"
-                onClick={handleVisibilityRe}
-              ></img>
-            </button>
+            <VisibilityButton
+              onClick={handleVisibilityRe}
+              icon={Icon2}
+            />
             {signupDetails.passwordRe.length ? <p className={passwordMatch ? 'passwordmatch-valid' : 'passwordmatch-invalid'}>Passwords match</p> : ""}
           </FormField>
           <div className='notification-container'>
@@ -270,4 +237,62 @@ const FormField: React.FC<FormFieldProps> = ({ label, children, type, name, onCh
       {children}
     </div>
   );
+}
+
+interface VisibilityButtonProps {
+  onClick: (event: any) => void;
+  icon: string;
+}
+
+const VisibilityButton: React.FC<VisibilityButtonProps> = ({ onClick, icon }) => {
+  return (
+    <button className='visibility-button'>
+      <img
+        className='visibility-icon'
+        src={icon}
+        alt="visibility-button"
+        onClick={onClick}
+      ></img>
+    </button>
+  )
+}
+
+interface ValidationContainerProps {
+  passwordValidation: {
+    minLength: boolean,
+    hasUpperCase: boolean,
+    hasLowerCase: boolean,
+    hasSpecialChar: boolean,
+  }
+}
+
+const ValidationContainer: React.FC<ValidationContainerProps> = ({ passwordValidation }) => {
+  return (
+    <div className='validation-container'>
+      {passwordValidation.hasUpperCase ? <p className='hasuppercase-valid'>
+        <img className="icon" alt='checkbox' src={Icon}></img> 1 upper
+      </p> :
+        <p className='hasuppercase-invalid'>
+          1 upper
+        </p>}
+      {passwordValidation.hasLowerCase ? <p className='haslowercase-valid'>
+        <img className="icon" alt="checkbox" src={Icon}></img> 1 lower
+      </p> :
+        <p className='haslowercase-invalid'>
+          1 lower
+        </p>}
+      {passwordValidation.hasSpecialChar ? <p className='hasspecialchar-valid'>
+        <img className="icon" alt="checkbox" src={Icon}></img> 1 symbol
+      </p> :
+        <p className='hasspecialchar-invalid'>
+          1 symbol
+        </p>}
+      {passwordValidation.minLength ? <p className='minchar-valid'>
+        <img className="icon" alt="checkbox" src={Icon}></img> Min 8 characters
+      </p> :
+        <p className='minchar-invalid'>
+          Minimum 8 characters
+        </p>}
+    </div>
+  )
 }

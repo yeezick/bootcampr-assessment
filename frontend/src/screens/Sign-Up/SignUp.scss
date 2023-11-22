@@ -114,7 +114,7 @@ $line-height-h4: 33.6px;
         margin: 0;
     }
 
-    input:not(.input-passwordRe, .input-password) {
+    input:not(.input-passwordRe, .input-password, .input-email) {
         margin-bottom: 25px;
     }
 
@@ -128,7 +128,7 @@ $line-height-h4: 33.6px;
     }
 
     .input-passwordRe {
-        margin-bottom: 0px;
+        margin-bottom: 3px;
     }
 
     p {
@@ -148,7 +148,7 @@ $line-height-h4: 33.6px;
     }
 }
 
-.validation-placeholder {
+.validation-placeholder, .email-placeholder {
     min-height: 25px;
 }
 
@@ -181,6 +181,12 @@ $line-height-h4: 33.6px;
     }
     .submit-valid {
         background-color: #FA9413;
+    }
+}
+
+.email-valid, .email-invalid {
+    p {
+        margin-bottom: 25px;
     }
 }
 
