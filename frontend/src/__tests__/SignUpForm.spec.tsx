@@ -33,37 +33,13 @@ describe('SignUpForm', () => {
   test('toggles password visibility', () => {
     render(<SignUp />)
 
-    const passwordInput = screen.getByLabelText(/^password \(/i)
-    const toggleIcon = screen.getByLabelText(/toggle password visibility/i)
-
-    expect(passwordInput).toHaveAttribute('type', 'password')
-
-    fireEvent.click(toggleIcon)
-
-    expect(passwordInput).toHaveAttribute('type', 'text')
-
-    fireEvent.click(toggleIcon)
-
-    expect(passwordInput).toHaveAttribute('type', 'password')
+    testPasswordVisibility(/^password \(/i, /toggle password visibility/i)
   })
 
   test('toggles confirm password visibility', () => {
     render(<SignUp />)
 
-    const confirmPasswordInput = screen.getByLabelText(/re-enter password/i)
-    const toggleIcon = screen.getByLabelText(
-      /toggle confirm password visibility/i
-    )
-
-    expect(confirmPasswordInput).toHaveAttribute('type', 'password')
-
-    fireEvent.click(toggleIcon)
-
-    expect(confirmPasswordInput).toHaveAttribute('type', 'text')
-
-    fireEvent.click(toggleIcon)
-
-    expect(confirmPasswordInput).toHaveAttribute('type', 'password')
+    testPasswordVisibility(/re-enter password/i, /toggle confirm password visibility/i)
   })
 
   test('returns message errors when no input is typed for each form field', () => {
@@ -117,4 +93,19 @@ const testInvalidValues = (
   fireEvent.change(input, { target: { value } })
   fireEvent.blur(input)
   expect(screen.getByText(messageError)).toBeInTheDocument()
+}
+
+const testPasswordVisibility = (label: RegExp, icon: RegExp) => {
+  const passwordInput = screen.getByLabelText(label) as HTMLInputElement
+  const toggleIcon = screen.getByLabelText(icon) as HTMLInputElement
+
+  expect(passwordInput).toHaveAttribute('type', 'password')
+
+  fireEvent.click(toggleIcon)
+
+  expect(passwordInput).toHaveAttribute('type', 'text')
+
+  fireEvent.click(toggleIcon)
+
+  expect(passwordInput).toHaveAttribute('type', 'password')
 }
