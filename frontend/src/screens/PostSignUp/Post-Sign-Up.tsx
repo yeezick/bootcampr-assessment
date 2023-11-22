@@ -6,8 +6,8 @@ const PostSignUp: React.FC = () => {
   return (
     <div className='post-signup-container'>
       <div className='header-container'>
-        <h1>Congrats on Becoming a Bootcampr.</h1>
-        <p>Time for you to get that experience.</p>
+        <h1>You have successfully sign up.</h1>
+        <p>Next Step: Please Verify Your Email (not really)</p>
       </div>
       <div className='body-container'>
         <img
