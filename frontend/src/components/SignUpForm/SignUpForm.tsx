@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FormField } from 'components/FormField/FormField'
 import {
   FormControl,
+  FormControlLabel,
   FormHelperText,
   Button,
   Checkbox,
@@ -65,7 +66,7 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
           <FormField
             changeHandler={handleChange}
             label={'Last name'}
-            name={''}
+            name={'lastName'}
             value={input.lastName}
             type={'text'}
           />
@@ -112,12 +113,13 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
               </InputAdornment>
             }
           />
-          <Checkbox />
-          <FormHelperText id='my-helper-text'>
-            I agree to receive email notification(s). We will only send emails
-            with important information, like project start dates. We will not
-            sell your information!
-          </FormHelperText>
+          <div className='agreement-container'>
+            <div className='sign-up-agreement'>
+              <FormControlLabel control={<Checkbox />} id='helper-text' label='I agree to receive email notification(s). We will only send
+                emails with important information, like project start dates. We
+                will not sell your information!' />
+            </div>
+          </div>
           <div className='form-button'>
             <Button type='submit'>Sign up</Button>
           </div>

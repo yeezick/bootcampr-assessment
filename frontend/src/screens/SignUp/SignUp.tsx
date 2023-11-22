@@ -6,7 +6,7 @@ export const SignUp: React.FC = () => {
   return (
     <>
       <div className='text-banner'>
-        <h2>Join Bootcampr Today</h2>
+        <h2>Join Bootcampr Today.</h2>
         <h4>Get the experience. Get the job.</h4>
       </div>
       <div className="wrapper">
