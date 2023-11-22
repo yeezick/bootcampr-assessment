@@ -1,0 +1,205 @@
+.signup-wrapper{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    user-select: none;
+  }
+
+h2,h4{
+    text-align: center;
+    font-weight: 600;
+    padding: 0;
+    margin: 0;
+}
+
+h2{
+    font-size: 2.4rem;
+    padding: 0;
+    margin-top: 2rem;
+}
+h4{
+    font-size: 1.4rem;
+    line-height: 60px;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.signup-content{
+    display: flex;
+    justify-content: center;
+    gap: 8rem;
+    margin: 0 auto;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+.signup-image{
+    align-self: start;
+    padding-block: 1.5rem;
+}
+
+// SignUp Form
+form{
+    width: 100%;
+    min-width: 300px;
+}
+label{
+    font-size: 1rem;
+    color: #000;
+}
+input[type='text'],
+input[type='email'],
+input[type='password']{
+    width: 100%;
+    height: 34px;
+    border-radius: 5px;
+    border: 0;
+    background-color:#ECEBEB;
+    margin-top: .4rem;
+    padding-inline: .5rem;
+
+}
+
+input[type='text']{
+  margin-bottom: 1.3rem;
+}
+
+label .email{
+    color: #313335;
+}
+
+.password-wrapper{
+    position: relative;
+    margin-bottom: 1.3rem;
+
+}
+.email-wrapper{
+  position: relative;
+  margin-bottom: 1.3rem;
+
+}
+
+.password-wrapper .message-log{
+    margin-top: 0.3rem;
+    display: flex;
+    gap: .3rem;
+    flex-direction: column;
+    color: #313335;
+}
+
+.eyeLock{
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: .1rem;
+}
+
+.checkbox-group{
+    display: flex;
+    gap: 1rem;
+}
+.checkbox{
+    align-self: start;
+    margin-top: .5rem;
+}
+.checkbox-text{
+    font-size: 0.9rem;
+    max-width: 45ch;
+}
+
+.signup-wrapper button{
+    width: 100%;
+    font-weight: 500;
+    margin-top: 1.5rem;
+    padding: .6rem 0;
+    border: 0;
+    border-radius: 5px;
+}
+
+// Regex Validation
+.validated{
+    color: #23A6A1;
+}
+.not-validated{
+    color: red;
+}
+.input-valid{
+    border: 1px solid #23A6A1;
+}
+.input-invalid{
+    border:1px solid red !important ;
+}
+
+// Email Loader
+  .loader {
+    position: absolute;
+    top: 30%;
+    right: .1rem;
+    border: 4px solid rgba(0, 0, 0, .8);
+    border-left-color: transparent;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    animation: emailLoader 1s linear infinite;
+  }
+  
+  @keyframes emailLoader {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  // SignUp Loader
+  .loader-two {
+    display: flex;
+    margin: 0 auto;
+    border: 4px solid rgba(0, 0, 0, .8);
+    border-left-color: transparent;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    animation: signUpLoader 1s linear infinite;
+  }
+  
+  @keyframes signUpLoader {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+// Responsiveness
+@media screen and (max-width:986px){
+    .signup-content{
+        gap:4rem;
+    }
+}
+
+@media screen and (max-width:900px){
+    .signup-content{
+        flex-direction: column;
+    }
+    .signup-form{
+        flex: 0 0 50%;
+        width: 95%;
+        display: flex;
+        justify-content: center;
+    }
+    .signup-image{
+        width: 95%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    form{
+        width: 60%;
+    }
+}

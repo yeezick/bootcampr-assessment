@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { getHelloWorld } from '../controllers/hello-world.js';
+import signupController from '../controllers/signupController.js';
+import { emailController } from '../controllers/emailController.js';
 
 const router = Router();
 
-// Hello World!
-router.get('/hello-world', getHelloWorld)
+router.post('/signup', signupController)
+router.post('/verifyEmail',emailController)
 
 export default router;
