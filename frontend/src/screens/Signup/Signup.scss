@@ -64,6 +64,8 @@ svg-image {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-right: 7.5rem;
+    margin-bottom: 7.5rem;
 }
 
 .signup-div-form {
@@ -71,7 +73,6 @@ svg-image {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: -175px;
 }
 
 .signup-form-container {
@@ -87,8 +88,6 @@ svg-image {
     flex-direction: column;
     align-items: center;
     gap: 15px;
-
-
 }
 }
 
@@ -114,6 +113,7 @@ svg-image {
     font-style: normal;
     font-weight: 400;
     line-height: 22.4px; /* 140% */
+    margin-left: 12px;
 }
 
 
@@ -129,9 +129,11 @@ font-size: 14px;
 font-style: normal;
 font-weight: 400;
 line-height: 19.6px; /* 140% */
+margin-left: 12px;
+
 
 display: flex;
-width: 448px;
+width: 100px;
 padding: 10px 350px 10px 15px;
 align-items: center;
 
@@ -180,7 +182,7 @@ line-height: 19.6px; /* 140% */
 }
 
 .form-button {
-    display: flex;
+display: flex;
 width: 448px;
 padding: 10px 16px;
 justify-content: center;
@@ -189,6 +191,14 @@ gap: 8px;
 
 border-radius: 4px;
 background: var(--apricot-fa-9413, #FA9413);
+
+margin-bottom: 5rem;
 }
 
+.signup-img-form-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 

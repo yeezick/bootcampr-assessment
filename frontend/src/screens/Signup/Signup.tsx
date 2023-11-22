@@ -20,14 +20,15 @@ export const Signup = () => {
                 Get the experience. Get the job.
             </h4>
         </section>
+        <section className='signup-img-form-div'>
         <div className='signup-image-container'>
-            <svg className='svg-image'>
-                <use href={SignupImage} />
-            </svg>
+            <img src={SignupImage} alt='Signup' className='svg-image' />
         </div>
         <div className='signup-div-form'>
         <SignupForm />
         </div>
+        </section>
+        
     </div>
  )
 }
