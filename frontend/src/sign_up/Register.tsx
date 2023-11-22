@@ -1,5 +1,6 @@
 import React from 'react'
 import './Register.scss'
+import hexImage from './hex-icon.png';
 
 export const Register: React.FC = () => {
     return (
@@ -47,6 +48,7 @@ export const Register: React.FC = () => {
                     </div>
                 </div>
                 <button>Sign Up</button>
+                <img src={hexImage} style={{width:"75%", height:"75%"}}/>
             </div>
         </div>
 
