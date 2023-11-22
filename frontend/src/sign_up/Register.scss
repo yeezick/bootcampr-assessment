@@ -25,13 +25,14 @@
 #checkbox-text {
   display: block;
   font-size: 12px;
-  text-indent: -27px
+  text-indent: -27px;
 }
 
 #checkbox-and-disclaimer {
   position: relative;
   display: block;
   right: -22px;
+  bottom: 30px;
 }
 
 #input-box {
@@ -64,4 +65,16 @@ input[type=text], input[type=password], select {
 #unify {
   position: relative;
   bottom: 15px;
+}
+
+#sign-up-button {
+  width: 105%;
+  padding: 6px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ec993b;
+  border-radius: 2px;
+  box-sizing: border-box;
+  font-size: 12px;
+  background-color: #ec993b;
 }
