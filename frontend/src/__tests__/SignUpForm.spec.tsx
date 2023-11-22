@@ -133,6 +133,32 @@ describe('SignUpForm', () => {
       'The Password entered does not match.'
     )
   })
+
+  test('checks if the checkbox is initially unchecked', () => {
+    render(<SignUp />)
+
+    const checkbox = screen.getByLabelText(
+      /I agree to receive email notification/i
+    )
+
+    expect(checkbox).not.toBeChecked()
+  })
+
+  test('handles checkbox state change', () => {
+    render(<SignUp />)
+
+    const checkbox = screen.getByLabelText(
+      /I agree to receive email notification/i
+    )
+
+    fireEvent.click(checkbox)
+
+    expect(checkbox).toBeChecked()
+
+    fireEvent.click(checkbox)
+
+    expect(checkbox).not.toBeChecked
+  })
 })
 
 // helpers
