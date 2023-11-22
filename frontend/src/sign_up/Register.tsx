@@ -25,19 +25,19 @@ export const Register: React.FC = () => {
                         <input type="text" />
                     </label>
                 </div>
-                <div>
+                <div id="unify">
                     <label>
                         <div id="form-text"><p>Email address (ex. jeanine@bootcampr.io)</p></div>
                         <input type="text" />
                     </label>
                 </div>
-                <div>
+                <div id="unify">
                     <label>
                         <div id="form-text"><p>Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</p></div>
                         <input type="password" />
                     </label>
                 </div>
-                <div>
+                <div id="unify">
                     <label>
                         <div id="form-text"><p>Re-enter password</p></div>
                         <input type="password" />
@@ -50,10 +50,9 @@ export const Register: React.FC = () => {
                         dates. We will not sell your information!
                     </div>
                 </div>
-                <button>Sign Up</button>
+                <button id="sign-up-button">Sign Up</button>
             </div>
         </div>
-
     )
 }
 
