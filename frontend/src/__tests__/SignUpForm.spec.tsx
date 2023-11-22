@@ -5,9 +5,11 @@ import * as signUpController from '../utils/signUpController'
 jest.mock('../utils/signUpController')
 
 describe('SignUpForm', () => {
-  test('renders form fields and the button submit', () => {
+  beforeEach(() => {
     render(<SignUp />)
+  })
 
+  test('renders form fields and the button submit', () => {
     expect(screen.getByLabelText(/first name/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/last name/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/email address/i)).toBeInTheDocument()
@@ -24,8 +26,6 @@ describe('SignUpForm', () => {
   })
 
   test('handles input change for each form field', () => {
-    render(<SignUp />)
-
     testInputChange(/first name/i, 'Tao')
     testInputChange(/last name/i, 'Noblesse')
     testInputChange(/email address/i, 'tao.noblesse@test.io')
@@ -34,14 +34,10 @@ describe('SignUpForm', () => {
   })
 
   test('toggles password visibility', () => {
-    render(<SignUp />)
-
     testPasswordVisibility(/^password \(/i, /toggle password visibility/i)
   })
 
   test('toggles confirm password visibility', () => {
-    render(<SignUp />)
-
     testPasswordVisibility(
       /re-enter password/i,
       /toggle confirm password visibility/i
@@ -49,8 +45,6 @@ describe('SignUpForm', () => {
   })
 
   test('returns message errors when no input is typed for each form field', () => {
-    render(<SignUp />)
-
     testEmptyFormField(/first name/i, 'First name cannot be empty.')
     testEmptyFormField(/last name/i, 'Last name cannot be empty.')
     testEmptyFormField(/email address/i, 'Email cannot be empty.')
@@ -62,8 +56,6 @@ describe('SignUpForm', () => {
   })
 
   test('handles invalid first name', () => {
-    render(<SignUp />)
-
     testInvalidValues(
       /first name/i,
       'invalid_111Firstname',
@@ -72,8 +64,6 @@ describe('SignUpForm', () => {
   })
 
   test('handles invalid last name', () => {
-    render(<SignUp />)
-
     testInvalidValues(
       /last name/i,
       'invalid_,101Lastname',
@@ -82,8 +72,6 @@ describe('SignUpForm', () => {
   })
 
   test('handles invalid email', () => {
-    render(<SignUp />)
-
     testInvalidValues(
       /email address/i,
       'invalid_email',
@@ -92,8 +80,6 @@ describe('SignUpForm', () => {
   })
 
   test('checks password criteria list is initially not visible', () => {
-    render(<SignUp />)
-
     expect(screen.queryByText('1 uppercase')).toBeNull()
     expect(screen.queryByText('1 lowercase')).toBeNull()
     expect(screen.queryByText('1 symbol')).toBeNull()
@@ -101,19 +87,14 @@ describe('SignUpForm', () => {
   })
 
   test('validates valid password in real-time', () => {
-    render(<SignUp />)
-
     testPasswordValidity('TNi-_-!954', 'success')
   })
 
   test('validates invalid password in real-time', () => {
-    render(<SignUp />)
-
     testPasswordValidity('1111', 'error')
   })
 
   test('checks password criteria list is not visible when password input is empty', () => {
-    render(<SignUp />)
     const passwordInput = screen.getByLabelText(/^password \(/i)
 
     fireEvent.change(passwordInput, { target: { value: '' } })
@@ -125,8 +106,6 @@ describe('SignUpForm', () => {
   })
 
   test('handles password not matching', () => {
-    render(<SignUp />)
-
     const passwordInput = screen.getByLabelText(/^password \(/i)
     fireEvent.change(passwordInput, { target: { value: 'TNi-_-!954' } })
 
@@ -138,8 +117,6 @@ describe('SignUpForm', () => {
   })
 
   test('checks if the checkbox is initially unchecked', () => {
-    render(<SignUp />)
-
     const checkbox = screen.getByLabelText(
       /I agree to receive email notification/i
     )
@@ -148,8 +125,6 @@ describe('SignUpForm', () => {
   })
 
   test('handles checkbox state change', () => {
-    render(<SignUp />)
-
     const checkbox = screen.getByLabelText(
       /I agree to receive email notification/i
     )
@@ -164,16 +139,12 @@ describe('SignUpForm', () => {
   })
 
   test('checks if the submit button is initially disabled', () => {
-    render(<SignUp />)
-
     const submitButton = screen.getByText(/sign up/i)
 
     expect(submitButton).toBeDisabled()
   })
 
   test('checks if the submit button is enabled when the form is valid', () => {
-    render(<SignUp />)
-
     const submitButton = screen.getByText(/sign up/i)
 
     handleFillFormWithValidData()
@@ -185,8 +156,6 @@ describe('SignUpForm', () => {
   test('handles form submission with an existing email in the database', async () => {
     ;(signUpController.checkEmail as jest.Mock).mockResolvedValue(true)
 
-    render(<SignUp />)
-
     handleFillFormWithValidData()
 
     fireEvent.click(screen.getByText(/sign up/i))
@@ -196,8 +165,6 @@ describe('SignUpForm', () => {
 
   test('submits form with valid data', async () => {
     ;(signUpController.checkEmail as jest.Mock).mockResolvedValue(false)
-
-    render(<SignUp />)
 
     handleFillFormWithValidData()
 
