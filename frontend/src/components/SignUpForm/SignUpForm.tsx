@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FormField } from 'components/FormField/FormField'
 import {
   FormControl,
   FormControlLabel,
-  FormHelperText,
   Button,
   Checkbox,
   InputAdornment,
@@ -17,7 +16,8 @@ type FormFieldInput = {
   firstName: string
   lastName: string
   email: string
-  password: string
+  firstPassword: string
+  secondPassword: string
 }
 
 type CustomFormProps = {
@@ -31,13 +31,26 @@ type CustomFormProps = {
 }
 
 export const SignUpForm: React.FC = (props: CustomFormProps) => {
-  const [showPassword, setShowPassword] = useState(false)
   const [input, setInput] = useState<FormFieldInput>({
     firstName: '',
     lastName: '',
     email: '',
-    password: '',
+    firstPassword: '',
+    secondPassword: ''
   })
+  const [showPassword, setShowPassword] = useState(false)
+  const [password, setPassword] = useState ({
+    firstPassword: '',
+    secondPassword: ''
+  })
+  const [validLength, setValidLength] = useState(false);
+  const [hasNumber, setHasNumber] = useState(false);
+  const [upperCase, setUpperCase] = useState(false);
+  const [lowerCase, setLowerCase] = useState(false);
+  const [specialChar, setSpecialChar] = useState(false);
+  const [match, setMatch] = useState(false);
+  const [requiredLength, setRequiredLength] = useState(8)
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [event.target.name]: event.target.value })
@@ -48,6 +61,16 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
     // onSubmit(formFieldInput);
     console.log(input)
   }
+
+  useEffect(() => {
+    setValidLength(password.firstPassword.length >= requiredLength ? true : false);
+    setUpperCase(password.firstPassword.toLowerCase() !== password.firstPassword);
+    setLowerCase(password.firstPassword.toUpperCase() !== password.firstPassword);
+    setHasNumber(/\d/.test(password.firstPassword));
+    setMatch(!!password.firstPassword && password.firstPassword === password.secondPassword)
+    setSpecialChar(/[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(password.firstPassword));
+
+  }, [password, requiredLength]);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword)
   const handleMouseDownPassword = () => setShowPassword(!showPassword)
@@ -80,8 +103,8 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
           <FormField
             changeHandler={handleChange}
             label={'Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)'}
-            name={'password'}
-            value={input.password}
+            name={'firstPassword'}
+            value={input.firstPassword}
             type={showPassword ? 'text' : 'password'}
             endIcon={
               <InputAdornment position='end'>
@@ -98,8 +121,8 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
           <FormField
             changeHandler={handleChange}
             label={'Re-enter password'}
-            name={'password'}
-            value={input.password}
+            name={'secondPassword'}
+            value={input.secondPassword}
             type={showPassword ? 'text' : 'password'}
             endIcon={
               <InputAdornment position='end'>
