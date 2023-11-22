@@ -1,0 +1,10 @@
+$mobileSize: 600px;
+
+.container {
+  min-height: 50vh;
+  padding: 1.25rem;
+
+  @media (max-width: $mobileSize) {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,85 @@
+:root {
+  --button-default-color: #FA9413;
+  --secondary-color: #022888;
+}
+
+.form {
+  & > * {
+    width: 100%;
+  }
+
+  input,
+  .submit-button,
+  .MuiInputAdornment-positionEnd,
+  .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root,
+  .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+    background-color: #ecebeb;
+  }
+
+  label,
+  .submit-button {
+    color: #313335;
+    margin-top: 1rem;
+  }
+
+  .criteria {
+    list-style: none;
+    padding: 0;
+  }
+
+  .email-agreement {
+    display: flex;
+    align-items: start;
+    margin-left: 0.15rem;
+  }
+
+  .checkbox-email-agreement {
+    .MuiCheckbox-root {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--secondary-color);
+      border-radius: 4px;
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    .MuiCheckbox-root .MuiSvgIcon-root {
+      display: none;
+    }
+
+    .MuiCheckbox-root.Mui-checked {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+    }
+
+    .MuiCheckbox-root.Mui-checked::before {
+      content: '\2713';
+      font-size: 1.5rem;
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .css-1e6y48t-MuiButtonBase-root-MuiButton-root,
+  .submit-button-enabled {
+    text-transform: none;
+    color: black;
+  }
+
+  .submit-button-enabled {
+    background-color: var(--button-default-color);
+    cursor: pointer;
+  }
+
+  .success {
+    color: #23a6a1;
+  }
+
+  .error {
+    color: #d90000;
+  }
+}
