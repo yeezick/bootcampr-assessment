@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, Paper, TextField } from '@mui/material'
 import './Register.scss'
 import RegisterPageImage from 'assets/RegisterPageImage.png'
@@ -8,10 +9,12 @@ import PasswordChecklist from 'react-password-checklist'
 import AllowEmailsCheckbox from 'components/AllowEmailsCheckbox'
 
 export const Register: React.FC = () => {
-    const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
 
+    const navigate = useNavigate()
+
+    const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const data = new FormData(event.currentTarget);
+        const data = new FormData(event.currentTarget)
         console.log({
             firstName: data.get('firstName'),
             lastLame: data.get('lastName'),
@@ -19,6 +22,7 @@ export const Register: React.FC = () => {
             password: password,
             passwordAgain: passwordAgain,
         });
+        navigate('/registered')
     }
 
     const [allowEmails, setAllowEmails] = useState(false)
