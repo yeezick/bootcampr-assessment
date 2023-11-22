@@ -1,0 +1,100 @@
+.signup-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 5rem;
+
+  .header-container {
+    text-align: center;
+    width: 100%;
+  }
+
+  .body-container {
+    max-width: 1280px; // 80rem
+    margin: 0 auto;
+    display: grid;
+    column-gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+
+    // Image
+    & > div.image-container {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+
+      & img {
+        height: 15rem;
+        object-fit: cover;
+        margin-top: 5rem;
+        border-radius: 1rem;
+      }
+    }
+
+    // Form
+    & > form {
+      width: 75%;
+
+      // Checkbox Label
+      & label#notification-consent {
+        display: flex;
+        align-items: center;
+        margin: 2rem 0;
+
+        & p {
+          margin: 0;
+        }
+
+        & input[type='checkbox'] {
+          margin-right: 1rem;
+        }
+      }
+
+      // Submit Button
+      & button {
+        width: 100%;
+        border: none;
+        border-radius: 0.25rem;
+        padding: 0.5rem;
+        font-size: 1rem;
+        text-align: center;
+        background-color: #f1f3f5;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #e9ecef;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .signup-container {
+    .body-container {
+      & > form {
+        width: 90%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .signup-container {
+    .body-container {
+      grid-template-columns: 1fr;
+      width: 90%;
+
+      & > div.image-container,
+      & > form {
+        width: 100%;
+      }
+
+      & > div.image-container {
+        & img {
+          width: 100%;
+          margin: 2.5rem 0;
+        }
+      }
+    }
+  }
+}
