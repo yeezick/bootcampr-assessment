@@ -26,7 +26,6 @@ h4{
 }
 
 .signup-content{
-    // border: 2px solid red;
     display: flex;
     justify-content: center;
     gap: 8rem;
@@ -41,7 +40,6 @@ h4{
 
 // SignUp Form
 form{
-    // border: 3px solid yellow;
     width: 100%;
     min-width: 300px;
 }
@@ -176,3 +174,32 @@ label .email{
       transform: rotate(360deg);
     }
   }
+
+// Responsiveness
+@media screen and (max-width:986px){
+    .signup-content{
+        gap:4rem;
+    }
+}
+
+@media screen and (max-width:900px){
+    .signup-content{
+        flex-direction: column;
+    }
+    .signup-form{
+        flex: 0 0 50%;
+        width: 95%;
+        display: flex;
+        justify-content: center;
+    }
+    .signup-image{
+        width: 95%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    form{
+        width: 60%;
+    }
+}
