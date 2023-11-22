@@ -36,21 +36,20 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
     lastName: '',
     email: '',
     firstPassword: '',
-    secondPassword: ''
+    secondPassword: '',
   })
   const [showPassword, setShowPassword] = useState(false)
-  const [password, setPassword] = useState ({
+  const [password, setPassword] = useState({
     firstPassword: '',
-    secondPassword: ''
+    secondPassword: '',
   })
-  const [validLength, setValidLength] = useState(false);
-  const [hasNumber, setHasNumber] = useState(false);
-  const [upperCase, setUpperCase] = useState(false);
-  const [lowerCase, setLowerCase] = useState(false);
-  const [specialChar, setSpecialChar] = useState(false);
-  const [match, setMatch] = useState(false);
+  const [validLength, setValidLength] = useState(false)
+  const [hasNumber, setHasNumber] = useState(false)
+  const [upperCase, setUpperCase] = useState(false)
+  const [lowerCase, setLowerCase] = useState(false)
+  const [specialChar, setSpecialChar] = useState(false)
+  const [match, setMatch] = useState(false)
   const [requiredLength, setRequiredLength] = useState(8)
-
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [event.target.name]: event.target.value })
@@ -63,14 +62,24 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
   }
 
   useEffect(() => {
-    setValidLength(password.firstPassword.length >= requiredLength ? true : false);
-    setUpperCase(password.firstPassword.toLowerCase() !== password.firstPassword);
-    setLowerCase(password.firstPassword.toUpperCase() !== password.firstPassword);
-    setHasNumber(/\d/.test(password.firstPassword));
-    setMatch(!!password.firstPassword && password.firstPassword === password.secondPassword)
-    setSpecialChar(/[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(password.firstPassword));
-
-  }, [password, requiredLength]);
+    setValidLength(
+      password.firstPassword.length >= requiredLength ? true : false
+    )
+    setUpperCase(
+      password.firstPassword.toLowerCase() !== password.firstPassword
+    )
+    setLowerCase(
+      password.firstPassword.toUpperCase() !== password.firstPassword
+    )
+    setHasNumber(/\d/.test(password.firstPassword))
+    setMatch(
+      !!password.firstPassword &&
+        password.firstPassword === password.secondPassword
+    )
+    setSpecialChar(
+      /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(password.firstPassword)
+    )
+  }, [password, requiredLength])
 
   const handleClickShowPassword = () => setShowPassword(!showPassword)
   const handleMouseDownPassword = () => setShowPassword(!showPassword)
@@ -106,17 +115,20 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
             name={'firstPassword'}
             value={input.firstPassword}
             type={showPassword ? 'text' : 'password'}
-            endIcon={
-              <InputAdornment position='end'>
-                <IconButton
-                  aria-label='toggle password visibility'
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge='end'
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <FormField
             changeHandler={handleChange}
@@ -124,23 +136,30 @@ export const SignUpForm: React.FC = (props: CustomFormProps) => {
             name={'secondPassword'}
             value={input.secondPassword}
             type={showPassword ? 'text' : 'password'}
-            endIcon={
-              <InputAdornment position='end'>
-                <IconButton
-                  aria-label='toggle password visibility'
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge='end'
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                  </InputAdornment>
+              ),
+            }}
           />
           <div className='agreement-container'>
             <div className='sign-up-agreement'>
-              <FormControlLabel control={<Checkbox />} id='helper-text' label='I agree to receive email notification(s). We will only send
+              <FormControlLabel
+                control={<Checkbox />}
+                id='helper-text'
+                label='I agree to receive email notification(s). We will only send
                 emails with important information, like project start dates. We
-                will not sell your information!' />
+                will not sell your information!'
+              />
             </div>
           </div>
           <div className='form-button'>
