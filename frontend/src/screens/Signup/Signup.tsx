@@ -8,10 +8,11 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 
 import signup_img from '../../assets/signup_img.png';
 import './Signup.scss';
+import { signup } from 'utils/signup';
 
 type Props = {}
 
-interface FormBodyType {
+export interface FormBodyType {
     firstName: string,
     lastName: string,
     email: string,
@@ -60,8 +61,9 @@ export const Signup = (props: Props) => {
     const { control, register, handleSubmit, formState: { errors } } = useForm<FormBodyType>({
         resolver: zodResolver(formSchema)
     })
-    const submit = (data: FormBodyType) => {
+    const submit = async (data: FormBodyType) => {
         console.log(data);
+        await signup(data);
     }
 
     const handleApiSignup = async () => {
@@ -221,7 +223,7 @@ export const Signup = (props: Props) => {
 
                         </FormControl>
                         <div className='signup-checkbox'>
-                            <input type="checkbox" id='notifications' />
+                            <input type="checkbox" id='notifications' required />
                             <label htmlFor="notifications">
                                 I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!
                             </label>
