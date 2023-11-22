@@ -88,6 +88,39 @@ describe('SignUpForm', () => {
     )
   })
 
+  test('checks password criteria list is initially not visible', () => {
+    render(<SignUp />)
+
+    expect(screen.queryByText('1 uppercase')).toBeNull()
+    expect(screen.queryByText('1 lowercase')).toBeNull()
+    expect(screen.queryByText('1 symbol')).toBeNull()
+    expect(screen.queryByText('Minimum 8 characters')).toBeNull()
+  })
+
+  test('validates valid password in real-time', () => {
+    render(<SignUp />)
+
+    testPasswordValidity('TNi-_-!954', 'success')
+  })
+
+  test('validates invalid password in real-time', () => {
+    render(<SignUp />)
+
+    testPasswordValidity('1111', 'error')
+  })
+
+  test('checks password criteria list is not visible when password input is empty', () => {
+    render(<SignUp />)
+    const passwordInput = screen.getByLabelText(/^password \(/i)
+
+    fireEvent.change(passwordInput, { target: { value: '' } })
+
+    expect(screen.queryByText('1 uppercase')).toBeNull()
+    expect(screen.queryByText('1 lowercase')).toBeNull()
+    expect(screen.queryByText('1 symbol')).toBeNull()
+    expect(screen.queryByText('Minimum 8 characters')).toBeNull()
+  })
+
   test('handles password not matching', () => {
     render(<SignUp />)
 
@@ -139,4 +172,15 @@ const testPasswordVisibility = (label: RegExp, icon: RegExp) => {
   fireEvent.click(toggleIcon)
 
   expect(passwordInput).toHaveAttribute('type', 'password')
+}
+
+const testPasswordValidity = (value: string, classname: string) => {
+  const passwordInput = screen.getByLabelText(/^password \(/i)
+
+  fireEvent.change(passwordInput, { target: { value: value } })
+
+  expect(screen.getByText('1 uppercase')).toHaveClass(classname)
+  expect(screen.getByText('1 lowercase')).toHaveClass(classname)
+  expect(screen.getByText('1 symbol')).toHaveClass(classname)
+  expect(screen.getByText('Minimum 8 characters')).toHaveClass(classname)
 }
