@@ -1,5 +1,12 @@
 import { SignUp } from 'screens/SignUp/SignUp'
 import { render, screen, fireEvent } from './customRender'
+import * as signUpController from '../utils/signUpController'
+
+jest.mock('../utils/signUpController', () => ({
+  ...jest.requireActual('../utils/signUpController'),
+  checkEmail: jest.fn(),
+  SignUp: jest.fn(),
+}))
 
 describe('SignUpForm', () => {
   test('renders form fields and the button submit', () => {
@@ -194,6 +201,35 @@ describe('SignUpForm', () => {
 
     expect(submitButton).not.toBeDisabled
     expect(submitButton).toHaveClass('submit-button-enabled')
+  })
+
+  test('handles form submission with an existing email in the database', async () => {
+    (signUpController.checkEmail as jest.Mock).mockResolvedValue(true)
+
+    render(<SignUp />)
+
+    fireEvent.change(screen.getByLabelText(/first name/i), {
+      target: { value: 'Tao' },
+    })
+    fireEvent.change(screen.getByLabelText(/last name/i), {
+      target: { value: 'Noblesse' },
+    })
+    fireEvent.change(screen.getByLabelText(/email address/i), {
+      target: { value: 'tao.noblesse@test.io' },
+    })
+    fireEvent.change(screen.getByLabelText(/^password \(/i), {
+      target: { value: 'TNi-_-!954' },
+    })
+    fireEvent.change(screen.getByLabelText(/re-enter password/i), {
+      target: { value: 'TNi-_-!954' },
+    })
+    fireEvent.click(
+      screen.getByLabelText(/I agree to receive email notification/i)
+    )
+    fireEvent.click(screen.getByText(/sign up/i))
+
+    expect(await screen.findByText(/email already exists/i)).toBeInTheDocument()
+
   })
 })
 
