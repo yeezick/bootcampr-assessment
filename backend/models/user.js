@@ -2,21 +2,14 @@ import { model, Schema } from 'mongoose'
 
 const UserSchema = new Schema(
   {
-    firstname: { type: String, required: true },
-    lastname: { type: String, required: true },
-    email: { type: String, required: true },
-    password: { type: String, required: true },
+    firstname: String,
+    lastname: String,
+    email: String,
+    password: String,
   }
 )
 
 export const User = model("User", UserSchema)
 
-const user1 = new User({
-  firstname: "Jordan",
-  lastname: "Jennings",
-  email: "jj@gmail.com",
-  password: "123456Jj*"
-})
 
-user1.save()
 
