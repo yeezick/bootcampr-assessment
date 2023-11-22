@@ -2,6 +2,7 @@ import React, { ReactComponentElement } from 'react'
 import { useState } from 'react'
 import "./Signup.scss"
 import SignupImage from "../../assets/Signup-image.svg"
+import CheckIcon from "../../assets/Icon.svg"
 
 /**
  * Renders the Signup component.
@@ -115,8 +116,13 @@ const [password, setPassword] = useState('');
 
     const isPasswordValid = () => {
         // Check if password meets criteria (1 lowercase letter)
-        const lowercaseRegex = /[a-z]/;
-        return lowercaseRegex.test(password);
+        const lowercaseRegex = /[a-z]/
+        const uppercaseRegex = /[A-Z]/
+        const numberRegex = /[0-9]/
+        const passwordLength = password.length >= 8
+
+        const validTest = lowercaseRegex.test(password) && uppercaseRegex.test(password) && numberRegex.test(password)
+        return validTest && passwordLength 
     };
 
 
@@ -168,21 +174,8 @@ const [password, setPassword] = useState('');
                             </li>
                         </ul>
                         {isPasswordValid() && (
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                fill="none"
-                                style={{ width: '16px', height: '16px' }}
-                            >
-                                <path
-                                    d="M13.3337 4L6.00033 11.3333L2.66699 8"
-                                    stroke="#23A6A1"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
+                            <svg>
+                                {CheckIcon}
                             </svg>
                         )}
                     </div>
