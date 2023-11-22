@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
-import { sayHello } from 'utils/sampleController'
 import './Landing.scss'
 
 export const Landing: React.FC = () => {
@@ -31,7 +30,7 @@ const ButtonContainer = ({ setHelloResponse }) => {
   }
 
   const handleApiTestButton = async () => {
-    const apiResponse = await sayHello()
+    const apiResponse = 'HI';
     setHelloResponse(apiResponse)
   }
 
