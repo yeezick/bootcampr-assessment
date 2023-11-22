@@ -1,6 +1,6 @@
 import { FC, MouseEvent } from 'react'
 import { Button } from '@mui/material'
-import './CustomButton.scss' // Import your SCSS file for styles
+import './CustomButton.scss'
 
 interface CustomButtonProps {
   text: string
@@ -17,7 +17,6 @@ export const CustomButton: FC<CustomButtonProps> = ({
 }) => {
   return (
     <Button
-      // className='custom-button'
       sx={{
         backgroundColor: '#fa9413',
         border: 'none',

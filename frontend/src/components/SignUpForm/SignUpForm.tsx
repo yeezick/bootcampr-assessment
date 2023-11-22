@@ -100,7 +100,7 @@ export const SignUpForm: FC = () => {
 
   const handleFormSubmitButton = (event: FormEvent) => {
     event.preventDefault()
-    createUser(user).then(user => {
+    createUser(user).then(() => {
       navigate('/welcome')
     })
   }
@@ -151,7 +151,6 @@ export const SignUpForm: FC = () => {
       <CheckboxControl
         label={agreementText}
         onChange={handleChangeInput}
-        // checked={user.consent}
         name='consent'
       />
 

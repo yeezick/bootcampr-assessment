@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent } from 'react'
+import { FC, ChangeEvent } from 'react'
 import { FormControlLabel, Checkbox, Typography } from '@mui/material'
 import './InputField.scss'
 
@@ -18,6 +18,7 @@ export const CheckboxControl: FC<CheckboxProps> = ({
   onChange,
   required,
 }) => {
+  const checkboxId = `checkbox-${name}`
   return (
     <FormControlLabel
       sx={{
@@ -31,7 +32,7 @@ export const CheckboxControl: FC<CheckboxProps> = ({
           name={name}
           checked={checked}
           onChange={onChange}
-          // inputProps={'aria-label': 'checkbox'}
+          inputProps={{ 'aria-label': checkboxId }}
           sx={{
             color: '#022888',
             '&.Mui-checked': {
@@ -40,14 +41,15 @@ export const CheckboxControl: FC<CheckboxProps> = ({
           }}
         />
       }
-      label={<LabelComponent label={label} />}
+      label={<LabelComponent label={label} id={checkboxId} />}
     />
   )
 }
 
-const LabelComponent = ({ label }) => {
+const LabelComponent = ({ label, id }) => {
   return (
     <Typography
+      id={id}
       sx={{ marginTop: 1 }}
       variant='caption'
       display='block'
