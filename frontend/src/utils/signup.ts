@@ -1,8 +1,10 @@
 import { api } from "./apiConfig";
 
-export const signup = async () => {
+import type { FormBodyType } from "screens/Signup/Signup";
+
+export const signup = async (data: FormBodyType) => {
     try {
-        const res = await api.post('sign-up', {
+        const res = await api.post('sign-up', { data }, {
             headers: {
                 'Content-Type': 'application/json'
             }
