@@ -1,5 +1,3 @@
-import React from 'react'
-
 const SignupButton = ({isCompleted,signUpLoader}) => {
   return (
     <>
@@ -9,10 +7,10 @@ const SignupButton = ({isCompleted,signUpLoader}) => {
                      cursor:isCompleted ?'pointer':'auto',
                     transition:"all ease-in-out 300ms"
                      }}>
-                      {signUpLoader ? ( <div className="loader-two"></div>):"Sign up"}
+                      {signUpLoader ? ( <div role='region' className="loader-two"></div>):"Sign up"}
             </button>
     </>
   )
 }
 
-export default SignupButton
+export default SignupButton ;

@@ -1,4 +1,4 @@
-// FirstNameInput.tsx
+
 import React from 'react';
 
 type FirstNameInputProps = {
