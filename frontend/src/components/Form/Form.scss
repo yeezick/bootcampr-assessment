@@ -1,4 +1,8 @@
 $smoke: #ecebeb;
+$charcoal: #313335;
+$seafoam: #23a6a1;
+$rubarb: #d90000;
+$apricot: #fa9413;
 
 .form {
   display: flex;
@@ -15,34 +19,69 @@ $smoke: #ecebeb;
     font-style: normal;
     font-weight: 400;
     line-height: 1.225rem;
-
-}
-input:focus{
+  }
+  input:focus {
     border-color: none;
-}
+  }
 
   label {
     font-size: 1rem;
+
+    span {
+      color: #{$charcoal};
+    }
   }
 
-  label + input {
-    margin-top: 0.25rem;
+  input + label {
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .password-validator {
     margin-bottom: 1rem;
   }
+
+  .validate {
+    margin: 0;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.05rem;
+
+    &-container {
+      display: flex;
+    }
+
+    &--gray {
+      color: #{$charcoal};
+    }
+    &--true {
+      color: #{$seafoam};
+    }
+    &--false {
+      color: #{$rubarb};
+    }
+  }
+
   &__checkbox {
     display: flex;
     align-items: flex-start;
+    margin-top: 0.85rem;
     margin-bottom: 1rem;
-
 
     input {
       width: 1.5rem;
-      margin-right: 1rem;
+      margin-right: 0.5rem;
     }
     p {
       margin: 0;
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.225rem; /* 140% */
     }
   }
+
   &__submit {
     padding: 0.625rem 0.938rem;
     border-style: none;
@@ -52,5 +91,9 @@ input:focus{
     font-style: normal;
     font-weight: 400;
     line-height: 1.225rem;
+
+    &--filled {
+      background-color: #{$apricot};
+    }
   }
 }
