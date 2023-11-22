@@ -180,56 +180,22 @@ describe('SignUpForm', () => {
 
     const submitButton = screen.getByText(/sign up/i)
 
-    fireEvent.change(screen.getByLabelText(/first name/i), {
-      target: { value: 'Tao' },
-    })
-    fireEvent.change(screen.getByLabelText(/last name/i), {
-      target: { value: 'Noblesse' },
-    })
-    fireEvent.change(screen.getByLabelText(/email address/i), {
-      target: { value: 'tao.noblesse@test.io' },
-    })
-    fireEvent.change(screen.getByLabelText(/^password \(/i), {
-      target: { value: 'TNi-_-!954' },
-    })
-    fireEvent.change(screen.getByLabelText(/re-enter password/i), {
-      target: { value: 'TNi-_-!954' },
-    })
-    fireEvent.click(
-      screen.getByLabelText(/I agree to receive email notification/i)
-    )
+    handleFillFormWithValidData()
 
     expect(submitButton).not.toBeDisabled
     expect(submitButton).toHaveClass('submit-button-enabled')
   })
 
   test('handles form submission with an existing email in the database', async () => {
-    (signUpController.checkEmail as jest.Mock).mockResolvedValue(true)
+    ;(signUpController.checkEmail as jest.Mock).mockResolvedValue(true)
 
     render(<SignUp />)
 
-    fireEvent.change(screen.getByLabelText(/first name/i), {
-      target: { value: 'Tao' },
-    })
-    fireEvent.change(screen.getByLabelText(/last name/i), {
-      target: { value: 'Noblesse' },
-    })
-    fireEvent.change(screen.getByLabelText(/email address/i), {
-      target: { value: 'tao.noblesse@test.io' },
-    })
-    fireEvent.change(screen.getByLabelText(/^password \(/i), {
-      target: { value: 'TNi-_-!954' },
-    })
-    fireEvent.change(screen.getByLabelText(/re-enter password/i), {
-      target: { value: 'TNi-_-!954' },
-    })
-    fireEvent.click(
-      screen.getByLabelText(/I agree to receive email notification/i)
-    )
+    handleFillFormWithValidData()
+
     fireEvent.click(screen.getByText(/sign up/i))
 
     expect(await screen.findByText(/email already exists/i)).toBeInTheDocument()
-
   })
 })
 
@@ -281,4 +247,25 @@ const testPasswordValidity = (value: string, classname: string) => {
   expect(screen.getByText('1 lowercase')).toHaveClass(classname)
   expect(screen.getByText('1 symbol')).toHaveClass(classname)
   expect(screen.getByText('Minimum 8 characters')).toHaveClass(classname)
+}
+
+const handleFillFormWithValidData = () => {
+  fireEvent.change(screen.getByLabelText(/first name/i), {
+    target: { value: 'Tao' },
+  })
+  fireEvent.change(screen.getByLabelText(/last name/i), {
+    target: { value: 'Noblesse' },
+  })
+  fireEvent.change(screen.getByLabelText(/email address/i), {
+    target: { value: 'tao.noblesse@test.io' },
+  })
+  fireEvent.change(screen.getByLabelText(/^password \(/i), {
+    target: { value: 'TNi-_-!954' },
+  })
+  fireEvent.change(screen.getByLabelText(/re-enter password/i), {
+    target: { value: 'TNi-_-!954' },
+  })
+  fireEvent.click(
+    screen.getByLabelText(/I agree to receive email notification/i)
+  )
 }
