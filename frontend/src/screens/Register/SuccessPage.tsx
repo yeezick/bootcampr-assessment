@@ -5,7 +5,7 @@ export const SuccessPage: React.FC = () => {
 
     return (
         <div>
-            You are registered!
+            Congrats! You are registered!
         </div>
     )
 }

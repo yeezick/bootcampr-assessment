@@ -19,8 +19,10 @@ const PasswordAgainInput = ({ passwordAgain, handlePasswordAgain }) => {
             value={passwordAgain}
             onChange={handlePasswordAgain}
             variant="filled" 
+            inputProps={{ maxLength: 80, style: { padding: 15 }}} 
             InputProps={{ 
                 disableUnderline: true,
+                sx: { borderRadius: 2 },
                 endAdornment: (
                     <InputAdornment position="end">
                         <IconButton

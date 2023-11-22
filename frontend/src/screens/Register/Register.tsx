@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, Paper, TextField } from '@mui/material'
+import { Box, Button, FormControl, Grid, Paper, TextField } from '@mui/material'
 import './Register.scss'
 import RegisterPageImage from 'assets/RegisterPageImage.png'
 import PasswordInput from 'components/PasswordInput'
@@ -19,14 +19,13 @@ export const Register: React.FC = () => {
             firstName: data.get('firstName'),
             lastLame: data.get('lastName'),
             email: data.get('email'),
-            password: password,
-            passwordAgain: passwordAgain,
+            password: data.get('password'),
         });
         navigate('/registered')
     }
 
     const [allowEmails, setAllowEmails] = useState(false)
-    console.log({allowEmails})
+    // console.log({allowEmails})
     const [password, setPassword] = useState("")
 
     const [passwordAgain, setPasswordAgain] = useState("")
@@ -58,7 +57,7 @@ export const Register: React.FC = () => {
                         onSubmit={handleRegister}
                         sx={{
                         display: 'grid',
-                        gridTemplateColumns: { sm: '75%'},
+                        gridTemplateColumns: { sm: '65%'}
                         }}
                     >
                         <FormControl variant="standard">
@@ -68,7 +67,8 @@ export const Register: React.FC = () => {
                                 id="firstName" 
                                 name="firstName"
                                 variant="filled" 
-                                InputProps={{ disableUnderline: true}}
+                                InputProps={{ disableUnderline: true, sx: { borderRadius: 2 }}}
+                                inputProps={{ maxLength: 40, style: { padding: 15 } }}
                             />
                             <p>Last name</p>
                             <TextField 
@@ -76,7 +76,8 @@ export const Register: React.FC = () => {
                                 id="lastName" 
                                 name="lastName"
                                 variant="filled"
-                                InputProps={{ disableUnderline: true}}
+                                InputProps={{ disableUnderline: true, sx: { borderRadius: 2 }}}
+                                inputProps={{ maxLength: 60, style: { padding: 15 }  }}
                             />
                             <p>Email address (ex. jeanine@bootcampr.io)</p>
                             <TextField 
@@ -84,7 +85,8 @@ export const Register: React.FC = () => {
                                 id="email" 
                                 name="email"
                                 variant="filled" 
-                                InputProps={{ disableUnderline: true}}
+                                InputProps={{ disableUnderline: true, sx: { borderRadius: 2 }}}
+                                inputProps={{ maxLength: 80, style: { padding: 15 }  }}
                             />
                             <p>Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</p>
                             <PasswordInput
