@@ -10,12 +10,14 @@ interface InputProps {
 }
 
 const InputField: React.FC<InputProps> = props => {
-  const [errorMessage, setErrorMessage] = useState<string>('false')
+  const [errorMessage, setErrorMessage] = useState<string>('')
   const [inputValid, setInputValid] = useState<boolean>(true)
   const [validityState, setValidityState] = useState<boolean>(false)
 
   useEffect(() => {
-    if (validityState) {
+    if (props.validityType === 'typeMismatch' && validityState) {
+      setErrorMessage(`A correct '${props.label}' is required.`)
+    } else {
       setErrorMessage(`'${props.label}' is required.`)
     }
   }, [validityState])
