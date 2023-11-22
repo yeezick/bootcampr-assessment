@@ -300,7 +300,10 @@ const SignUpForm: React.FC = () => {
           type='email'
           autoComplete='email'
           onChange={e => handleInputChange('email', e.target.value)}
-          onBlur={handleEmailValidation}
+          onBlur={() => {
+            handleEmailValidation()
+            handleEmptyInput('email', 'Email')
+          }}
           error={Boolean(formErrors.email)}
         />
         <FormHelperText>{formErrors.email}</FormHelperText>

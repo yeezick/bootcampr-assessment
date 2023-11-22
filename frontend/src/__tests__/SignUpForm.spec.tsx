@@ -50,7 +50,7 @@ describe('SignUpForm', () => {
 
     testEmptyFormField(/first name/i, 'First name cannot be empty.')
     testEmptyFormField(/last name/i, 'Last name cannot be empty.')
-    testEmptyFormField(/email address/i, 'Invalid email address')
+    testEmptyFormField(/email address/i, 'Email cannot be empty.')
     testEmptyFormField(/^password \(/i, 'Password cannot be empty.')
     testEmptyFormField(
       /re-enter password/i,
