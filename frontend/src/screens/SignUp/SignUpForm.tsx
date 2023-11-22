@@ -142,9 +142,8 @@ const SignUpForm: React.FC = () => {
   }
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked((prevIsChecked) => !prevIsChecked);
-  };
-  
+    setIsChecked(prevIsChecked => !prevIsChecked)
+  }
 
   //validation
   const isLengthValid = formData.password.length >= 8
@@ -153,6 +152,17 @@ const SignUpForm: React.FC = () => {
   const hasSymbol = /[\p{P}]/u.test(formData.password)
 
   const showCriteria = passwordState.hasTyped && formData.password.length > 0
+
+  const handleNameValidation = (field: string) => {
+    if (!/^[a-zA-Z]+$/.test(formData[field])) {
+      setFormErrors(prevErrors => ({
+        ...prevErrors,
+        [field]: 'Name should only contains letters',
+      }))
+    } else {
+      setFormErrors(prevErrors => ({ ...prevErrors, [field]: '' }))
+    }
+  }
 
   const handleEmailValidation = () => {
     if (!/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/.test(formData.email)) {
@@ -175,7 +185,10 @@ const SignUpForm: React.FC = () => {
     } else {
       setFormErrors(prevErrors => ({
         ...prevErrors,
-        [field]: '',
+        [field]:
+          prevErrors[field] === `${fieldName} cannot be empty.`
+            ? ''
+            : prevErrors[field],
       }))
     }
   }
@@ -185,27 +198,26 @@ const SignUpForm: React.FC = () => {
   }
 
   const isPasswordMatch = useMemo(() => {
-    const { password, confirmPassword } = formData;
+    const { password, confirmPassword } = formData
     const match =
-      password === confirmPassword && password !== '' && confirmPassword !== '';
-  
+      password === confirmPassword && password !== '' && confirmPassword !== ''
+
     if (match) {
       if (formErrors.confirmPassword !== '') {
-        setFormErrors((prevErrors) => ({
+        setFormErrors(prevErrors => ({
           ...prevErrors,
           confirmPassword: '',
-        }));
+        }))
       }
     } else {
-      setFormErrors((prevErrors) => ({
+      setFormErrors(prevErrors => ({
         ...prevErrors,
         confirmPassword: 'The Password entered does not match.',
-      }));
+      }))
     }
-  
-    return match;
-  }, [formData.password, formData.confirmPassword, formErrors.confirmPassword]);
-  
+
+    return match
+  }, [formData.password, formData.confirmPassword, formErrors.confirmPassword])
 
   const isEmailExist = async () => {
     let response: AxiosResponse<any, any>
@@ -254,7 +266,10 @@ const SignUpForm: React.FC = () => {
           name='firstName'
           autoFocus
           onChange={e => handleInputChange('firstName', e.target.value)}
-          onBlur={() => handleEmptyInput('firstName', 'First name')}
+          onBlur={() => {
+            handleNameValidation('firstName')
+            handleEmptyInput('firstName', 'First name')
+          }}
           error={Boolean(formErrors.firstName)}
         />
         <FormHelperText>{formErrors.firstName}</FormHelperText>
@@ -266,7 +281,10 @@ const SignUpForm: React.FC = () => {
           id='lastName'
           name='lastName'
           onChange={e => handleInputChange('lastName', e.target.value)}
-          onBlur={() => handleEmptyInput('lastName', 'Last name')}
+          onBlur={() => {
+            handleNameValidation('lastName')
+            handleEmptyInput('lastName', 'Last name')
+          }}
           error={Boolean(formErrors.lastName)}
         />
         <FormHelperText>{formErrors.lastName}</FormHelperText>
