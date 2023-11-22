@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { LuEyeOff } from "react-icons/lu";
 import SignupLogo from 'assets/SignupLogo.png'
 import './Signup.scss'
 
 export const SignUp: React.FC = () => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -14,6 +18,7 @@ export const SignUp: React.FC = () => {
   const [showPasswordValidations, setShowPasswordValidations] = useState<boolean>(false); 
   const [receiveNotifications, setReceiveNotifications] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
@@ -64,10 +69,6 @@ export const SignUp: React.FC = () => {
     );
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    return;
-  };
-
   const validatePassword = (password: string) => {
     const needValidations: string[] = [];
     const metValidations: string[] = [];
@@ -101,6 +102,43 @@ export const SignUp: React.FC = () => {
     setShowPasswordValidations(true);
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!passwordsMatch) return;
+
+    const newUserData = {
+      firstName,
+      lastName,
+      email,
+      password,
+      receiveNotifications,
+    };
+    let response; 
+    let responseBodyText; 
+
+    try {
+      response = await fetch('/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUserData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        navigate('/index'); 
+      } else {
+        responseBodyText = await response.json();
+        const errorData = await response.json();
+      }
+
+    } catch (error) {
+      setErrors([responseBodyText.error]);
+    }
+  };
+
   return (
     <div className='signup-container'>
 
@@ -114,7 +152,7 @@ export const SignUp: React.FC = () => {
             <img src={SignupLogo} alt='sign-up' />
         </div>
         <div className="form-container">
-            <form className='form'>
+            <form className='form' onSubmit={handleSubmit}>
               <label htmlFor="firstName">First name</label>
               <input 
                 type="text" 
@@ -140,14 +178,20 @@ export const SignUp: React.FC = () => {
               />
 
               <label htmlFor="password">Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</label>
-              <input 
-                type={showPassword ? 'text' : 'password'}
-                className="password" 
-                value={password}
-                onChange={handlePasswordChange}
-              />
+              <div className="password-container">
+                <input 
+                  type={showPassword ? 'text' : 'password'}
+                  className="password" 
+                  value={password}
+                  onChange={handlePasswordChange}
+                />
+                <span
+                  onClick={handlePasswordVisibility}
+                >
+                  {showPassword ? <LuEyeOff /> : <MdOutlineRemoveRedEye />}
+                </span>
+              </div>
               
-
               {needPasswordValidations.length > 0 && showPasswordValidations && (
                 <div style={{ color: 'red' }}>
                   {needPasswordValidations.map((validation, index) => (
@@ -155,6 +199,7 @@ export const SignUp: React.FC = () => {
                   ))}
                 </div>
               )}
+
               {metPasswordValidations.length > 0 && showPasswordValidations && (
                 <div style={{ color: 'green' }}>
                   {metPasswordValidations.map((validation, index) => (
@@ -163,34 +208,32 @@ export const SignUp: React.FC = () => {
                 </div>
               )}
 
-
-              <button type="button" onClick={handlePasswordVisibility}>
-                {showPassword ? 'Hide' : 'Show'} Password
-              </button>
-
               <label htmlFor="confirmPassword">Re-enter password </label>
-              <input 
-                type={showPassword ? 'text' : 'password'}
-                className="confirmPassword" 
-                value={reenteredPassword}
-                onChange={handleReenteredPasswordChange}
-                />
+              <div className="reentered-password-container">
+                <input 
+                  type={showPassword ? 'text' : 'password'}
+                  className="confirmPassword" 
+                  value={reenteredPassword}
+                  onChange={handleReenteredPasswordChange}
+                  />
+                <span
+                  onClick={handlePasswordVisibility}
+                  >
+                  {showPassword ? <LuEyeOff /> : <MdOutlineRemoveRedEye />}
+                </span>
+              </div>
 
-              <button type="button" onClick={handlePasswordVisibility}>
-                {showPassword ? 'Hide' : 'Show'} Password
-              </button>
-
-                {!showPasswordValidations && passwordsMatch && (
-                  <div style={{ color: 'green' }}> Passwords match!</div>
+              {!showPasswordValidations && passwordsMatch && (
+                <div style={{ color: 'green' }}> Passwords match!</div>
                 )}
-
+              
               <label>
                 <input 
                   type="checkbox" 
                   className="notifications"
                   checked={receiveNotifications}
                   onChange={handleReceiveNotificationsChange}
-                />
+                  />
                 I agree to receive email notification(s). We will only send 
                 emails with important information, like project start dates. 
                 We will not sell your information!
@@ -202,6 +245,14 @@ export const SignUp: React.FC = () => {
                 disabled={signupButtonDisabled()}
                 > Sign Up
               </button>
+
+              {errors.length > 0 && (
+                <div style={{ color: 'red' }}>
+                  {errors.map((err, index) => (
+                    <div key={index}>{err}</div>
+                  ))}
+                </div>
+              )}
 
             </form>
         </div>
