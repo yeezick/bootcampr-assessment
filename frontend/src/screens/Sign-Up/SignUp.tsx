@@ -39,12 +39,14 @@ const SignUpForm: React.FC = () => {
     password: '',
     passwordRe: '',
   });
+  
   const [passwordValidation, setPasswordValidation] = useState({
     minLength: false,
     hasLowerCase: false,
     hasUpperCase: false,
     hasSpecialChar: false
   });
+
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [emailValidation, setEmailValidation] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -182,7 +184,7 @@ const SignUpForm: React.FC = () => {
           >
             <VisibilityButton
               onClick={handleVisibilityRe}
-              icon={iconRe ? eye: eyeOff}
+              icon={iconRe ? eye : eyeOff}
             />
             {signupDetails.passwordRe.length ? <p className={passwordMatch ? 'passwordmatch-valid' : 'passwordmatch-invalid'}>Passwords match</p> : ""}
           </FormField>
@@ -250,7 +252,7 @@ const VisibilityButton: React.FC<VisibilityButtonProps> = ({ onClick, icon }) =>
   return (
     <button className='visibility-button'>
       <span className='visiblity-icon' onClick={onClick}>
-        <Icon className='absolute mr-10' icon={icon}/>
+        <Icon className='absolute mr-10' icon={icon} />
       </span>
     </button>
   )
