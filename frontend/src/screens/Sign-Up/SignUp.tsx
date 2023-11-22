@@ -96,7 +96,6 @@ const SignUpForm: React.FC = () => {
   }
 
   const handleChange = (event) => {
-    // console.log(signupDetails)
     const { name, value } = event.target;
 
     setSignupDetails((previous) => {
@@ -257,12 +256,6 @@ const VisibilityButton: React.FC<VisibilityButtonProps> = ({ onClick, icon }) =>
       <span className='visiblity-icon' onClick={onClick}>
         <Icon className='absolute mr-10' icon={icon}/>
       </span>
-      {/* <img
-        className='visibility-icon'
-        src={icon}
-        alt="visibility-button"
-        onClick={onClick}
-      ></img> */}
     </button>
   )
 }
