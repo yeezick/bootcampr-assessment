@@ -27,7 +27,7 @@ type signupType = z.infer<typeof createSchema>;
 
 export const createUser: RequestHandler = async (req, res) => {
     try {
-        const { firstName, lastName, email, password, confirmPassword }: signupType = req.body;
+        const { firstName, lastName, email, password, confirmPassword }: signupType = createSchema.parse(req.body);
 
         if (!firstName || !lastName || !email || !password) {
             return res.status(400).json({ message: "Please provide first name, last name, email, and password" });
