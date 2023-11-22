@@ -7,7 +7,7 @@ export const SignUp: React.FC = () => {
   return (
     <Container>
       <div className='landing-container'>
-        <div className='signup-container'>
+        <div className='heading-container'>
           <h1>Join Bootcampr today.</h1>
           <h2>Get the experience. Get the Job.</h2>
         </div>

@@ -1,9 +1,25 @@
-.landing-container{
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+.landing-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 
-    .flex-container{
-        display: flex;
+  .heading-container {
+    h1 {
+      margin-bottom: 0;
+      font-size: 2.375rem;
+      font-style: normal;
+      font-weight: 600;
     }
+
+    h2 {
+      font-size: 1.5rem;
+      font-style: normal;
+      font-weight: 600;
+    }
+  }
+
+  .flex-container {
+    display: flex;
+    justify-content: space-around;
+  }
 }
