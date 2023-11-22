@@ -1,0 +1,13 @@
+@import 'styles/variables.scss';
+
+.custom-button {
+  background-color: $btn-color-active;
+  border-radius: 4px;
+  border: none;
+  color: $btn-color;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22.4px;
+  text-transform: none;
+  text-decoration: none;
+}

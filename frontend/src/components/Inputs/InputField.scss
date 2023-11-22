@@ -1,0 +1,29 @@
+//TODO variables not working, find the issue
+.input-box {
+  display: flex;
+  flex-direction: column;
+  .input-field {
+    background-color: #ecebeb; //smoke
+    border-radius: 4px;
+    margin-block: 4px;
+    padding: 4px 12px;
+  }
+  .helper-text-container {
+    height: 15px;
+    .helper-text {
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      &.error {
+        color: #d90000; //rubarb
+      }
+      &.success {
+        color: #23a6a1; //sea foam
+      }
+    }
+  }
+}
+
+.checkbox-label {
+  font-size: small;
+}
