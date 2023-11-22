@@ -65,13 +65,27 @@ export const SignUpForm: FC = () => {
       isPasswordValid && isPasswordMatch && areFieldsFilled && isEmailUnique
     )
   }
-
-  const handleFormSubmitButton = () => {
-    createUser(user).then(user => {
-      navigate('/welcome')
+  const handleConfirmPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value
+    setConfirmPassword(value)
+  }
+  //TODO if user click checkbox after this, it jumps because of the helper text
+  const handleValidatePasswordOnBlur = () => {
+    const isPasswordSame = confirmPassword === user.password
+    const message = isPasswordSame ? 'passwords match' : "passwords don't match"
+    setPasswordsMatch([checkRule(isPasswordSame, message)])
+  }
+  const handleEmailOnBlur = () => {
+    //TODO check email format is correct
+    checkEmailExist(user).then(data => {
+      const isEmailUnique = !data.exists
+      //Need to send false to get an error to the checkRule function
+      const message = isEmailUnique
+        ? 'Email is available'
+        : 'Email already exists'
+      setEmailValidation([checkRule(isEmailUnique, message)])
     })
   }
-
   const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target
     if (type === 'checkbox') {
@@ -84,25 +98,13 @@ export const SignUpForm: FC = () => {
       setUser({ ...user, [name]: value })
     }
   }
-  const handleConfirmPassword = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    setConfirmPassword(value)
-  }
-  //TODO if user click checkbox after this, it jumps because of the helper text
-  const handleValidatePasswordOnBlur = () => {
-    const isPasswordSame = confirmPassword === user.password
-    const message = isPasswordSame ? 'passwords match' : "passwords don't match"
-    setPasswordsMatch([checkRule(isPasswordSame, message)])
-  }
-  const handleEmailOnBlur = () => {
-    checkEmailExist(user).then(data => {
-      console.log(data.exists)
-      if (data.exists) {
-        //Need to send false to get an error to the checkRule function
-        setEmailValidation([checkRule(!data.exists, 'Email already exists')])
-      }
+
+  const handleFormSubmitButton = () => {
+    createUser(user).then(user => {
+      navigate('/welcome')
     })
   }
+
   return (
     <form className='signup-form'>
       <TextInput
