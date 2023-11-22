@@ -9,6 +9,9 @@ export const Register: React.FC = () => {
                 <h1>Join Bootcampr today.</h1>
                 <h3>Get the experience. Get the job.</h3>
             </div>
+                <div id="image-format">
+                <img src={hexImage} width="303.75" height="360"/>
+                </div>
             <div id="container-form">
                 <form>
                     <label>
@@ -16,7 +19,7 @@ export const Register: React.FC = () => {
                         <input type="text" />
                     </label>
                 </form>
-                <div>
+                <div id="unify">
                     <label>
                         <div id="form-text"><p>Last name</p></div>
                         <input type="text" />
@@ -48,7 +51,6 @@ export const Register: React.FC = () => {
                     </div>
                 </div>
                 <button>Sign Up</button>
-                <img src={hexImage} style={{width:"75%", height:"75%"}}/>
             </div>
         </div>
 
