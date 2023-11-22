@@ -45,8 +45,6 @@ type confirmPasswordStateType = {
 const emailNotificationAgreement =
   'I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!'
 
-const baseUrl = 'http://localhost:8001'
-
 const SignUpForm: React.FC = () => {
   const navigate = useNavigate()
 
