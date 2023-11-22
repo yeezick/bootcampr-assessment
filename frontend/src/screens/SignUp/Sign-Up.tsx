@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './Sign-Up.scss'
 import InputField from '../../components/InputField/InputField'
 import PasswordField from 'components/PasswordField/PasswordField'
@@ -8,6 +9,8 @@ const SignUp: React.FC = () => {
   const [passwordMatch, setPasswordMatch] = useState<boolean>(null)
   const [passwordValue, setPasswordValue] = useState<string>('')
   const [passwordConfirmValue, setPasswordConfirmValue] = useState<string>('')
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (passwordConfirmValue.length > 0) {
@@ -21,6 +24,8 @@ const SignUp: React.FC = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
+
+    navigate('/post-sign-up')
   }
 
   return (
