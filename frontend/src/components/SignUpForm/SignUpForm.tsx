@@ -8,6 +8,7 @@ import { PasswordInput } from 'components/Inputs/PasswordInput'
 import { CheckboxControl } from 'components/Inputs/Checkbox'
 import { User } from '../../interfaces'
 import './SignUpForm.scss'
+import { checkEmailExist, createUser } from 'service/userService'
 
 interface HelperText {
   error: boolean
@@ -31,6 +32,7 @@ export const SignUpForm: FC = () => {
   const [passwordValidations, setPasswordValidations] = useState<HelperText[]>(
     []
   )
+  const [emailValidation, setEmailValidation] = useState<HelperText[]>([])
 
   const getPasswordHelperTexts = (password: string) => {
     const hasLowercase = /[a-z]/.test(password)
@@ -57,11 +59,17 @@ export const SignUpForm: FC = () => {
     const isPasswordMatch = passwordValidations.every(
       value => value.error === false
     )
-    return isPasswordValid && isPasswordMatch && areFieldsFilled
+    const isEmailUnique = emailValidation.every(value => value.error === false)
+    console.log(isEmailUnique)
+    return (
+      isPasswordValid && isPasswordMatch && areFieldsFilled && isEmailUnique
+    )
   }
 
   const handleFormSubmitButton = () => {
-    navigate('/welcome')
+    createUser(user).then(user => {
+      navigate('/welcome')
+    })
   }
 
   const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -73,19 +81,28 @@ export const SignUpForm: FC = () => {
         const passwordHelperTexts = getPasswordHelperTexts(value)
         setPasswordValidations(passwordHelperTexts)
       }
-      if (name === 'confirmPassword') {
-        setConfirmPassword(value)
-      }
       setUser({ ...user, [name]: value })
     }
   }
-
+  const handleConfirmPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value
+    setConfirmPassword(value)
+  }
+  //TODO if user click checkbox after this, it jumps because of the helper text
   const handleValidatePasswordOnBlur = () => {
     const isPasswordSame = confirmPassword === user.password
     const message = isPasswordSame ? 'passwords match' : "passwords don't match"
     setPasswordsMatch([checkRule(isPasswordSame, message)])
   }
-
+  const handleEmailOnBlur = () => {
+    checkEmailExist(user).then(data => {
+      console.log(data.exists)
+      if (data.exists) {
+        //Need to send false to get an error to the checkRule function
+        setEmailValidation([checkRule(!data.exists, 'Email already exists')])
+      }
+    })
+  }
   return (
     <form className='signup-form'>
       <TextInput
@@ -110,6 +127,8 @@ export const SignUpForm: FC = () => {
         type='email'
         name='email'
         value={user.email}
+        onBlur={handleEmailOnBlur}
+        helperText={emailValidation}
         onChange={handleChangeInput}
       />
       <PasswordInput
@@ -125,10 +144,9 @@ export const SignUpForm: FC = () => {
         name='confirmPassword'
         onBlur={handleValidatePasswordOnBlur}
         helperTexts={passwordsMatch}
-        onChange={handleChangeInput}
+        onChange={handleConfirmPassword}
       />
       <CheckboxControl
-        required
         label={agreementText}
         onChange={handleChangeInput}
         // checked={user.consent}

@@ -32,9 +32,17 @@ const fethcher = async ({ url, method, body }: Fetcher) => {
   return data
 }
 
-export const postUser = (user: User) => {
+export const createUser = (user: User) => {
   return fethcher({
     url: `${API_BASE_URL}/users`,
+    method: 'POST',
+    body: user,
+  })
+}
+
+export const checkEmailExist = (user: User) => {
+  return fethcher({
+    url: `${API_BASE_URL}/check-email`,
     method: 'POST',
     body: user,
   })
