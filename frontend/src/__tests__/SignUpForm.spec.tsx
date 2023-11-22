@@ -39,7 +39,10 @@ describe('SignUpForm', () => {
   test('toggles confirm password visibility', () => {
     render(<SignUp />)
 
-    testPasswordVisibility(/re-enter password/i, /toggle confirm password visibility/i)
+    testPasswordVisibility(
+      /re-enter password/i,
+      /toggle confirm password visibility/i
+    )
   })
 
   test('returns message errors when no input is typed for each form field', () => {
@@ -55,19 +58,47 @@ describe('SignUpForm', () => {
     )
   })
 
+  test('handles invalid first name', () => {
+    render(<SignUp />)
+
+    testInvalidValues(
+      /first name/i,
+      'invalid_111Firstname',
+      'Name should only contains letters'
+    )
+  })
+
+  test('handles invalid last name', () => {
+    render(<SignUp />)
+
+    testInvalidValues(
+      /last name/i,
+      'invalid_,101Lastname',
+      'Name should only contains letters'
+    )
+  })
+
   test('handles invalid email', () => {
     render(<SignUp />)
 
-    testInvalidValues(/email address/i, 'invalid_email', 'Invalid email address')
+    testInvalidValues(
+      /email address/i,
+      'invalid_email',
+      'Invalid email address'
+    )
   })
 
   test('handles password not matching', () => {
     render(<SignUp />)
 
     const passwordInput = screen.getByLabelText(/^password \(/i)
-    fireEvent.change(passwordInput, {target: {value: 'TNi-_-!954'}})
+    fireEvent.change(passwordInput, { target: { value: 'TNi-_-!954' } })
 
-    testInvalidValues(/re-enter password/i, 'A_different_password', 'The Password entered does not match.')
+    testInvalidValues(
+      /re-enter password/i,
+      'A_different_password',
+      'The Password entered does not match.'
+    )
   })
 })
 
