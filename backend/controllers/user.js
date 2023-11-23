@@ -1,8 +1,6 @@
-import { MongoBatchReExecutionError } from "mongodb";
 import { User } from "../models/user.js"
 
 export const getUsers = async (req, res) => {
-  console.log("hi")
   const allUsers = await User.find();
   return res.status(200).json(allUsers)
 };
