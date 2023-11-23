@@ -7,15 +7,20 @@
   --heading-4-font-size: 24px;
   --heading-4-font-weight: 600;
   --heading-4-line-height: 33.60px;
-  --large-font-family: "Inter-Regular", Helvetica;
+  --large-font-family: "Inter", Helvetica;
   --large-font-size: 16px;
   --large-font-weight: 400;
   --large-line-height: 22.40px;
+  --small-font-family: "Inter", Helvetica;
+  --small-font-size: 12px;
+  --small-font-weight: 400;
+  --small-line-height: 16.80px;
   --orchid: rgba(128, 72, 200, 1);
   --smoke: rgba(236, 235, 235, 1);
-  --white: rgba(254, 254, 254, 1);
   --apricot: rgba(250, 148, 19, 1);
   --charcoal: rgba(49, 51, 53, 1);
+  --seafoam: rgba(35, 166, 161, 1);
+  --rubarb: rgba(217, 0, 0, 1);
 }
 
 .container {
@@ -23,15 +28,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: "Inter", Helvetica;
   word-wrap: break-word;
 
-  &>div {
+  & > div {
     text-align: start;
 
     &:first-child {
-     
-
       h2 {
         font-family: var(--heading-2-font-family);
         font-size: var(--heading-2-font-size);
@@ -49,51 +51,46 @@
 
     &:last-child {
       display: flex;
-      gap: 5px;
 
       div {
         width: 448px;
         height: 64px;
         gap: 5px;
-      
       }
 
       form {
-       flex: auto;
-        
+        flex: auto;
 
         label {
-          font-family: var(---large-font-family);
-          font-size: var(---large-font-size);
-          font-weight: var(---large-font-weight);
-          line-height: var(--large-line-height-height);
+          font-family: var(--large-font-family);
+          font-size: var(--large-font-size);
+          font-weight: var(--large-font-weight);
+          line-height: var(--large-line-height);
           color: var(--charcoal);
           word-wrap: break-word;
-          
         }
 
         input {
           width: 100%;
-          padding: 10px 350px 10px 15px;
+          padding: 10px 15px;
           border-radius: 4px;
           box-sizing: border-box;
           border: none;
           background-color: var(--smoke);
           margin-bottom: 25px;
         }
+
         .checkbox-container {
           display: flex;
-        
+          align-items: flex-start;
+          padding: 2px;
+
           input[type="checkbox"] {
-            margin-left: 0; // Set margin-left to 0 for no space
-          }
-        
-          label {
-            display: inline; // Display label inline with the checkbox
-            margin-bottom: 0; // Remove margin to prevent extra space
+            height: 20px;
+            width: 20px;
+            border: 4px solid #022888;
           }
         }
-        
 
         button {
           width: 448px;
@@ -101,7 +98,7 @@
           font-size: var(--large-font-size);
           line-height: var(--large-line-height);
           color: var(--charcoal);
-          font-weight: 500px;
+          font-weight: 500;
           padding: 10px 16px;
           margin-top: 35px;
           border: none;
@@ -111,4 +108,41 @@
       }
     }
   }
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-container .icon {
+  position: absolute;
+  top: 30%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.password-strength {
+ 
+  display: flex;
+  flex-direction: column; 
+  margin-top: -20px;
+  margin-bottom: 25px;
+}
+
+.password-strength span {
+  font-family: var(--small-font-family);
+  font-size: var(--small-font-size);
+  font-weight: var(--small-font-weight);
+  line-height: var(--small-line-height);
+
+}
+
+.passwords-match{
+  margin-top: -20px;
+  font-family: var(--small-font-family);
+  font-size: var(--small-font-size);
+  font-weight: var(--small-font-weight);
+  line-height: var(--small-line-height);
+  color: var(--seafoam);
 }
