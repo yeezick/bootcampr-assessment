@@ -1,0 +1,11 @@
+.imageOne {
+    height: 400px;
+    width: 400px;
+    display: flex;
+    float: left;
+    margin: 200px 100px;
+}
+
+p {
+    font-weight: bold;
+}
