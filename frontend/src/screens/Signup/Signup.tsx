@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { UseFormGetValues, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FilledInput, FormControl, IconButton, InputAdornment } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import CheckIcon from '@mui/icons-material/Check';
 
 import signup_img from '../../assets/signup_img.png';
 import './Signup.scss';
 import { signup } from 'utils/signup';
 
 type Props = {}
+type ValidationItemProps = {
+    text: string;
+    valid: boolean;
+}
 
 export interface FormBodyType {
     firstName: string,
@@ -41,6 +46,51 @@ const formSchema = z.object({
     }, "Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number"),
     confirmPassword: z.string().min(8)
 }).refine(schema => schema.password === schema.confirmPassword, { message: "Passwords do not match" });
+
+const ValidationItem = (props: ValidationItemProps & { getValues: UseFormGetValues<FormBodyType> }) => {
+    const { text, valid, getValues } = props;
+    const password = getValues("password");
+
+    const uppercaseValid = /[A-Z]/.test(password);
+    const lowercaseValid = /[a-z]/.test(password);
+    const numberValid = /\d/.test(password);
+    const lengthValid = password.length >= 8;
+
+    const individualValidations = {
+        uppercase: uppercaseValid,
+        lowercase: lowercaseValid,
+        number: numberValid,
+        length: lengthValid,
+    };
+
+    const validationStatus = uppercaseValid && lowercaseValid && numberValid && lengthValid;
+
+    return (
+        <p style={{ color: validationStatus ? "green" : "red" }}>
+            {valid && <CheckIcon />}
+            {text}
+            {Object.keys(individualValidations).map((validationKey) => {
+                const validationResult = individualValidations[validationKey];
+                const validationIcon = validationResult ? <CheckIcon /> : null;
+                return (
+                    <span key={validationKey}>
+                        {validationIcon} {validationKey}
+                    </span>
+                );
+            })}
+        </p>
+    )
+}
+
+// const ValidationItem = (props: ValidationItemProps & { getValues: UseFormGetValues<FormBodyType> }) => {
+//     const { text, valid, getValues } = props;
+//     return (
+//         <p style={{ color: valid ? "green" : "red" }}>
+//             {valid && <CheckIcon />}
+//             {text}
+//         </p>
+//     )
+// }
 
 export const Signup = (props: Props) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -105,7 +155,18 @@ export const Signup = (props: Props) => {
                                     id='password'
                                     name='password'
                                     type={showPassword ? 'text' : 'password'}
-                                    {...register("password", { required: true })}
+                                    {...register("password", {
+                                        required: true,
+                                        minLength: {
+                                            value: 8,
+                                            message: "Password must be at least 8 characters long"
+                                        },
+                                        pattern: {
+                                            value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
+                                            message:
+                                                "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+                                        }
+                                    })}
                                     endAdornment={
                                         <InputAdornment position='end'>
                                             <IconButton
@@ -139,10 +200,46 @@ export const Signup = (props: Props) => {
                                 {errors.password && <p className='pError'>{errors.password.message}</p>}
                             </FormControl>
                             <div className='passwordValidation'>
+                                {/* <ValidationItem
+                                    text='1 uppercase'
+                                    valid={!errors.password && /[A-Z]/.test(getValues("password"))}
+                                    getValues={getValues}
+                                />
+                                <ValidationItem
+                                    text='1 lowercase'
+                                    valid={!errors.password && /[a-z]/.test(getValues("password"))}
+                                    getValues={getValues}
+                                />
+                                <ValidationItem
+                                    text='1 number'
+                                    valid={!errors.password && /\d/.test(getValues("password"))}
+                                    getValues={getValues}
+                                />
+                                <ValidationItem
+                                    text='Minimum 8 characters'
+                                    valid={!errors.password && getValues("password").length >= 8}
+                                    getValues={getValues}
+                                /> */}
+                                {/* <ValidationItem
+                                    text='1 uppercase'
+                                    valid={formSchema.safeParse(getValues("password")).success}
+                                />
+                                <ValidationItem
+                                    text='1 lowercase'
+                                    valid={formSchema.safeParse(getValues("password")).success}
+                                />
+                                <ValidationItem
+                                    text='1 number'
+                                    valid={formSchema.safeParse(getValues("password")).success}
+                                />
+                                <ValidationItem
+                                    text='Minimum 8 characters'
+                                    valid={formSchema.safeParse(getValues("password")).success}
+                                /> */}
                                 <p>1 uppercase</p>
                                 <p>1 lowercase</p>
                                 <p>1 number</p>
-                                <p>Minimum 8 characters</p>
+                                <p>Minmum 8 characters</p>
                             </div>
                         </div>
                         <FormControl
@@ -193,7 +290,7 @@ export const Signup = (props: Props) => {
                                 I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!
                             </label>
                         </div>
-                        <button type='submit'>Sign up</button>
+                        <button className='signupBtn' type='submit'>Sign up</button>
                     </form>
                 </div>
             </div>
