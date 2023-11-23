@@ -83,10 +83,12 @@ export const Register: React.FC = () => {
                     <label>
                         <div id="form-text"><p>Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</p></div>
                         <input type="password" name="password" value={formValues.password} onChange={handleChange} />
+                        <div id="password-checklist">
                         <div style={{ color: formValues.password.search(/(?=.*[A-Z])/) == -1 ? "red" : "green" }}><p>1 uppercase</p></div>
                         <div style={{ color: formValues.password.search(/(?=.*[a-z])/) == -1 ? "red" : "green" }}><p>1 lowercase</p></div>
                         <div style={{ color: formValues.password.search(/\d/) == -1 ? "red" : "green" }}><p>1 number</p></div>
                         <div style={{ color: formValues.password.length >= 8 ? "green" : "red"}}><p>Minimum 8 characters</p></div>
+                        </div>
                     </label>
                     
                 </div>
