@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { z } from 'zod';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FilledInput, FormControl, IconButton, InputAdornment } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -39,11 +39,8 @@ const formSchema = z.object({
 
         return true;
     }, "Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number"),
-    confirmPassword: z.string().min(8, "Please confirm your password")
-})
-// .refine((data: FormBodyType) => {
-//     return data.password === data.confirmPassword;
-// }, "Passwords do not match");
+    confirmPassword: z.string().min(8)
+}).refine(schema => schema.password === schema.confirmPassword, { message: "Passwords do not match" });
 
 export const Signup = (props: Props) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -59,7 +56,7 @@ export const Signup = (props: Props) => {
         e.preventDefault();
     }
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormBodyType>({
+    const { register, handleSubmit, getValues, formState: { errors } } = useForm<FormBodyType>({
         mode: "onChange",
         resolver: zodResolver(formSchema)
     })
@@ -72,11 +69,6 @@ export const Signup = (props: Props) => {
                 console.log(error);
             }
         }
-    }
-
-    const validateConfirmPassword = (value: string, { password }: FormBodyType) => {
-        // console.log("Passwords do not match");
-        return value === password || "Passwords do not match";
     }
 
     return (
@@ -92,15 +84,15 @@ export const Signup = (props: Props) => {
                 <div className="signup-form">
                     <form onSubmit={handleSubmit(submit)}>
                         <label>First name
-                            <input type="text" {...register("firstName", { required: true })} />
+                            <input type="text" name='firstName' {...register("firstName", { required: true })} />
                             {errors.firstName && <p className='error'>{errors.firstName.message}</p>}
                         </label>
                         <label>Last name
-                            <input type="text" {...register("lastName", { required: true })} />
+                            <input type="text" name='lastName' {...register("lastName", { required: true })} />
                             {errors.lastName && <p className='error'>{errors.lastName.message}</p>}
                         </label>
                         <label className='signup-span'>Email address <span>(ex. jeanine@bootcampr.io)</span>
-                            <input type="email" {...register("email", { required: true })} />
+                            <input type="email" name='email' {...register("email", { required: true })} />
                             {errors.email && <p className='error'>{errors.email.message}</p>}
                         </label>
                         <div className="passwordBox">
@@ -111,6 +103,7 @@ export const Signup = (props: Props) => {
                                 <label>Password</label>
                                 <FilledInput
                                     id='password'
+                                    name='password'
                                     type={showPassword ? 'text' : 'password'}
                                     {...register("password", { required: true })}
                                     endAdornment={
@@ -159,8 +152,9 @@ export const Signup = (props: Props) => {
                             <label>Re-enter password</label>
                             <FilledInput
                                 id='confirmPassword'
+                                name='confirmPassword'
                                 type={showConfirmPassword ? 'text' : 'password'}
-                                {...register("confirmPassword", { validate: validateConfirmPassword })}
+                                {...register("confirmPassword", { validate: (value) => value === getValues("password") || "Passwords do not match" })}
                                 endAdornment={
                                     <InputAdornment position='end'>
                                         <IconButton
