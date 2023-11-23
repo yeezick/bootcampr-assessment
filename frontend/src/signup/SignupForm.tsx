@@ -81,12 +81,17 @@ export const SignupForm = (props:any) => {
       },
       body: JSON.stringify(formData)
     })
-    .then(res => res.json())
+    .then(res => {
+      if(res.status >= 400){
+        throw new Error("Error")
+      }
+      res.json()
+    })
     .then(user => {
       console.log(user)
       navigate('/sign-up-complete')
     })
-    
+ 
   }
 
   const handleShowPassword = () => setPasswordVisible(!passwordVisible)
