@@ -10,7 +10,22 @@ $apricot: #fa9413;
   width: 40%;
   margin-left: 2rem;
 
+  .input-container {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    background-color: #{$smoke};
+
+    input {
+      width: 100%;
+    }
+
+    span {
+      padding: 0 1rem;
+    }
+  }
   input {
+    // width: 100%;
     padding: 0.625rem 0.938rem;
     border-style: none;
     background-color: #{$smoke};
@@ -94,9 +109,11 @@ $apricot: #fa9413;
     font-style: normal;
     font-weight: 400;
     line-height: 1.225rem;
+    cursor: pointer;
 
     &--filled {
       background-color: #{$apricot};
+      cursor: pointer;
     }
   }
 }

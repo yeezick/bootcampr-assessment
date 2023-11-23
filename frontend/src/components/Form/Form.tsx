@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react'
-import FormControl from '@mui/material/FormControl'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import checkIcon from '../../assets/checkIcon.svg'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import './Form.scss'
 
 export const Form: React.FC = () => {
@@ -9,11 +11,15 @@ export const Form: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rePassword, setRePassword] = useState('')
+  const [type, setType] = useState('password')
+  const [icon, setIcon] = useState<React.ReactNode>(<VisibilityIcon />)
   const [check, setCheck] = useState(false)
 
-  
+
+  const navigate = useNavigate()
   function handleSubmit(event) {
     event.preventDefault()
+    navigate('/congrats')
     console.log(firstName, lastName, email, password, rePassword, check)
   }
 
@@ -98,6 +104,15 @@ export const Form: React.FC = () => {
     )
   }
 
+  const handleToggle = () => {
+    if (type === 'password') {
+      setIcon(<VisibilityOffIcon />)
+      setType('text')
+    } else {
+      setIcon(<VisibilityIcon />)
+      setType('password')
+    }
+  }
   const formFilled =
     firstName &&
     lastName &&
@@ -131,29 +146,35 @@ export const Form: React.FC = () => {
         <span className='label--gray'> &#40;ex. jeanine@bootcampr.io&#41;</span>
       </label>
       <input
-        type='text'
+        type='email'
         id='email'
         className='form__input
         '
         onChange={e => setEmail(e.target.value)}
       />
       <label htmlFor='password'>Password</label>
-      <input
-        type='password'
-        id='password'
-        className='form__input
-        '
-        onChange={e => setPassword(e.target.value)}
-      />
+      <div className='input-container'>
+        <input
+          type={type}
+          id='password'
+          className='form__input
+          '
+          onChange={e => setPassword(e.target.value)}
+        />
+        <span onClick={handleToggle}>{icon}</span>
+      </div>
       {!formFilled && <PasswordValidation />}
       <label htmlFor='rePassword'>Re-enter password</label>
-      <input
-        type='password'
-        id='rePassword'
-        className='form__input
-        '
-        onChange={e => setRePassword(e.target.value)}
-      />
+      <div className='input-container'>
+        <input
+          type={type}
+          id='rePassword'
+          className='form__input
+          '
+          onChange={e => setRePassword(e.target.value)}
+        />
+        <span onClick={handleToggle}>{icon}</span>
+      </div>
       {!formFilled && password && password === rePassword && (
         <p className='validate validate--true'>Passwords Match!</p>
       )}
@@ -173,6 +194,7 @@ export const Form: React.FC = () => {
       </div>
       <button
         type='submit'
+        disabled={!formFilled && true}
         className={
           !formFilled ? 'form__submit' : 'form__submit form__submit--filled'
         }
