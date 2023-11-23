@@ -1,0 +1,35 @@
+.titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.success-title {
+   width: 682px; 
+   height: 54px;
+   font-weight: 600;
+   font-size: 38px;
+   line-height: 53.2px;
+   position: fixed;
+   left: 416px;
+   top: 196px;
+}
+
+.sub-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 682px;
+    font-size: 50px;
+}
+
+
+.website {
+    position: fixed;
+    text-decoration: none;
+    color: rgb(203, 176, 24);
+    left: 610px;
+    top: 296px;
+}
+
