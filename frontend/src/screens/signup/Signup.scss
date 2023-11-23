@@ -43,6 +43,13 @@ body {
         max-width: 100%;
         }
 
+        .password-message {
+            font-size: '0.8rem';
+            color: 'red'; 
+            margin-top: 5px;
+            color: red;
+        }
+
         form {
             font-family: $interFont;
             display: flex;

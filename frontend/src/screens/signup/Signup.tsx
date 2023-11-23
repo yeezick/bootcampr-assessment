@@ -5,6 +5,8 @@ import './Signup.scss';
 import Write from 'assets/Write.svg'
 
 export const Signup: React.FC = () => {
+    const [passwordRequirement, setPasswordRequirement] = useState(false);
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -37,6 +39,11 @@ export const Signup: React.FC = () => {
             return;
         }
 
+        if (!isPasswordValid(formData.password)) {
+            setPasswordRequirement(true)
+            return;
+        }
+
         if (!formData.agreedTerms) {
             alert('Please agree to the terms.');
             return;
@@ -45,7 +52,12 @@ export const Signup: React.FC = () => {
         navigate('/congrats');
     };
 
+    const isPasswordValid = (password) => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+        return passwordRegex.test(password);
+    };
 
+    console.log(passwordRequirement)
 
     return (
         <div className='signup-container'>
@@ -110,6 +122,18 @@ export const Signup: React.FC = () => {
                             onChange={handleChange}
                             variant="filled"
                         />
+                        {passwordRequirement ? (<p className='password-message'>
+                            Password must have at least:
+                            <br />
+                            - 1 uppercase letter
+                            <br />
+                            - 1 lowercase letter
+                            <br />
+                            - 1 symbol
+                            <br />
+                            - Minimum 8 characters
+                        </p>
+                        ) : null}
                     </div>
 
                     <div>
