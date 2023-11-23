@@ -9,3 +9,13 @@ export const sayHello = async () => {
     return false
   }
 }
+
+export const signUp = async (newUserData) => {
+  try {
+    const res = await api.post('sign-up', newUserData);
+    return res.data
+  } catch (error) {
+    console.error(error)
+    return false;
+  }
+}
