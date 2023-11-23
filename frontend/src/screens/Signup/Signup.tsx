@@ -94,7 +94,7 @@ export const Signup: React.FC = () => {
             </div>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <div>
-                <div>
+                <div className='signup-img'>
                     <img src={signup} alt="signup" />
                 </div>
                 <div className="form-container">

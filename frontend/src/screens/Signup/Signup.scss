@@ -29,7 +29,11 @@
   justify-content: center;
   word-wrap: break-word;
 
-  & > div {
+  .signup-img {
+    margin-top: 30px;
+  }
+
+  &>div {
     text-align: start;
 
     &:first-child {
@@ -83,7 +87,7 @@
           display: flex;
           align-items: flex-start;
           padding: 2px;
-          margin-top: -15px;
+          margin-top: -10px;
 
           input[type="checkbox"] {
             height: 20px;
@@ -123,7 +127,7 @@
 
 .password-strength {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   margin-top: -20px;
   margin-bottom: 25px;
 }
@@ -136,7 +140,7 @@
 
 }
 
-.passwords-match{
+.passwords-match {
   margin-top: -20px;
   margin-bottom: 15px;
   font-family: var(--small-font-family);
@@ -144,4 +148,15 @@
   font-weight: var(--small-font-weight);
   line-height: var(--small-line-height);
   color: var(--seafoam);
+}
+
+.success {
+  font-family: var(--heading-2-font-family);
+  font-size: var(--heading-2-font-size);
+  font-weight: var(--heading-2-font-weight);
+  line-height: var(--heading-2-line-height);
+  word-Wrap: 'break-word';
+  display: flex;
+  justify-content: center;
+  margin-top: 127px;
 }
