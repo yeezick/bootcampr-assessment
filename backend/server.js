@@ -12,3 +12,6 @@ app.use(express.json());
 app.use(logger("dev"));
 app.use(routes);
 app.listen(PORT, console.log(`Now listening on PORT: ${PORT}`));
+db.on("connected", () => {
+    console.log(`MongoDB Connected: ${db.host}`);
+});

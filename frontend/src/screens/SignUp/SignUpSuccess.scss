@@ -1,0 +1,22 @@
+.signup-success-container {
+  width: 100vw;
+  position: relative;
+  
+  .text-container {
+    width: 100vw;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Outfit;
+    font-weight: 600;
+    color: #000000;
+    top: calc(224px - 93px);
+
+    h2 {
+        font-size: 38px;
+        margin: 0;
+    }
+  }
+}
