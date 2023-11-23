@@ -1,6 +1,11 @@
 .imageOne {
-    height: 25px;
-    width: 25px;
+    height: 400px;
+    width: 400px;
     display: flex;
-    align-items: start;
+    float: left;
+    margin: 200px 100px;
+}
+
+p {
+    font-weight: bold;
 }

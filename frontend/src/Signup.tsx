@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 // import { Landing } from './Landing';
 import { Component } from 'react'
-// import './Signup.css'
+import './Signup.css'
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -14,21 +14,39 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+// import InputAdornment from '@mui/material/InputAdornment';
+// import InputLabel from '@mui/material/InputLabel';
+// import OutlinedInput from '@mui/material/OutlinedInput';
 
-function Copyright(props: any) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-}
+// function Copyright(props: any) {
+//     return (
+//       <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//         {'Copyright © '}
+//         <Link color="inherit" href="https://mui.com/">
+//           Your Website
+//         </Link>{' '}
+//         {new Date().getFullYear()}
+//         {'.'}
+//       </Typography>
+//     );
+// }
 
-function Signup () {
+// export default function InputAdornments() {
+//     const [showPassword, setShowPassword] = React.useState(false);
+  
+//     const handleClickShowPassword = () => setShowPassword((show) => !show);
+  
+//     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+//       event.preventDefault();
+
+function Signup() {
+    // const [showPassword, setShowPassword] = React.useState(false);
+    // const handleClickShowPassword = () => setShowPassword((show) => !show);
+    // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    //   event.preventDefault();
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -37,11 +55,13 @@ function Signup () {
           password: data.get('password'),
         });
       };
+
     return (
-      <Container component="main" maxWidth="xs">
+        <>
         <div className='imageOne'>
             <img src='signup_image.jpg' alt='A hand writing on a piece of paper with a pen'></img>
         </div>
+      <Container component="main" maxWidth="sm">
         <CssBaseline />
         <Box
           sx={{
@@ -52,12 +72,13 @@ function Signup () {
           }}
         >
         
-          <Typography component="h1" variant="h5">
-            Join Bootcampr today.  
-          </Typography>
           <Typography component="h2" variant="h5">
-            Get the experience.  Get the job.  
+            <h2>Join Bootcampr today.</h2>
           </Typography>
+          <Typography component="p" variant="h5">
+            <p>Get the experience.  Get the job.</p>
+          </Typography>
+
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -116,6 +137,25 @@ function Signup () {
                   id="password"
                   autoComplete="new-password"
                 />
+
+                {/* <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <OutlinedInput
+                     id="outlined-adornment-password"
+                     type={showPassword ? 'text' : 'password'}
+                    endAdornment={
+                <InputAdornment position="end">
+                    <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                    >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                </InputAdornment>
+            }
+            label="Password"
+          /> */}
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -137,8 +177,7 @@ function Signup () {
           </Box>
         </Box>
       </Container>
+      </>
   );
 }
-     
-
 export default Signup
