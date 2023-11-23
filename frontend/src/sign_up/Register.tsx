@@ -90,7 +90,6 @@ export const Register: React.FC = () => {
                         <div style={{ color: formValues.password.length >= 8 ? "green" : "red"}}><p>Minimum 8 characters</p></div>
                         </div>
                     </label>
-                    
                 </div>
                 <div id="unify">
                     <label>
@@ -107,10 +106,7 @@ export const Register: React.FC = () => {
                 </div>
                 <button id="sign-up-button">Sign Up</button>
             </div>
-            
         </div>
-
-        
     )
 }
 
