@@ -16,7 +16,7 @@
   margin-top: 100px;
 }
 
-#form-text{
+#form-text {
   font-size: 13px;
   position: relative;
   bottom: -17px;
@@ -44,7 +44,9 @@
   right: 100px;
 }
 
-input[type=text], input[type=password], select {
+input[type=text],
+input[type=password],
+select {
   width: 105%;
   padding: 6px 10px;
   margin: 8px 0;
@@ -80,7 +82,7 @@ input[type=text], input[type=password], select {
 }
 
 #password-checklist {
-      display: block;
-      font-size: 12px;
-      line-height: 0.75;
-    }
+  display: block;
+  font-size: 12px;
+  line-height: 0.75;
+}
