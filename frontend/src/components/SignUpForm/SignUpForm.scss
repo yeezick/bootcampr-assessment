@@ -31,6 +31,7 @@ Input .input {
   border-radius: 5px;
   width: 100%;
   height: 40px;
+  font-size: 14px;
 }
 
 .passwordMessages {
@@ -47,6 +48,13 @@ Input .input {
   font-size: 14px;
   line-height: 6px;
   color: #D90000;
+}
+
+.SignUpForm .confirm-feedback {
+  font-size: 12px;
+  line-height: 6px;
+  padding: 0;
+  color: #23A6A1;
 }
 
 .checkbox {

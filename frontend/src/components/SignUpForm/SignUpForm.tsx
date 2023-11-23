@@ -19,21 +19,21 @@ export const SignUpForm: React.FC = () => {
         showPassword: false,
     });
 
+    const handleInputChange = (e) => {
+        setUserFormData({ ...userFormData, [e.target.name]: e.target.value });
+    };
+
     const [type, setType] = useState('password');
     const handleClickShowPassword = () => {
         setType(type === 'password' ? 'text' : 'password');
     }
 
-    const handlePasswordChange = (prop) => (e) => {
+    const handlePasswordChange = (props) => (e) => {
         setUserFormData({
-            ...userFormData, [prop]: e.target.value,
+            ...userFormData, [e.target.name]: e.target.value,
         })
         checkPassword();
     }
-
-    const handleInputChange = (e) => {
-        setUserFormData({ ...userFormData, [e.target.name]: e.target.value });
-    };
 
     const navigate = useNavigate();
     const handleFormSubmit = (e) => {
@@ -55,18 +55,34 @@ export const SignUpForm: React.FC = () => {
             return;
         }
 
-        const lower = new RegExp('(?=.*[a-z])');
-        const upper = new RegExp('(?=.*[A-Z])');
-        const symbol = new RegExp('(?=.*[!@#\$%\^&\*])');
         const length = new RegExp('(?=.{8,})');
 
         const messages = [
-            { text: '1 uppercase', isValid: upper.test(userFormData.password) },
-            { text: '1 lowercase', isValid: lower.test(userFormData.password) },
-            { text: '1 symbol', isValid: symbol.test(userFormData.password) },
+            { text: '1 uppercase', isValid: /[A-Z]/.test(userFormData.password) },
+            { text: '1 lowercase', isValid: /[a-z]/.test(userFormData.password) },
+            { text: '1 symbol', isValid: /[!@#$%^&*(),.?":{}|<>]/.test(userFormData.password) },
             { text: 'Minimum of 8 characters', isValid: length.test(userFormData.password) },
         ];
         setPasswordMsgs(messages);
+    }
+
+    const [confirmMsg, setConfirmMsg] = useState('');
+    const confirmRetypePassword = () => {
+        if (userFormData.retypePassword === '') {
+            setConfirmMsg('');
+        }
+        else if (userFormData.retypePassword === userFormData.password) {
+            setConfirmMsg('Passwords match!')
+        } else {
+            setConfirmMsg('');
+        }
+    }
+
+    const handleRetypePassword = (props) => (e) => {
+        setUserFormData({
+            ...userFormData, [e.target.name]: e.target.value,
+        });
+        confirmRetypePassword();
     }
 
     return (
@@ -131,7 +147,7 @@ export const SignUpForm: React.FC = () => {
                 className="input"
                 name="retypePassword"
                 type={type}
-                onChange={handlePasswordChange("retypePassword")}
+                onChange={handleRetypePassword("retypePassword")}
                 value={userFormData.retypePassword}
                 endAdornment={
                     <InputAdornment position="end">
@@ -149,6 +165,10 @@ export const SignUpForm: React.FC = () => {
                     </InputAdornment>
                 }
             />
+            <div className="confirm-feedback">
+                <p>{confirmMsg}</p>
+            </div>
+
             <div className="checkbox">
                 <input type="checkbox" name="agree-check" id="agree-check" />
                 <label>I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!</label>
