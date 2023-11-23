@@ -1,0 +1,6 @@
+.imageOne {
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: start;
+}
