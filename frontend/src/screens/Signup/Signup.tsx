@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { UseFormGetValues, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -110,9 +111,12 @@ export const Signup = (props: Props) => {
         mode: "onChange",
         resolver: zodResolver(formSchema)
     })
+
+    const navigate = useNavigate();
     const submit = async (data: FormBodyType) => {
         try {
             const res = await signup(data);
+            navigate("/congrats");
             console.log(res);
         } catch (error) {
             if (error instanceof Error) {
