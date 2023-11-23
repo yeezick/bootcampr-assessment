@@ -54,6 +54,7 @@
       flex-direction: column;
       width: 448px;
       gap: 5px;
+      position: relative;
 
       label {
         text-align: left;
@@ -71,6 +72,19 @@
         padding: 10px 350px 10px 15px;
         border-radius: 4px;
         border: 0;
+      }
+
+      img {
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        left: 425px;
+        top: 36px;
+        color: black;
+      }
+
+      img:hover {
+        cursor: pointer;
       }
     }
 
