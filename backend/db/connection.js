@@ -3,13 +3,13 @@ import "dotenv/config.js";
 
 // Define your connection URI here
 const MONGODB_URI = process.env.MONGODB_URI
-require('dotenv').config();
 
 mongoose.set("strictQuery", false);
 mongoose.set("returnOriginal", false); //for findByAndUpdate to return a reference to object at location
 
 mongoose
   .connect(MONGODB_URI, {
+    dbName: 'bootcampr-users',
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })
