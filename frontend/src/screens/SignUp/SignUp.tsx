@@ -1,4 +1,3 @@
-import './SignUp.scss'
 import SignUpImage from '@/../assets/signup-image.png'
 import SignUpForm from './SignUpForm/SignUpForm'
 import {
