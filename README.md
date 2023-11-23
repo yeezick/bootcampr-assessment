@@ -12,8 +12,8 @@ This repository will host the code assessment for engineering candidates. It wil
 - [Purpose](#purpose)
 - [Tools](#tools)
 - [Setup](#setup)
-- [Frontend Requirements](#frontend-1)
-- [Backend Requirements](#backend-1)
+- [What I have completed](#completed)
+- [Demo](#demo)
 
 ## Tools
 
@@ -71,6 +71,8 @@ For example:
 
 - If you struggle with setting up the DB then focus on the frontend.
 
+## Completed: 
+
 ### Frontend <i>(required)</i>
 
 #### Required
@@ -82,7 +84,6 @@ For example:
 
 #### Bonus
 
-- Verify email onBlur of email input (check if the email already exists in the DB)
 - Use React Testing Library to add test coverage for the Sign Up screen functionality
 
 ### Backend <i>(optional)</i>
@@ -92,6 +93,6 @@ For example:
 - Create user model
 - Create controller to create new users
 
-#### Bonus
+## Demo:
 
-- Create controller to verify existing emails
+https://github.com/01001101CK/bootcampr-assessment/assets/112290188/1f1655a4-4e69-4bc8-8b25-b2ba2795ba6e
