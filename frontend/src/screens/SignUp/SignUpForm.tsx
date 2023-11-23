@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import eye from '../../assets/eye.png'
 import { useNavigate } from 'react-router-dom'
+import SignUpValidationText from './SignUpValidationText'
 
 function SignUpForm() {
   const [passwordType, setPasswordType] = useState('password')
@@ -13,26 +14,130 @@ function SignUpForm() {
     password: '',
     passwordConfirmation: '',
   })
-  const [duplicateEmail, setDuplicateEmail] = useState({
-    color: '#D90000',
-    visibility: false
+  const [passwordsMatch, setPasswordsMatch] = useState({
+    visibility: 'none',
+    color: '#23A6A1',
   })
+  const [passwordUpperCaseValidation, setPasswordUpperCaseValidation] =
+    useState({
+      visibility: 'none',
+      color: '#D90000',
+    })
+  const [passwordLowerCaseValidation, setPasswordLowerCaseValidation] =
+    useState({
+      visibility: 'none',
+      color: '#D90000',
+    })
+  const [passwordSymbolValidation, setPasswordSymbolValidation] = useState({
+    visibility: 'none',
+    color: '#D90000',
+  })
+  const [passwordMinCharValidation, setPasswordMinCharValidation] = useState({
+    visibility: 'none',
+    color: '#D90000',
+  })
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true)
 
   let navigate = useNavigate()
 
-  const handleChange = e => {
+  const handleFormChange = e => {
     const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
     })
 
-    if (name === 'password' && value.length < 8) {
-     
-      console.log('Password must be at least 8 characters long')
+    //brute force validation, need to find a better method
+    if (name === 'password' && value.length > 0) {
+      setPasswordUpperCaseValidation(prevState => ({
+        ...prevState,
+        visibility: 'block',
+      }))
+      setPasswordLowerCaseValidation(prevState => ({
+        ...prevState,
+        visibility: 'block',
+      }))
+      setPasswordSymbolValidation(prevState => ({
+        ...prevState,
+        visibility: 'block',
+      }))
+      setPasswordMinCharValidation(prevState => ({
+        ...prevState,
+        visibility: 'block',
+      }))
+    } else if (name === 'password' && value.length === 0) {
+      setPasswordUpperCaseValidation(prevState => ({
+        ...prevState,
+        visibility: 'none',
+      }))
+      setPasswordLowerCaseValidation(prevState => ({
+        ...prevState,
+        visibility: 'none',
+      }))
+      setPasswordSymbolValidation(prevState => ({
+        ...prevState,
+        visibility: 'none',
+      }))
+      setPasswordMinCharValidation(prevState => ({
+        ...prevState,
+        visibility: 'none',
+      }))
     }
+
+    if (name === 'password' && value.length < 8) {
+      setPasswordMinCharValidation(prevState => ({
+        ...prevState,
+        color: '#D90000',
+      }))
+    } else if (name === 'password' && value.length >= 8) {
+      setPasswordMinCharValidation(prevState => ({
+        ...prevState,
+        color: '#23A6A1',
+      }))
+    }
+
+    if (name === 'password' && /[a-z]/.test(value) === true) {
+      setPasswordLowerCaseValidation(prevState => ({
+        ...prevState,
+        color: '#23A6A1',
+      }))
+    } else if (name === 'password' && /[a-z]/.test(value) === false) {
+      setPasswordLowerCaseValidation(prevState => ({
+        ...prevState,
+        color: '#D90000',
+      }))
+    }
+
+    if (name === 'password' && /[A-Z]/.test(value) === true) {
+      setPasswordUpperCaseValidation(prevState => ({
+        ...prevState,
+        color: '#23A6A1',
+      }))
+    } else if (name === 'password' && /[A-Z]/.test(value) === false) {
+      setPasswordUpperCaseValidation(prevState => ({
+        ...prevState,
+        color: '#D90000',
+      }))
+    }
+
+    if (name === 'password' && /[[`!@#$%^&*()_+=-]/.test(value) === true) {
+      setPasswordSymbolValidation(prevState => ({
+        ...prevState,
+        color: '#23A6A1',
+      }))
+    } else if (
+      name === 'password' &&
+      /[[`!@#$%^&*()_+=-]/.test(value) === false
+    ) {
+      setPasswordSymbolValidation(prevState => ({
+        ...prevState,
+        color: '#D90000',
+      }))
+    }
+    
   }
 
+  //toggle password inputs between 'password' and 'text'
   const revealPassword = (state, setter) => {
     if (state === 'password') {
       setter('text')
@@ -73,7 +178,7 @@ function SignUpForm() {
           type='text'
           name='firstName'
           value={formData.firstName}
-          onChange={handleChange}
+          onChange={handleFormChange}
           required
         />
       </div>
@@ -83,7 +188,7 @@ function SignUpForm() {
           type='text'
           name='lastName'
           value={formData.lastName}
-          onChange={handleChange}
+          onChange={handleFormChange}
           required
         />
       </div>
@@ -93,7 +198,7 @@ function SignUpForm() {
           type='email'
           name='email'
           value={formData.email}
-          onChange={handleChange}
+          onChange={handleFormChange}
           required
         />
       </div>
@@ -103,7 +208,7 @@ function SignUpForm() {
           type={passwordType}
           name='password'
           value={formData.password}
-          onChange={handleChange}
+          onChange={handleFormChange}
           required
         />
         <img
@@ -113,14 +218,35 @@ function SignUpForm() {
           }}
         />
       </div>
-      <div className='validation-box'></div>
+      <div className='validation-container'>
+        <SignUpValidationText
+          visibility={passwordUpperCaseValidation.visibility}
+          color={passwordUpperCaseValidation.color}
+          text={'1 uppercase'}
+        />
+        <SignUpValidationText
+          visibility={passwordLowerCaseValidation.visibility}
+          color={passwordLowerCaseValidation.color}
+          text={'1 lowercase'}
+        />
+        <SignUpValidationText
+          visibility={passwordSymbolValidation.visibility}
+          color={passwordSymbolValidation.color}
+          text={'1 symbol'}
+        />
+        <SignUpValidationText
+          visibility={passwordMinCharValidation.visibility}
+          color={passwordMinCharValidation.color}
+          text={'minimum 8 characters'}
+        />
+      </div>
       <div className='input-container'>
         <label>Re-enter Password</label>
         <input
           type={passwordConfirmationType}
           name='passwordConfirmation'
           value={formData.passwordConfirmation}
-          onChange={handleChange}
+          onChange={handleFormChange}
           required
         />
         <img
@@ -131,6 +257,13 @@ function SignUpForm() {
               setPasswordConfirmationType
             )
           }}
+        />
+      </div>
+      <div className='validation-container'>
+        <SignUpValidationText
+          visibility={passwordsMatch.visibility}
+          color={passwordsMatch.color}
+          text={'Passwords match!'}
         />
       </div>
       <div className='agreement-box'>
