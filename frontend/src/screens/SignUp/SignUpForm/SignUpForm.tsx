@@ -7,6 +7,7 @@ import SubmitButton from './SubmitButton'
 import ConsentCheckbox from './ConsentCheckbox'
 import SimpleInput from './SimpleInput'
 import PasswordInput from './PasswordInput'
+import EmailInput from './EmailInput'
 // import { useUsers } from 'hooks/useUser'
 
 export type User = {
@@ -29,6 +30,7 @@ export default function SignUpForm() {
   const [agree, setAgree] = useState(false)
   const [show, setShow] = useState(false)
   const [showPasswordHints, setShowPasswordHints] = useState(true)
+  const [hasAccount, setHasAccount] = useState(false)
   // const [savedUsers, setSavedUsers] = useUsers()
   const navigate = useNavigate()
 
@@ -59,9 +61,12 @@ export default function SignUpForm() {
 
           <SimpleInput inputName={'lastName'}>Last name</SimpleInput>
 
-          <SimpleInput inputName={'email'}>
+          <EmailInput hasAccount={hasAccount} setHasAccount={setHasAccount}>
             Email address (ex. jeanine@bootcampr.io)
-          </SimpleInput>
+          </EmailInput>
+          {/* <SimpleInput inputName={'email'}>
+            Email address (ex. jeanine@bootcampr.io)
+          </SimpleInput> */}
 
           <PasswordInput
             inputName={'password'}
