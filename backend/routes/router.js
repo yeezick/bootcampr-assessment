@@ -1,9 +1,14 @@
 import { Router } from 'express';
-import { getHelloWorld } from '../controllers/hello-world.js';
+import {createUser, getAllUsers, updateUser, deleteUser } from '../controllers/hello-world.js';
 
 const router = Router();
 
-// Hello World!
-router.get('/hello-world', getHelloWorld)
+router.post('/users', createUser);
+
+router.get('/users', getAllUsers);
+
+router.put('/users/:id', updateUser);
+
+router.delete('/users/:id', deleteUser);
 
 export default router;

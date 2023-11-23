@@ -1,0 +1,93 @@
+$interFont: 'Inter', sans-serif;
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $interFont;
+    font-weight: 600;
+}
+
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+
+    header {
+        font-family: $interFont;
+        margin-bottom: 0.078125em; 
+
+        h1 {
+            font-size: 2.375em; 
+        }
+
+        h3 {
+            font-size: 1.5em; 
+        }
+    }
+
+    .content-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .logo {
+        align-self: flex-start; 
+        margin-top: 2.5em;
+        margin-right: 7em; 
+        max-width: 100%;
+        }
+
+        .password-message {
+            font-size: '0.8rem';
+            color: 'red'; 
+            margin-top: 5px;
+            color: red;
+        }
+
+        form {
+            font-family: $interFont;
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+
+            div {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 0.5em;
+                width: 28em; 
+            }
+
+            label {
+                color: black;
+                font-family: $interFont;
+                text-align: left;
+                margin-bottom: 0.02em; 
+            }
+
+            .custom-button {
+                font-family: $interFont;
+                background: #fa9413;
+                color: black;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    header {
+        display: none; 
+    }
+
+    .content-container {
+        .logo {
+            display: none; 
+        }
+    }
+}
