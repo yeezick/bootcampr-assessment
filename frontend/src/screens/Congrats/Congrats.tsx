@@ -24,7 +24,7 @@ export default function Congrats() {
         mt={-90}
         textAlign={'center'}
         borderRadius={20}
-        zIndex={100}
+        zIndex={2}
       >
         <Text fontSize='6xl' fontWeight='bold' color='white'>
           Congratulations!

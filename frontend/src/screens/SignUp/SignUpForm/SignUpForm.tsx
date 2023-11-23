@@ -1,13 +1,13 @@
 import { Form, Formik, FormikHelpers } from 'formik'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-// import { createUser } from 'utils/userController'
+import { createUser } from 'utils/userController'
 import { validationSchema } from './validationSchema'
 import SubmitButton from './SubmitButton'
 import ConsentCheckbox from './ConsentCheckbox'
 import SimpleInput from './SimpleInput'
 import PasswordInput from './PasswordInput'
-import { useUsers } from 'hooks/useUser'
+// import { useUsers } from 'hooks/useUser'
 
 export type User = {
   firstName: string
@@ -29,14 +29,14 @@ export default function SignUpForm() {
   const [agree, setAgree] = useState(false)
   const [show, setShow] = useState(false)
   const [showPasswordHints, setShowPasswordHints] = useState(true)
-  const [savedUsers, setSavedUsers] = useUsers()
+  // const [savedUsers, setSavedUsers] = useUsers()
   const navigate = useNavigate()
 
   const onSubmit = async (user: User, actions: FormikHelpers<User>) => {
     try {
       const { confirmPassword, ...restUser } = user
-      setSavedUsers([...savedUsers, restUser])
-      // await createUser(restUser)
+      // setSavedUsers([...savedUsers, restUser])
+      await createUser(restUser)
       setTimeout(() => {
         navigate('/congrats')
       }, 1000)
