@@ -1,0 +1,59 @@
+
+/* Heading 2 */
+.h2 {
+  color: #000;
+font-family: Inter;
+font-size: 38px;
+font-style: normal;
+font-weight: 600;
+line-height: 53.2px; /* 140% */
+}
+
+/* Heading 4 */
+.h4 {
+color: #000;
+font-family: Inter;
+font-size: 24px;
+font-style: normal;
+font-weight: 600;
+line-height: 33.6px;
+ } /* 140% */
+
+.text-banner {
+  align-items: center;
+  justify-content: center;
+  width: 413px;
+  height: 101px;
+  margin: 29px 514px 23px 513px;
+  padding: 124px;
+}
+
+.img-container {
+  display: flex;
+  padding-left: 440px;
+  align-items: left;
+  width: 337.483px;
+  height: 400.168px;
+  flex-shrink: 0;
+  margin-right: 141px;
+}
+
+.sign-up-container {
+  flex-direction: column;
+  display: flex;
+  gap: 15px;
+  margin: 10px;
+  padding: 8px 0px 4px 8px;
+  // padding: 30px;
+// width: 450px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  grid-auto-rows: 100px;
+}
+
+ //Rectangle .png in case I don't want to leave it project folder and would rather instead use a link:
+//  https://postimg.cc/NL0VhBQ6
