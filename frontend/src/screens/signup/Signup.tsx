@@ -14,14 +14,37 @@ export const Signup: React.FC = () => {
         agreedTerms: false,
     });
 
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
-  
+        const { name, value, type, checked } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: type === 'checkbox' ? checked : value,
+        }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-     
+
+        if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.confirmPassword) {
+            alert('All fields are required.');
+            return;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            alert('Passwords do not match.');
+            return;
+        }
+
+        if (!formData.agreedTerms) {
+            alert('Please agree to the terms.');
+            return;
+        }
+
+        navigate('/congrats');
     };
+
 
 
     return (

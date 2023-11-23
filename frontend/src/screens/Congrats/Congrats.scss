@@ -1,0 +1,23 @@
+
+$interFont: 'Inter', sans-serif;
+
+*,
+*:before,
+*:after {
+   box-sizing: border-box;
+}
+
+body {
+    font-family: $interFont;
+    font-weight: 600;
+}
+.congrats-message {
+   text-align: center;
+ 
+  h1 {
+      font-size: 100px;
+      color: green;
+      letter-spacing: 1px
+   }
+}
+
