@@ -23,9 +23,6 @@ export default function EmailInput({ hasAccount, setHasAccount, children }) {
               return (await verifyEmail(e.target.value))
                 ? setHasAccount(false)
                 : setHasAccount(true)
-              // return savedUsers.some(user => user.email === e.target.value)
-              //   ? form.setFieldError('email', 'Email already in use')
-              //   : null
             }}
           />
           <Text color={'red'}>

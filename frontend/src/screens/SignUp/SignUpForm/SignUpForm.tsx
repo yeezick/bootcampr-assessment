@@ -8,7 +8,6 @@ import ConsentCheckbox from './ConsentCheckbox'
 import SimpleInput from './SimpleInput'
 import PasswordInput from './PasswordInput'
 import EmailInput from './EmailInput'
-// import { useUsers } from 'hooks/useUser'
 
 export type User = {
   firstName: string
@@ -31,13 +30,11 @@ export default function SignUpForm() {
   const [show, setShow] = useState(false)
   const [showPasswordHints, setShowPasswordHints] = useState(true)
   const [hasAccount, setHasAccount] = useState(false)
-  // const [savedUsers, setSavedUsers] = useUsers()
   const navigate = useNavigate()
 
   const onSubmit = async (user: User, actions: FormikHelpers<User>) => {
     try {
       const { confirmPassword, ...restUser } = user
-      // setSavedUsers([...savedUsers, restUser])
       await createUser(restUser)
       navigate('/congrats')
       actions.resetForm()
@@ -64,9 +61,6 @@ export default function SignUpForm() {
           <EmailInput hasAccount={hasAccount} setHasAccount={setHasAccount}>
             Email address (ex. jeanine@bootcampr.io)
           </EmailInput>
-          {/* <SimpleInput inputName={'email'}>
-            Email address (ex. jeanine@bootcampr.io)
-          </SimpleInput> */}
 
           <PasswordInput
             inputName={'password'}
