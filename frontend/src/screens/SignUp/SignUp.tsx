@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { LuEyeOff } from "react-icons/lu";
 import SignupLogo from 'assets/SignupLogo.png'
-import './Signup.scss'
+import './SignUp.scss'
 
 export const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -148,106 +148,131 @@ export const SignUp: React.FC = () => {
       </div>
 
       <div className="body-container">
+
         <div className="img-container">
             <img src={SignupLogo} alt='sign-up' />
         </div>
+
         <div className="form-container">
             <form className='form' onSubmit={handleSubmit}>
-              <label htmlFor="firstName">First name</label>
-              <input 
-                type="text" 
-                className='firstName'
-                value={firstName}
-                onChange={handleFirstNameChange}
-              />
 
-              <label htmlFor="lastName">Last name</label>
-              <input 
-                type="text" 
-                className="lastName" 
-                value={lastName}
-                onChange={handleLastNameChange}
-              />
-
-              <label htmlFor="email">Email address (ex. jeanine@bootcampr.io) </label>
-              <input 
-                type="text" 
-                className="email"
-                value={email}
-                onChange={handleEmailChange}
-              />
-
-              <label htmlFor="password">Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</label>
-              <div className="password-container">
+              <div className="input-div">
+                <label className="firstName">First name</label>
                 <input 
-                  type={showPassword ? 'text' : 'password'}
-                  className="password" 
-                  value={password}
-                  onChange={handlePasswordChange}
+                  type="text" 
+                  className='firstName input'
+                  value={firstName}
+                  onChange={handleFirstNameChange}
                 />
-                <span
-                  onClick={handlePasswordVisibility}
-                >
-                  {showPassword ? <LuEyeOff /> : <MdOutlineRemoveRedEye />}
-                </span>
               </div>
               
-              {needPasswordValidations.length > 0 && showPasswordValidations && (
-                <div style={{ color: 'red' }}>
-                  {needPasswordValidations.map((validation, index) => (
-                    <div key={index}>{validation}</div>
-                  ))}
-                </div>
-              )}
-
-              {metPasswordValidations.length > 0 && showPasswordValidations && (
-                <div style={{ color: 'green' }}>
-                  {metPasswordValidations.map((validation, index) => (
-                    <div key={index}>{validation}</div>
-                  ))}
-                </div>
-              )}
-
-              <label htmlFor="confirmPassword">Re-enter password </label>
-              <div className="reentered-password-container">
+              <div className="input-div">
+                <label className="lastName">Last name</label>
                 <input 
-                  type={showPassword ? 'text' : 'password'}
-                  className="confirmPassword" 
-                  value={reenteredPassword}
-                  onChange={handleReenteredPasswordChange}
+                  type="text" 
+                  className="lastName input" 
+                  value={lastName}
+                  onChange={handleLastNameChange}
+                />
+              </div>
+
+              <div className="input-div">
+                <label className="email">
+                  <span className="label-text">Email address </span>
+                  <span className="example-text">(ex. jeanine@bootcampr.io)</span>
+                </label>
+                <input 
+                  type="text" 
+                  className="email input"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+              </div>
+
+              <div className="password-container input-div">
+                <label className="password">Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</label>
+
+                <div className="password-input-container">
+                  <input 
+                    type={showPassword ? 'text' : 'password'}
+                    className="password input" 
+                    value={password}
+                    onChange={handlePasswordChange}
                   />
-                <span
-                  onClick={handlePasswordVisibility}
+                  <span
+                    className='password-icon'
+                    onClick={handlePasswordVisibility}
                   >
-                  {showPassword ? <LuEyeOff /> : <MdOutlineRemoveRedEye />}
-                </span>
+                    {showPassword ? <LuEyeOff /> : <MdOutlineRemoveRedEye />}
+                  </span>
+                </div>
+
+
+                {needPasswordValidations.length > 0 && showPasswordValidations && (
+                  <div className='validations-container red-validations' style={{ color: '#D90000' }}>
+                    {needPasswordValidations.map((validation, index) => (
+                      <div key={index}>{validation}</div>
+                    ))}
+                  </div>
+                )}
+
+                {metPasswordValidations.length > 0 && showPasswordValidations && (
+                  <div className='validations-container green-validations' style={{ color: '#23A6A1' }}>
+                    {metPasswordValidations.map((validation, index) => (
+                      <div key={index}>{validation}</div>
+                    ))}
+                  </div>
+                )}
+
+              </div>
+              
+
+              <div className={`reentered-password-container input-div ${(needPasswordValidations.length > 0 || metPasswordValidations) && showPasswordValidations ? "validations-space-added" : ""}`}>
+                <label className="confirmPassword">Re-enter password </label>
+
+                <div className="password-input-container">
+                  <input 
+                    type={showPassword ? 'text' : 'password'}
+                    className="confirmPassword input" 
+                    value={reenteredPassword}
+                    onChange={handleReenteredPasswordChange}
+                  />
+                  <span
+                    className='password-icon'
+                    onClick={handlePasswordVisibility}
+                    >
+                    {showPassword ? <LuEyeOff /> : <MdOutlineRemoveRedEye />}
+                  </span>
+                </div>
+
+                {!showPasswordValidations && passwordsMatch && (
+                  <div  className='password-match' style={{ color: '#23A6A1' }}> Passwords match!</div>
+                )}
               </div>
 
-              {!showPasswordValidations && passwordsMatch && (
-                <div style={{ color: 'green' }}> Passwords match!</div>
-                )}
-              
-              <label>
-                <input 
-                  type="checkbox" 
-                  className="notifications"
-                  checked={receiveNotifications}
-                  onChange={handleReceiveNotificationsChange}
-                  />
-                I agree to receive email notification(s). We will only send 
-                emails with important information, like project start dates. 
-                We will not sell your information!
-              </label>
+              <div className="check-box-conatiner">
+                <label className="check-box-label">
+                  <input 
+                    type="checkbox" 
+                    className="notifications"
+                    checked={receiveNotifications}
+                    onChange={handleReceiveNotificationsChange}
+                    />
+                  I agree to receive email notification(s). We will only send 
+                  emails with important information, like project start dates. 
+                  We will not sell your information!
+                </label>
+              </div>
 
               <button 
                 type='submit' 
-                className="signup-button"
+                className={`signup-button ${(needPasswordValidations.length > 0 || metPasswordValidations) && showPasswordValidations ? "button-space-added" : ""}`}
                 disabled={signupButtonDisabled()}
                 > Sign Up
               </button>
 
               {errors.length > 0 && (
-                <div style={{ color: 'red' }}>
+                <div className='errors' style={{ color: 'red' }}>
                   {errors.map((err, index) => (
                     <div key={index}>{err}</div>
                   ))}
