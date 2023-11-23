@@ -7,6 +7,7 @@ import routes from "./routes/router.js";
 const app = express();
 const PORT = 8001;
 
+db;
 app.use(cors());
 app.use(express.json());
 app.use(logger("dev"));
