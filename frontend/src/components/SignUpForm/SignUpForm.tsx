@@ -25,10 +25,10 @@ export const SignUpForm: React.FC = () => {
     }
 
     const handlePasswordChange = (prop) => (e) => {
-        checkPassword();
         setUserFormData({
             ...userFormData, [prop]: e.target.value,
         })
+        checkPassword();
     }
 
     const handleInputChange = (e) => {
@@ -48,124 +48,117 @@ export const SignUpForm: React.FC = () => {
         }
     };
 
-
+    const [passwordMsgs, setPasswordMsgs] = useState([]);
     const checkPassword = () => {
+        if (userFormData.password === '') {
+            setPasswordMsgs([]);
+            return;
+        }
+
         const lower = new RegExp('(?=.*[a-z])');
         const upper = new RegExp('(?=.*[A-Z])');
         const symbol = new RegExp('(?=.*[!@#\$%\^&\*])');
         const length = new RegExp('(?=.{8,})');
 
-        const lengthValid = length.test(userFormData.password);
-        const lowerValid = lower.test(userFormData.password);
-        const upperValid = upper.test(userFormData.password);
-        const symbolValid = symbol.test(userFormData.password);
-
-        const textStyle = {
-            color: lengthValid && lowerValid && upperValid && symbolValid ? 'blue' : 'red',
-        };
-
-        return (
-            <div id="password-strength" style={textStyle}>
-                {upperValid ? '1 uppercase' : '1 uppercase'}
-                <br />
-                {lowerValid ? '1 lowercase' : '1 lowercase'}
-                <br />
-                {symbolValid ? '1 symbol' : '1 symbol'}
-                <br />
-                {lengthValid ? ' Minimum of 8 characters' : 'Minimum of 8 characters'}
-            </div>
-        );
+        const messages = [
+            { text: '1 uppercase', isValid: upper.test(userFormData.password) },
+            { text: '1 lowercase', isValid: lower.test(userFormData.password) },
+            { text: '1 symbol', isValid: symbol.test(userFormData.password) },
+            { text: 'Minimum of 8 characters', isValid: length.test(userFormData.password) },
+        ];
+        setPasswordMsgs(messages);
     }
 
-
     return (
-        <div className='signup-container'>
-            <form className='column form' onSubmit={handleFormSubmit}>
-                <label htmlFor="first-name">First name</label>
-                <input
-                    className="input"
-                    type="text"
-                    name="firstName"
-                    onChange={handleInputChange}
-                    value={userFormData.firstName} />
+        <form onSubmit={handleFormSubmit}>
+            <label htmlFor="first-name">First name</label>
+            <input
+                className="input"
+                type="text"
+                name="firstName"
+                onChange={handleInputChange}
+                value={userFormData.firstName} />
 
-                <label htmlFor="last-name">Last name</label>
-                <input
-                    className="input"
-                    type="text"
-                    name="lastName"
-                    onChange={handleInputChange}
-                    value={userFormData.lastName} />
+            <label htmlFor="last-name">Last name</label>
+            <input
+                className="input"
+                type="text"
+                name="lastName"
+                onChange={handleInputChange}
+                value={userFormData.lastName} />
 
-                <label htmlFor="email">Email address (ex. jeanine@bootcampr.io)</label>
-                <input
-                    className="input"
-                    type="email"
-                    name="email"
-                    onChange={handleInputChange}
-                    value={userFormData.email} />
+            <label htmlFor="email">Email address (ex. jeanine@bootcampr.io)</label>
+            <input
+                className="input"
+                type="email"
+                name="email"
+                onChange={handleInputChange}
+                value={userFormData.email} />
 
-                <label htmlFor="password">Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</label>
-                <Input
-                    className="input"
-                    name="password"
-                    type={type}
-                    onChange={handlePasswordChange("password")}
-                    value={userFormData.password}
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                onClick={
-                                    handleClickShowPassword
-                                }
-                            >
-                                {userFormData.showPassword ? (
-                                    <VisibilityIcon />
-                                ) : (
-                                    <VisibilityOffIcon />
-                                )}
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                />
-                {checkPassword()}
+            <label htmlFor="password">Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)</label>
+            <Input
+                fullWidth
+                className="input"
+                name="password"
+                type={type}
+                onChange={handlePasswordChange("password")}
+                value={userFormData.password}
+                endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                            onClick={
+                                handleClickShowPassword
+                            }
+                        >
+                            {userFormData.showPassword ? (
+                                <VisibilityIcon />
+                            ) : (
+                                <VisibilityOffIcon />
+                            )}
+                        </IconButton>
+                    </InputAdornment>
+                }
+            />
+            <div className="passwordMessages">
+                {passwordMsgs.map((msg, idx) => (
+                    <p key={idx} className={msg.isValid ? 'is-valid' : 'is-invalid'}>{msg.text}</p>
+                ))}
+            </div>
 
-                <label htmlFor="confirm">Re-enter password</label>
-                <Input
-                    className="input"
-                    name="retypePassword"
-                    type={userFormData.showPassword ? "text" : "retypePassword"}
-                    placeholder=""
-                    onChange={handlePasswordChange("retypePassword")}
-                    value={userFormData.retypePassword}
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                onClick={
-                                    handleClickShowPassword
-                                }
-                            >
-                                {userFormData.showPassword ? (
-                                    <VisibilityIcon />
-                                ) : (
-                                    <VisibilityOffIcon />
-                                )}
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                />
-                <div>
-                    <input type="checkbox" name="agree-check" id="agree-check" />
-                    <label>I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!</label>
-                </div>
-                <div className='button-container'>
-                    <Button fullWidth disabled={!(userFormData.firstName && userFormData.lastName && userFormData.email && userFormData.password && userFormData.retypePassword)} type="submit"
-                        variant='contained'>
-                        Sign Up
-                    </Button>
-                </div>
-            </form>
-        </div >
+            <label htmlFor="confirm">Re-enter password</label>
+            <Input
+                fullWidth
+                className="input"
+                name="retypePassword"
+                type={type}
+                onChange={handlePasswordChange("retypePassword")}
+                value={userFormData.retypePassword}
+                endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                            onClick={
+                                handleClickShowPassword
+                            }
+                        >
+                            {userFormData.showPassword ? (
+                                <VisibilityIcon />
+                            ) : (
+                                <VisibilityOffIcon />
+                            )}
+                        </IconButton>
+                    </InputAdornment>
+                }
+            />
+            <div className="checkbox">
+                <input type="checkbox" name="agree-check" id="agree-check" />
+                <label>I agree to receive email notification(s). We will only send emails with important information, like project start dates. We will not sell your information!</label>
+            </div>
+            <div className='button-container'>
+                <Button fullWidth disabled={!(userFormData.firstName && userFormData.lastName && userFormData.email && userFormData.password && userFormData.retypePassword)} type="submit"
+                    variant='contained'>
+                    Sign Up
+                </Button>
+            </div>
+        </form>
     )
-
 }              

@@ -1,6 +1,7 @@
 import React from 'react'
 import './SignUp.scss'
 import { SignUpForm } from '../../components/SignUpForm/SignUpForm'
+import SignUpImg from '../../assets/signUpImg.png'
 
 export const SignUp: React.FC = () => {
 
@@ -12,6 +13,7 @@ export const SignUp: React.FC = () => {
             </div>
             <div className='column-container'>
                 <div className='column image'>
+                    <img src={SignUpImg} alt="" />
                 </div>
                 <div className='column form'>
                     <SignUpForm />

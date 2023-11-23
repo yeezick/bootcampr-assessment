@@ -5,29 +5,35 @@
 
   .header-container {
     align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 
   .column-container {
     display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-around;
   }
 
   .column {
     flex: 1;
-    padding: 20px;
+    max-width: 500px;
   }
 
   .image {
-    background-color: #f0f0f0;
-    min-width: 300px;
-    max-width: 500px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    margin-right: 60px;
+  }
+
+  img {
+    max-width: 338px;
+    max-height: 401px;
   }
 
   .form {
-    min-width: 300px;
-    max-width: 500px;
-  }
-
-  p {
-    margin-bottom: 2px;
+margin-left: 20px;
   }
 }
