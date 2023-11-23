@@ -21,7 +21,6 @@ export const signUp = async (req, res) => {
   const {
     firstName,
     lastName,
-    userName,
     email,
     password,
     passwordConfirmation,
@@ -31,16 +30,11 @@ export const signUp = async (req, res) => {
     res.json({ message: "Passwords do not match!" });
   }
 
-  const user = await UserModel.findOne({ userName });
-  if (user) {
-    res.json({ message: "Username already exists!" });
-  }
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const newUser = new UserModel({
     firstName,
     lastName,
-    userName,
     email,
     password: hashedPassword,
   });
