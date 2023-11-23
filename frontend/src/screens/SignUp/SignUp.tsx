@@ -1,6 +1,6 @@
 import React from 'react'
 import './SignUp.scss'
-import { SignUpForm } from '../components/SignUpForm'
+import { SignUpForm } from '../../components/SignUpForm/SignUpForm'
 
 export const SignUp: React.FC = () => {
 
