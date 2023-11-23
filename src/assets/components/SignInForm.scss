@@ -1,0 +1,20 @@
+
+.password-validation{
+    display:flex;
+    flex-direction: column;
+    font-size: small;
+
+    
+    .valid{
+        color: lightseagreen;
+    }
+    
+    .invalid{
+        color:red;
+    }
+
+}
+
+.empty{
+    padding: 0 0 0;
+}
