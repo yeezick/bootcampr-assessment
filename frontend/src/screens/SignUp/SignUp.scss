@@ -1,0 +1,129 @@
+.signup-container {
+  text-align: center;
+  padding: 10px 15%;
+  
+}
+
+.main-heading {
+  font-size: 38px;
+font-weight: 600;
+}
+
+.tagline {
+ font-size: 24px;
+font-weight: 600;
+margin:0;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+
+.image-section {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+}
+
+.image-section img {
+  max-width: 100%;
+  max-height: 100%;
+
+}
+.signup-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.form-fields input {
+  padding: 10px 15px;
+  margin-bottom: 24px;
+  background:#ECEBEB;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight:400;
+  width:100%;
+  border:none;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8em;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+label {
+ font-size:16px;
+ font-weight:400px;
+  display: flex;
+  text-align:start;
+  
+}
+.checkBoxInput{
+  width: 100%;
+  display:flex;
+  align-items: start;
+  justify-content: start;
+  gap:10px;
+}
+.checkBoxInput input{
+  width: 40px;
+  color:#022888;
+}
+.checkBoxInput label{
+  font-size: 14px;
+}
+
+label span{
+  color:#313335;
+  margin-left: 4px;
+}
+.signup-button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+.signup-button:hover {
+  background-color: #45a049;
+}
+
+.password-field{
+    position:relative;
+    width:100%;
+    
+}
+.show-password-icon{
+    position:absolute;
+    cursor:pointer;
+    top:12px;
+    right:0px;
+}
