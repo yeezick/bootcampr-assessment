@@ -56,6 +56,7 @@ export default function PasswordInput({
           ) : null}
 
           {showPasswordHints &&
+          field.name === 'confirmPassword' &&
           form.touched.confirmPassword &&
           !form.errors.confirmPassword &&
           form.values.password === form.values.confirmPassword ? (

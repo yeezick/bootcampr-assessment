@@ -37,9 +37,7 @@ export default function SignUpForm() {
       const { confirmPassword, ...restUser } = user
       // setSavedUsers([...savedUsers, restUser])
       await createUser(restUser)
-      setTimeout(() => {
-        navigate('/congrats')
-      }, 1000)
+      navigate('/congrats')
       actions.resetForm()
       actions.setSubmitting(false)
     } catch (error) {
