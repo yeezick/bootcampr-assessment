@@ -3,8 +3,7 @@ import Logo from 'assets/Logo.svg'
 import './Nav.scss'
 import { useState } from 'react'
 
-export const Nav = () => {
-  const [showSignUp, setShowSignUp] = useState(false)
+export const Nav = ({showSignUp}) => {
   return (
     <nav>
       <div className='nav-container'>

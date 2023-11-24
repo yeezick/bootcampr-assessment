@@ -28,7 +28,9 @@
 .form-content {
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   width: 30%;
+  height: 65vh;
 }
 
 .signup-button {
@@ -42,4 +44,10 @@
     padding: 6px 12px;
     text-decoration: none;
     text-align: center;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
+
+  

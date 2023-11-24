@@ -3,25 +3,21 @@ import {
   FormControl,
   FormControlLabel,
   IconButton,
-  Input,
   InputAdornment,
-  InputLabel,
-  OutlinedInput,
   Radio,
   RadioGroup,
   TextField,
   Typography,
-  createStyles,
 } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Logo from '../../assets/SignUpImage.svg'
 import './SignUp.scss'
-import { AccountCircle } from '@mui/icons-material'
 
 export const SignUp: React.FC = () => {
   const [showPassword, setShowPassword] = React.useState(false)
   const [showPassword2, setShowPassword2] = React.useState(false)
+  const [checkedValue, setCheckedValue] = React.useState(false)
 
   const handleClickShowPassword = () => setShowPassword(show => !show)
 
@@ -38,6 +34,11 @@ export const SignUp: React.FC = () => {
   ) => {
     event.preventDefault()
   }
+
+  const handleAgreeTerms = () => {
+    setCheckedValue(!checkedValue);
+  }
+
   return (
     <div className='signup-container'>
       <div className='top-container'>
@@ -47,15 +48,11 @@ export const SignUp: React.FC = () => {
       <div className='bottom-container'>
         <img src={Logo} className='signup-image' />
         <div className='form-content'>
-          <TextField helperText=' ' label='First Name' />
-          <TextField helperText=' ' label='Last Name' />
-          <TextField
-            helperText=' '
-            label='Email address (ex. jeanine@bootcampr.io)'
-          />
+          <TextField label='First Name' />
+          <TextField label='Last Name' />
+          <TextField label='Email address (ex. jeanine@bootcampr.io)' />
           <TextField
             label='Password'
-            helperText=' '
             type={showPassword ? 'text' : 'password'}
             InputProps={{
               endAdornment: (
@@ -72,7 +69,6 @@ export const SignUp: React.FC = () => {
             }}
           />
           <TextField
-            helperText=' '
             label='Re-enter password'
             type={showPassword2 ? 'text' : 'password'}
             InputProps={{
@@ -92,7 +88,9 @@ export const SignUp: React.FC = () => {
           <FormControl>
             <RadioGroup>
               <FormControlLabel
-                control={<Radio />}
+                control={
+                  <Radio onClick={handleAgreeTerms} checked={checkedValue} />
+                }
                 label={
                   <Typography sx={{ fontSize: '0.8rem' }}>
                     I agree to receive email notification(s). We will only send
