@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import Writing from "assets/Writing.png"
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import "./SignUp.scss"
@@ -26,7 +27,7 @@ export const SignUp: React.FC = () => {
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+    const [submitError, setSubmitError] = useState('')
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -39,11 +40,26 @@ export const SignUp: React.FC = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (isFormValid()) {
-            navigate('/congrats')
+
+            try {
+                const url = "http://localhost:8001/register";
+                const { data: res } = await axios.post(url, data);
+                navigate("/congrats");
+                console.log(res.message);
+            } catch (error) {
+                if (
+                    error.response &&
+                    error.response.status >= 400 &&
+                    error.response.status <= 500
+                ) {
+                    setSubmitError(error.response.data.message);
+                }
+            }
+
         } else {
             console.log('Form validation failed. Please check the form fields.');
         }
