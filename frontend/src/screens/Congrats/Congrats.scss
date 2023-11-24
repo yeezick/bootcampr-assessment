@@ -1,0 +1,27 @@
+.congrats-container {
+    align-items: center;
+    text-align: center;
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+
+        align-items: center;
+
+
+        img {
+            color: black;
+            background-color: black;
+            width: 150px;
+            height: 150px;
+            margin: 50px;
+
+        }
+
+        img:hover {
+            background-color: #FA9413
+        }
+    }
+
+
+}
