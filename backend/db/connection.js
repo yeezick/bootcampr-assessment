@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import "dotenv/config.js";
 
 // Define your connection URI here
-// const MONGODB_URI =
+const MONGODB_URI = "mongodb+srv://prateeksingh99:testingstuff123@cluster0.jfa5fht.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.set("strictQuery", false);
 mongoose.set("returnOriginal", false); //for findByAndUpdate to return a reference to object at location
