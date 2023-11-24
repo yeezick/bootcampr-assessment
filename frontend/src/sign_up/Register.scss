@@ -1,0 +1,88 @@
+#wrap {
+  float: left;
+  position: relative;
+  left: 50%;
+}
+
+#content {
+  float: left;
+  position: relative;
+  left: -50%;
+}
+
+#container-form {
+  position: absolute;
+  left: -5px;
+  margin-top: 100px;
+}
+
+#form-text {
+  font-size: 13px;
+  position: relative;
+  bottom: -17px;
+}
+
+#checkbox-text {
+  display: block;
+  font-size: 12px;
+  text-indent: -27px;
+}
+
+#checkbox-and-disclaimer {
+  position: relative;
+  display: block;
+  right: -22px;
+  bottom: 30px;
+}
+
+#input-box {
+  position: relative;
+  top: 17px;
+}
+
+#input-box-position {
+  right: 100px;
+}
+
+input[type=text],
+input[type=password],
+select {
+  width: 105%;
+  padding: 6px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ecebeb;
+  border-radius: 2px;
+  box-sizing: border-box;
+  font-size: 12px;
+  background-color: #ecebeb;
+}
+
+#image-format {
+  position: absolute;
+  right: 450px;
+  top: 150px;
+}
+
+#unify {
+  position: relative;
+  bottom: 15px;
+}
+
+#sign-up-button {
+  width: 105%;
+  padding: 6px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ec993b;
+  border-radius: 2px;
+  box-sizing: border-box;
+  font-size: 12px;
+  background-color: #ec993b;
+}
+
+#password-checklist {
+  display: block;
+  font-size: 12px;
+  line-height: 0.75;
+}
