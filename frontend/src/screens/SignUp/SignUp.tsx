@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import signUpImage from 'assets/signupimg.svg'
+import axios from 'axios'
 
 interface FormData {
   firstName: string
@@ -56,17 +57,26 @@ export const SignUp: React.FC = () => {
 
     setShowMatchMessage(newConfirmPasswordValue === passwordValue)
 
-    // Set a timeout to hide the message after 3 seconds
+    // Set a timeout to hide the message after 4 seconds
     setTimeout(() => {
       setShowMatchMessage(false)
     }, 4000)
   }
   const navigate = useNavigate()
 
-  const onSubmit: SubmitHandler<FormData> = data => {
-    // Add your signup logic here
-    console.log('Form submitted:', data)
-    navigate('/success')
+  const onSubmit: SubmitHandler<FormData> = async data => {
+    try {
+      const response = await axios.post('http://localhost:8001/register', data)
+
+      if (response.status === 201) {
+        console.log('User registered successfully')
+        navigate('/success')
+      } else {
+        console.error('Registration failed:', response.statusText)
+      }
+    } catch (error) {
+      console.error('Error:', error.message)
+    }
   }
 
   return (
