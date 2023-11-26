@@ -1,7 +1,7 @@
 import './SignUp.scss'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import signUpImage from 'assets/signupimg.svg'
 
 interface FormData {
@@ -22,16 +22,18 @@ export const SignUp: React.FC = () => {
     watch,
     formState: { errors },
     setValue,
-  } = useForm<FormData>()
+  } = useForm<FormData>({ mode: 'onChange' })
+
+  const [showMatchMessage, setShowMatchMessage] = useState(false)
+
+  const passwordValue = watch('password')
 
   useEffect(() => {
-    const passwordValue = watch('password')
-
     // Update conditions based on the current password value
     setValue('hasUpperCase', /[A-Z]/.test(passwordValue))
     setValue('hasLowerCase', /[a-z]/.test(passwordValue))
     setValue('hasSymbol', /[!@#$%^&*(),.?":{}|<>]/.test(passwordValue))
-  }, [watch, setValue])
+  }, [passwordValue, setValue])
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPasswordValue = e.target.value
@@ -42,9 +44,29 @@ export const SignUp: React.FC = () => {
     })
   }
 
+  const handleConfirmPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newConfirmPasswordValue = e.target.value
+
+    setValue('confirmPassword', newConfirmPasswordValue, {
+      shouldValidate: true,
+      shouldDirty: true,
+    })
+
+    setShowMatchMessage(newConfirmPasswordValue === passwordValue)
+
+    // Set a timeout to hide the message after 3 seconds
+    setTimeout(() => {
+      setShowMatchMessage(false)
+    }, 4000)
+  }
+  const navigate = useNavigate()
+
   const onSubmit: SubmitHandler<FormData> = data => {
     // Add your signup logic here
     console.log('Form submitted:', data)
+    navigate('/success')
   }
 
   return (
@@ -92,21 +114,16 @@ export const SignUp: React.FC = () => {
             Password (Min 8 characters, 1 upper, 1 lower, 1 symbol)
             <input
               {...register('password', {
-                required: 'This field is required',
+                required: '',
                 minLength: {
                   value: 8,
                   message: 'Password must be at least 8 characters long',
                 },
                 validate: {
-                  hasUpperCase: value =>
-                    /[A-Z]/.test(value) ||
-                    'Password must contain at least one uppercase letter',
-                  hasLowerCase: value =>
-                    /[a-z]/.test(value) ||
-                    'Password must contain at least one lowercase letter',
+                  hasUpperCase: value => /[A-Z]/.test(value) || '',
+                  hasLowerCase: value => /[a-z]/.test(value) || '',
                   hasSymbol: value =>
-                    /[!@#$%^&*(),.?":{}|<>]/.test(value) ||
-                    'Password must contain at least one symbol',
+                    /[!@#$%^&*(),.?":{}|<>]/.test(value) || '',
                 },
               })}
               type='password'
@@ -161,9 +178,13 @@ export const SignUp: React.FC = () => {
                   value === watch('password') || 'Passwords do not match',
               })}
               type='password'
+              onChange={handleConfirmPasswordChange}
             />
           </label>
           {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+          {showMatchMessage && (
+            <p className='valid-condition'>Passwords match!</p>
+          )}
 
           <label className='checkbox-container'>
             <input type='checkbox' className='checkbox' />I agree to receive

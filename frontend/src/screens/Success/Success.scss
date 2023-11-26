@@ -1,0 +1,23 @@
+h2 {
+  font-size: 38px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+
+h4 {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 140px;
+}
