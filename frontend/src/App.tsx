@@ -1,6 +1,8 @@
 import { Landing } from './screens/Landing/Landing'
-import { Route, Routes } from 'react-router'
+import { SignUp } from './screens/SignUp/SignUp'
+import { Route, Routes } from 'react-router-dom'
 import { Layout } from './layout/Layout'
+import { Success } from 'screens/Success/Success'
 
 function App() {
   return (
@@ -8,6 +10,8 @@ function App() {
       <Layout>
         <Routes>
           <Route path='/' element={<Landing />} />
+          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/success' element={<Success />} />
         </Routes>
       </Layout>
     </>
