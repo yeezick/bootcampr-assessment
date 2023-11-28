@@ -22,7 +22,6 @@ export const Form: React.FC = () => {
     event.preventDefault()
     axios.post('http://localhost:8001/register', {firstName, lastName, email, password})
     navigate('/congrats')
-    console.log(firstName, lastName, email, password, rePassword, check)
   }
 
   const PasswordValidation = () => {
