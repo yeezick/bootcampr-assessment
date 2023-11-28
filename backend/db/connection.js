@@ -9,7 +9,7 @@ mongoose.set("returnOriginal", false); //for findByAndUpdate to return a referen
 
 mongoose
   .connect(MONGODB_URI, {
-    dbName: 'bootcampr-users',
+    dbName: 'Cluster0',
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })

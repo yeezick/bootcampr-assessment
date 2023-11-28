@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import checkIcon from '../../assets/checkIcon.svg'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
@@ -19,6 +20,7 @@ export const Form: React.FC = () => {
   const navigate = useNavigate()
   function handleSubmit(event) {
     event.preventDefault()
+    axios.post('http://localhost:8001/register', {firstName, lastName, email, password})
     navigate('/congrats')
     console.log(firstName, lastName, email, password, rePassword, check)
   }
