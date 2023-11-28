@@ -1,5 +1,6 @@
 import db from "./db/connection.js";
 import express from "express";
+import mongoose from "mongoose";
 import logger from "morgan";
 import cors from "cors";
 import routes from "./routes/router.js";
