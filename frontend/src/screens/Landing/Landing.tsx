@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
-import { sayHello } from 'utils/sampleController'
+import { sayHello } from 'utils/usersController'
 import './Landing.scss'
 
 export const Landing: React.FC = () => {

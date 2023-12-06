@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SignUpBtn } from '../../Components/SignUpBtn/SignUpBtn';
-import * as api from '../../utils/sampleController';
+import * as usersCtrl from '../../utils/usersController';
 import './SignUpForm.scss';
 
 export const SignUpForm: React.FC = () => {
@@ -48,7 +48,6 @@ export const SignUpForm: React.FC = () => {
 
     function calculatePasswordMsgs(password: string) {
         if (password === '') {
-            // If password is empty, clear messages
             setPasswordMsgs([]);
             return;
         }
@@ -81,8 +80,8 @@ export const SignUpForm: React.FC = () => {
         try {
             const { firstName, lastName, email, password } = newUser
             const formData = { firstName, lastName, email, password };
-            const user = await api.signUp(formData);
-            navigate('/congrats');
+            const user = await usersCtrl.signUp(formData);
+            navigate(`/congrats/${user._id}`);
         } catch (err) {
             console.log(err)
         }

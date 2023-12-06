@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import { getHelloWorld } from '../controllers/hello-world.js';
-import { createUser } from '../controllers/users.js';
+import { createUser, sayHello } from '../controllers/users.js';
 
 
 const router = Router();
 
-// Hello World!
-router.get('/hello-world', getHelloWorld);
-
+// POST '/sign-up'
 router.post('/sign-up', createUser);
+// Hello World!
+router.get('/hello-world', sayHello)
+
 
 
 export default router;
